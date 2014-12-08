@@ -11,10 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.model.Element;
 import com.squareup.picasso.Picasso;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-  private ArrayList<Hashtable> mDataset;
+  private ArrayList<Element> mDataset;
 
   // Provide a reference to the views for each data item
   // Complex data items may need more than one view per item, and
@@ -33,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
   }
 
-  public void add(int position, String item) {
+  public void add(int position, Element item) {
     mDataset.add(position, item);
     notifyItemInserted(position);
   }
@@ -45,7 +46,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
   }
 
   // Provide a suitable constructor (depends on the kind of dataset)
-  public MyAdapter(ArrayList<Hashtable> myDataset) {
+  public MyAdapter(ArrayList<Element> myDataset) {
     mDataset = myDataset;
   }
 
@@ -65,9 +66,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
   public void onBindViewHolder(ViewHolder holder, int position) {
     // - get element from your dataset at this position
     // - replace the contents of the view with that element
-    final String name = mDataset.get(position);
-    holder.txtElementName.setText(mDataset.get(position));
-    Picasso.with(holder.elementIcon.getContext()).load(file).into(holder.elementIcon);
+    final Element element = mDataset.get(position);
+    holder.txtElementName.setText(element.getDescription());
+    
+    //We construct the image Url based on the server address from the resources and the image id.
+    //Then we use picasso to load and display the image.
+    String imageUrl = holder.elementIcon.getContext().getResources().getString(R.string.server_address) + element.getPhotoId() + ".mpg";
+    Picasso.with(holder.elementIcon.getContext()).load(imageUrl).into(holder.elementIcon);
 
   }
 
