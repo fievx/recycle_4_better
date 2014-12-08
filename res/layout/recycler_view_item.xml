@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/secondLine"
+        android:layout_width="wrap_content"
+        android:layout_height="26dip"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="@string/element_recyclable_label"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/firstLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/secondLine"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:gravity="center_vertical"
+        android:text="@string/element_name_label"
+        android:textSize="16sp" />
+
+    <View
+        android:id="@+id/view1"
+        style="@style/Divider"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="1dp" />
+
+    <ImageView
+        android:id="@+id/recyclable_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/secondLine"
+        android:layout_toRightOf="@+id/secondLine"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:src="@drawable/tick_no" />
+
+    <TextView
+        android:id="@+id/element_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/firstLine"
+        android:layout_below="@+id/view1"
+        android:layout_toRightOf="@+id/firstLine"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

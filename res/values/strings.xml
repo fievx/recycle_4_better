@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Recycle 4 Better</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="scanButtonText">Start Scanner</string>
+    <string name="BCTypeText">Barcode Type</string>
+    <string name="BCResultText">Barcode Result</string>
+    <string name="element_name_label">Element : </string>
+    <string name="element_name_textview"/>
+    <string name="element_recyclable_label">Recyclable :</string>
+    <string name="server_address">http://10.1.1.6</string>
+
+</resources>
