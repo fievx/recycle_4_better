@@ -34,7 +34,10 @@ public class ElementsLoader {
  // JSON Node name
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_PRODUCT = "product";
+    private static final String TAG_ELEMENT = "element";
     private static final String TAG_PRODUCT_ID = "product_id";
+    private static final String TAG_PRODUCT_NAME = "product_name";
+    private static final String TAG_PRODUCT_PHOTO = "product_photo_id";    
     private static final String TAG_ELEMENT_NUMBER = "element_number";
     private static final String TAG_ELEMENT_RECYCLABLE = "element_recyclable";
     private static final String TAG_ELEMENT_DESCRIPTION = "element_description";
@@ -49,6 +52,9 @@ public class ElementsLoader {
     private int success;
     
     private int pId;
+    
+    //An instance of the Product Object to store the product and the elements info
+    private Product product;
     
     //An ArrayList which we will to store all different campaigns which will themselves be stored in Hashtables
     private ArrayList <Element> elementList = new ArrayList <Element> ();
@@ -82,20 +88,33 @@ public class ElementsLoader {
          // json success tag
             success = json.getInt(TAG_SUCCESS);
             if (success == 1 ) {
+            	product = new Product ();
                 // successfully received product details
                 JSONArray productObj = json.getJSONArray(TAG_PRODUCT); // JSON Array
-
+                
+                //We store the product informations in the Product Object
+                JSONObject productJSON = productObj.getJSONObject(0);
+                product.setName(productJSON.getString(TAG_PRODUCT_NAME));
+                product.setpId(productJSON.getInt(TAG_PRODUCT_ID));
+                product.setPhotoId(productJSON.getString(TAG_PRODUCT_PHOTO));
+                
+                //We move to the second part of the JSON Object and retrieve the elements
+                JSONArray elementJSON = json.getJSONArray(TAG_ELEMENT); // JSON Array
+                
                 // get each product object from JSON Array and store them in an Element Object
-                for (int i = 0 ; i<productObj.length(); i++){
+                for (int i = 0 ; i<elementJSON.length(); i++){
                 	Element element = new Element();
-	                JSONObject product = productObj.getJSONObject(i);
-	                element.setDescription(product.getString(TAG_ELEMENT_DESCRIPTION));
-	                element.setNumber(product.getInt(TAG_ELEMENT_NUMBER));
-	                element.setPhotoId(product.getString(TAG_PHOTO_ID));
-	                element.setRecyclable(product.getBoolean(TAG_ELEMENT_RECYCLABLE));
-	                element.setTrustScore(product.getInt(TAG_ELEMENT_TRUST));
+	                JSONObject elementObj = elementJSON.getJSONObject(i);
+	                element.setDescription(elementObj.getString(TAG_ELEMENT_DESCRIPTION));
+	                element.setNumber(elementObj.getInt(TAG_ELEMENT_NUMBER));
+	                element.setPhotoId(elementObj.getString(TAG_PHOTO_ID));
+	                element.setRecyclable(elementObj.getBoolean(TAG_ELEMENT_RECYCLABLE));
+	                element.setTrustScore(elementObj.getInt(TAG_ELEMENT_TRUST));
 	                this.elementList.add(element);
                 }
+                
+                //finally we put all the element in the Product Object we previously created.
+                product.setElementList(elementList);
 
             }else{
                 // Campaign was not found
