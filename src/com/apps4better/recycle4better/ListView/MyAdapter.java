@@ -73,6 +73,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     //Then we use picasso to load and display the image.
     String imageUrl = holder.elementIcon.getContext().getResources().getString(R.string.server_address) + element.getPhotoId() + ".mpg";
     Picasso.with(holder.elementIcon.getContext()).load(imageUrl).into(holder.elementIcon);
+    
+    //we test to see if the element is recyclable and display the correct logo
+    if (element.isRecyclable()){
+    	holder.recyclableTick.setImageDrawable(holder.recyclableTick.getContext().getResources().getDrawable(R.drawable.tick_yes));
+    }
+    else holder.recyclableTick.setImageDrawable(holder.recyclableTick.getContext().getResources().getDrawable(R.drawable.tick_no));
 
   }
 

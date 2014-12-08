@@ -128,8 +128,8 @@ public class ElementsLoader {
         
     }
 
-public ArrayList getElementList (){
-	return elementList;
+public Product getProduct (){
+	return product;
 }
 
 }
