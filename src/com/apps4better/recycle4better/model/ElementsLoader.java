@@ -51,7 +51,7 @@ public class ElementsLoader {
     private int pId;
     
     //An ArrayList which we will to store all different campaigns which will themselves be stored in Hashtables
-    private ArrayList <Hashtable> elementList = new ArrayList <Hashtable> ();
+    private ArrayList <Element> elementList = new ArrayList <Element> ();
     
     // products JSONArray
     JSONArray campaigns = null;
@@ -82,17 +82,19 @@ public class ElementsLoader {
          // json success tag
             success = json.getInt(TAG_SUCCESS);
             if (success == 1 ) {
-            	Hashtable hashTable = new Hashtable();
                 // successfully received product details
                 JSONArray productObj = json.getJSONArray(TAG_PRODUCT); // JSON Array
 
-                // get each product object from JSON Array and store them in the Hashtable
+                // get each product object from JSON Array and store them in an Element Object
                 for (int i = 0 ; i<productObj.length(); i++){
+                	Element element = new Element();
 	                JSONObject product = productObj.getJSONObject(i);
-	                for (String node : nodeTable){
-	                	hashTable.put(node, product.getString(node));
-	                }
-	                this.elementList.add(hashTable);
+	                element.setDescription(product.getString(TAG_ELEMENT_DESCRIPTION));
+	                element.setNumber(product.getInt(TAG_ELEMENT_NUMBER));
+	                element.setPhotoId(product.getString(TAG_PHOTO_ID));
+	                element.setRecyclable(product.getBoolean(TAG_ELEMENT_RECYCLABLE));
+	                element.setTrustScore(product.getInt(TAG_ELEMENT_TRUST));
+	                this.elementList.add(element);
                 }
 
             }else{

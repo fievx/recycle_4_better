@@ -1,11 +1,11 @@
 package com.apps4better.recycle4better.ListView;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,7 +14,7 @@ import com.apps4better.recycle4better.R;
 import com.squareup.picasso.Picasso;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-  private ArrayList<String> mDataset;
+  private ArrayList<Hashtable> mDataset;
 
   // Provide a reference to the views for each data item
   // Complex data items may need more than one view per item, and
@@ -45,7 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
   }
 
   // Provide a suitable constructor (depends on the kind of dataset)
-  public MyAdapter(ArrayList<String> myDataset) {
+  public MyAdapter(ArrayList<Hashtable> myDataset) {
     mDataset = myDataset;
   }
 
