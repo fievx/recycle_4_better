@@ -29,7 +29,7 @@ public class ElementsLoader {
     
     // URL that returns the updated donation
     private String serverAddress = "";
-    private String url = "/i_doo_good/get_all_campaigns.php";
+    private String url = "/recycle_4_better/get_product_by_id.php";
     
  // JSON Node name
     private static final String TAG_SUCCESS = "success";
@@ -64,10 +64,11 @@ public class ElementsLoader {
     
     //	Public constructor which takes an int as parameter. The int is the campaign Id and is passed on
     // to the JSONParser
-    public ElementsLoader (Context context){
+    public ElementsLoader (Context context, int productId){
     	this.context = context;
     	this.serverAddress=context.getResources().getString(R.string.server_address);
     	this.url = this.serverAddress + this.url;
+    	pId = productId;
     }
     
     /*
@@ -78,8 +79,11 @@ public class ElementsLoader {
     public void load (){
 
         try {
-            // Building empty Parameters
+            // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+        	String a = "";
+        	a = String.valueOf(pId);
+        	params.add(new BasicNameValuePair("id", a));
 
             // getting product details by making HTTP request
             // Note that product details url will use GET request
@@ -108,7 +112,9 @@ public class ElementsLoader {
 	                element.setDescription(elementObj.getString(TAG_ELEMENT_DESCRIPTION));
 	                element.setNumber(elementObj.getInt(TAG_ELEMENT_NUMBER));
 	                element.setPhotoId(elementObj.getString(TAG_PHOTO_ID));
-	                element.setRecyclable(elementObj.getBoolean(TAG_ELEMENT_RECYCLABLE));
+	                if (elementObj.getInt(TAG_ELEMENT_RECYCLABLE)>0)
+	                	element.setRecyclable(true);
+	                else element.setRecyclable(false);
 	                element.setTrustScore(elementObj.getInt(TAG_ELEMENT_TRUST));
 	                this.elementList.add(element);
                 }
@@ -117,7 +123,7 @@ public class ElementsLoader {
                 product.setElementList(elementList);
 
             }else{
-                // Campaign was not found
+                // product was not found
             }
             } catch (JSONException e) {
             	e.printStackTrace();

@@ -52,8 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
   // Create new views (invoked by the layout manager)
   @Override
-  public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-      int viewType) {
+  public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
     // create a new view
     View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
     // set the view's size, margins, paddings and layout parameters
