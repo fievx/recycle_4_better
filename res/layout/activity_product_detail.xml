@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView 
+            android:layout_height="30dp"
+            android:layout_width="30dp"/>
+    </RelativeLayout>
 
     <!-- A RecyclerView with some commonly used attributes -->
 
