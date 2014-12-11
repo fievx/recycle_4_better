@@ -2,66 +2,62 @@ package com.apps4better.recycle4better.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.ListView.MyAdapter;
-import com.apps4better.recycle4better.model.ElementsLoader;
 import com.apps4better.recycle4better.model.Product;
+import com.squareup.picasso.Picasso;
 
 public class ProductDetailActivity extends Activity {
 	private Context context;
 	private Product product;
 	private int pId;
 	
+	private RelativeLayout layout;
+	private ImageView pPhotoView;
+	private TextView pNameText;
+	private TextView pDescText;
+	private Button addElementButton;
+	
 	public void onCreate (Bundle bundle){
 		super.onCreate(bundle);
 		context = this;
 
-		
-		Bundle extras = getIntent().getExtras();
-		String a = extras.getString("product_id");
-		pId = Integer.valueOf(a).intValue();
+		//We get the parcelable Product from the Intent
+		product = getIntent().getParcelableExtra("product");
 		Log.d("product detail", "received id is "+pId);
 		
-		//We start the getProductDetailTask which will run the DB request, 
-		//return the product details and generate the RecyclerView
-		new getProductDetailTask (pId).execute();
+		//We build the layout, first with the product details, and then the elements using the RecyclerView
+		layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+		setContentView(layout);
+		pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
+		pNameText = (TextView) layout.findViewById(R.id.product_name_text_view);
+		pDescText =(TextView) layout.findViewById(R.id.product_desc_text_view);
+		
+		
+		// First the product
+		Picasso.with(context).load(context.getResources().getString(R.string.server_address)+product.getPhotoId()).into(pPhotoView);
+		pNameText.setText(product.getName());
+		pDescText.setText(product.getDescription());
+		
+		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+		recyclerView.setHasFixedSize(true);
+		recyclerView.setAdapter(new MyAdapter(product.getElementList()));
+		recyclerView.setLayoutManager(new LinearLayoutManager(context));
+		recyclerView.setItemAnimator(new DefaultItemAnimator());
+		Log.d("getProductDetailClass", "layout for recycler View loaded");
 		
 	}
 
 	
-	protected class getProductDetailTask extends AsyncTask <Void, Void, Void> {
-		ElementsLoader loader;
-		int pId;
-		public getProductDetailTask (int pId){
-			this.pId = pId;
-		}
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			loader = new ElementsLoader (context, pId);
-			loader.load();
-			return null;
-		}
-		
-		protected void onPostExecute (Void param){
-			product = loader.getProduct();
-			if (product != null){
-				setContentView(R.layout.activity_product_detail);
-				RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-				recyclerView.setHasFixedSize(true);
-				recyclerView.setAdapter(new MyAdapter(product.getElementList()));
-				recyclerView.setLayoutManager(new LinearLayoutManager(context));
-				recyclerView.setItemAnimator(new DefaultItemAnimator());
-				Log.d("getProductDetailClass", "layout for recycler View loaded");
-			}
-		}
-	}
+	
 }

@@ -3,6 +3,7 @@ package com.apps4better.recycle4better.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.model.ElementsLoader;
+import com.apps4better.recycle4better.model.Product;
 
 public class MainActivity extends Activity {
 	private Button scanButton;
@@ -22,6 +25,7 @@ public class MainActivity extends Activity {
 	private TextView bcResultView;
 	private Button findProductButton;
 	private EditText productIdTextField;
+	private Product product;
 	
 	private Context context;
 
@@ -44,9 +48,10 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Log.d("Main activity", "giving product id = "+productIdTextField.getText().toString());
-				Intent intent = new Intent (context, ProductDetailActivity.class);
-				intent.putExtra("product_id", productIdTextField.getText().toString());
-				startActivity(intent);
+				String a = productIdTextField.getText().toString();
+				int id = Integer.valueOf(a).intValue();
+				new GetProductDetailTask(id).execute();
+				
 			}
 			
 		});
@@ -79,5 +84,36 @@ public void startScan (View view){
 	startActivity (i);
 }
 	
+protected class GetProductDetailTask extends AsyncTask <Void, Void, Void> {
+	ElementsLoader loader;
+	int pId;
+	public GetProductDetailTask (int pId){
+		this.pId = pId;
+	}
+	
+	@Override
+	protected Void doInBackground(Void... params) {
+		// TODO Auto-generated method stub
+		loader = new ElementsLoader (context, pId);
+		loader.load();
+		return null;
+	}
+	
+	protected void onPostExecute (Void param){
+		product = loader.getProduct();
+		
+		//If the loader returns a non null product, we start the ProductDetailActivity and give it the 
+		//product as extra.
+		if (product != null){
+			Intent intent = new Intent (context, ProductDetailActivity.class);
+			intent.putExtra("product", product);
+			startActivity(intent);
+		}
+		//we start the product not found activity
+		else {
+			
+		}
+	}
+}
 
 }

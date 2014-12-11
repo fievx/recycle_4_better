@@ -11,5 +11,6 @@
     <string name="element_name_textview"/>
     <string name="element_recyclable_label">Recyclable :</string>
     <string name="server_address">http://10.1.1.5</string>
+    <string name="add_element_button_text">Add an element</string>
 
 </resources>

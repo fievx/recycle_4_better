@@ -5,12 +5,45 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
     
-    <RelativeLayout 
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView 
-            android:layout_height="30dp"
-            android:layout_width="30dp"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp" >
+
+        <ImageView
+            android:id="@+id/product_photo_image_view"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:id="@+id/product_name_text_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/product_photo_image_view"
+            android:lines="1"
+            android:maxLines="1"
+            android:minLines="1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/product_desc_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/product_name_text_view"
+            android:layout_below="@id/product_name_text_view"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/product_name_text_view"
+            android:layout_below="@id/product_desc_text_view"
+            android:text="@string/add_element_button_text" />
+
     </RelativeLayout>
 
     <!-- A RecyclerView with some commonly used attributes -->
