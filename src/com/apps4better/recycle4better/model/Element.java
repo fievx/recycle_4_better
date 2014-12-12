@@ -1,9 +1,11 @@
 package com.apps4better.recycle4better.model;
 
+import java.io.Serializable;
+
 /*
  * An element object represents a real part of a product to be recycled
  */
-public class Element {
+public class Element implements Serializable{
 	private int number;
 	private String description;
 	private float weight;

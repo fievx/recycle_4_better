@@ -28,6 +28,8 @@ public class ProductDetailActivity extends Activity {
 	private TextView pDescText;
 	private Button addElementButton;
 	
+	private static final String extansion = ".bmp";
+	
 	public void onCreate (Bundle bundle){
 		super.onCreate(bundle);
 		context = this;
@@ -45,7 +47,7 @@ public class ProductDetailActivity extends Activity {
 		
 		
 		// First the product
-		Picasso.with(context).load(context.getResources().getString(R.string.server_address)+product.getPhotoId()).into(pPhotoView);
+		Picasso.with(context).load(context.getResources().getString(R.string.server_address)+product.getPhotoId()+extansion).into(pPhotoView);
 		pNameText.setText(product.getName());
 		pDescText.setText(product.getDescription());
 		
@@ -55,9 +57,7 @@ public class ProductDetailActivity extends Activity {
 		recyclerView.setLayoutManager(new LinearLayoutManager(context));
 		recyclerView.setItemAnimator(new DefaultItemAnimator());
 		Log.d("getProductDetailClass", "layout for recycler View loaded");
-		
 	}
-
 	
 	
 }
