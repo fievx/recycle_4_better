@@ -36,7 +36,7 @@ public class ProductDetailActivity extends Activity {
 
 		//We get the parcelable Product from the Intent
 		product = getIntent().getParcelableExtra("product");
-		Log.d("product detail", "received id is "+pId);
+		pId = product.getpId();
 		
 		//We build the layout, first with the product details, and then the elements using the RecyclerView
 		layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
@@ -47,7 +47,9 @@ public class ProductDetailActivity extends Activity {
 		
 		
 		// First the product
-		Picasso.with(context).load(context.getResources().getString(R.string.server_address)+product.getPhotoId()+extansion).into(pPhotoView);
+		String imageUrl = context.getResources().getString(R.string.server_address)+product.getPhotoId()+extansion;
+		Log.d("picasso", imageUrl);
+		Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
 		pNameText.setText(product.getName());
 		pDescText.setText(product.getDescription());
 		

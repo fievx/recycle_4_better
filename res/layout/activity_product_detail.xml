@@ -38,7 +38,7 @@
             android:textSize="14sp" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/add_element_picture_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/product_name_text_view"

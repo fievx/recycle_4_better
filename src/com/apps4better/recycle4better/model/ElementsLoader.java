@@ -29,7 +29,7 @@ public class ElementsLoader {
     
     // URL that returns the updated donation
     private String serverAddress = "";
-    private String url = "/recycle_4_better/get_product_by_id.php";
+    private String url = "/get_product_by_id.php";
     
  // JSON Node name
     private static final String TAG_SUCCESS = "success";
