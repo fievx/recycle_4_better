@@ -112,9 +112,7 @@ public class ElementsLoader {
 	                element.setDescription(elementObj.getString(TAG_ELEMENT_DESCRIPTION));
 	                element.setNumber(elementObj.getInt(TAG_ELEMENT_NUMBER));
 	                element.setPhotoId(elementObj.getString(TAG_PHOTO_ID));
-	                if (elementObj.getInt(TAG_ELEMENT_RECYCLABLE)>0)
-	                	element.setRecyclable(true);
-	                else element.setRecyclable(false);
+	                element.setRecyclable(elementObj.getInt(TAG_ELEMENT_RECYCLABLE));
 	                element.setTrustScore(elementObj.getInt(TAG_ELEMENT_TRUST));
 	                this.elementList.add(element);
                 }

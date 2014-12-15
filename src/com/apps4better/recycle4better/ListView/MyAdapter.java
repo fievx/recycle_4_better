@@ -74,10 +74,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     Picasso.with(holder.elementIcon.getContext()).load(imageUrl).into(holder.elementIcon);
     
     //we test to see if the element is recyclable and display the correct logo
-    if (element.isRecyclable()){
+    if (element.getRecyclable()==1){
     	holder.recyclableTick.setImageDrawable(holder.recyclableTick.getContext().getResources().getDrawable(R.drawable.tick_yes));
     }
-    else holder.recyclableTick.setImageDrawable(holder.recyclableTick.getContext().getResources().getDrawable(R.drawable.tick_no));
+    else if (element.getRecyclable()==0)
+    	holder.recyclableTick.setImageDrawable(holder.recyclableTick.getContext().getResources().getDrawable(R.drawable.tick_no));
+    else holder.recyclableTick.setImageDrawable(holder.recyclableTick.getContext().getResources().getDrawable(R.drawable.tick_maybe));
 
   }
 

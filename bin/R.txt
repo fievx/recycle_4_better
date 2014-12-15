@@ -253,8 +253,9 @@ int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable ic_launcher 0x7f020057
 int drawable launcher_icon 0x7f020058
 int drawable share_via_barcode 0x7f020059
-int drawable tick_no 0x7f02005a
-int drawable tick_yes 0x7f02005b
+int drawable tick_maybe 0x7f02005a
+int drawable tick_no 0x7f02005b
+int drawable tick_yes 0x7f02005c
 int id action_bar 0x7f0a0023
 int id action_bar_activity_content 0x7f0a0008
 int id action_bar_container 0x7f0a0022
