@@ -1,7 +1,12 @@
 package com.apps4better.recycle4better.view;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,6 +17,7 @@ import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.model.Element;
+import com.apps4better.recycle4better.model.ElementEditorService;
 
 public class NewElementActivity extends Activity{
 	private Button addPhotoButton, saveElementButton;
@@ -23,7 +29,7 @@ public class NewElementActivity extends Activity{
 	private int elementNumber;
 	
 	private Element element = new Element();
-
+	
 	
 	public void onCreate (Bundle savedInstanceState){
 		//get the infos from the Intent.
@@ -70,38 +76,81 @@ public class NewElementActivity extends Activity{
 		
 	}
 	
+	
+	@Override
+	  protected void onResume() {
+	    super.onResume();
+	    LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("messageSave"));
+	  }
+	  @Override
+	  protected void onPause() {
+	    super.onPause();
+	    unregisterReceiver(saveElementReceiver);
+	  }
+	
+	
 	/*
 	 * Method save element perfoms all the checks on the form and calls
 	 * SaveElementTask if successfull
 	 */
-	public void saveElement (){
-		String name = eNameEdit.getText().toString();
-		String desc = eDescEdit.getText().toString();
-		int weight = Integer.valueOf(eWeightEdit.getText().toString()).intValue();
-		int recyclable;
+	private void saveElement (){
+		element.setName(eNameEdit.getText().toString());
+		element.setDescription(eDescEdit.getText().toString());
+		element.setWeight(Integer.valueOf(eWeightEdit.getText().toString()).intValue());
 		switch (this.eRecyclableRadio.getCheckedRadioButtonId()){
 			case 1 :
-				recyclable = 0;
+				element.setRecyclable(0);
 				break;
 			case 2:
-				recyclable = 1;
+				element.setRecyclable(1);
 				break;
 			case 3:
-				recyclable = 2;
+				element.setRecyclable(2);
 				break;
 			default:
-				recyclable = 2;
+				element.setRecyclable(2);
 				break;
 		}
-		String materialCommon = this.eMaterialCommonEdit.getText().toString();
-		String materialScient = this.eMaterialScientEdit.getText().toString();
+		element.setMaterialCommon(this.eMaterialCommonEdit.getText().toString());
+		element.setMaterialScientific(this.eMaterialScientEdit.getText().toString());
 		
 		if (eNameEdit.getText().toString() != null){
-			new SaveElementTask()execute();			
+			uploadElement();		
 	}
 		else {
 			String a = getResources().getString(R.string.no_name_entered_toast);
 			Toast.makeText(this,a , Toast.LENGTH_SHORT).show();
 		}
 	}
+
+	private void uploadElement(){
+		Intent intent = new Intent (this, ElementEditorService.class);
+		intent.putExtra("element", element);
+		startService(intent);
+	}
+	
+	
+	//We need a receiver to handle the broadcast sent from the ElementEditorService
+	private BroadcastReceiver  saveElementReceiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
+			if (intent.getExtras().getBoolean("success")){
+				String message = context.getResources().getString(R.string.element_edit_success);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+				Intent i = new Intent();
+				i.putExtra("product_id", pId);
+			}
+			else {
+				String message = context.getResources().getString(R.string.element_edit_failure);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+			}
+				
+			
+		}
+		
+	};	
 }

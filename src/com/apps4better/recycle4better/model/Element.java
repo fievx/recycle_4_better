@@ -7,6 +7,7 @@ import android.os.Parcelable;
  * An element object represents a real part of a product to be recycled
  */
 public class Element implements Parcelable{
+	private int productId;
 	private int number;
 	private String name;
 	private String description;
@@ -59,6 +60,14 @@ public class Element implements Parcelable{
 		return materialScientific;
 	}
 
+	public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -100,6 +109,7 @@ public class Element implements Parcelable{
 	/////////  Parcelable Implementation ////////
 	//constructor for parcel
 	public Element (Parcel in){
+		this.productId = in.readInt();
 		this.description = in.readString();
 		this.materialCommon = in.readString();
 		this.materialScientific = in.readString();
@@ -110,6 +120,7 @@ public class Element implements Parcelable{
 		this.trustScore = in.readInt();
 		this.weight = in.readInt();
 	}
+	
 	@Override
 	public int describeContents() {
 		// TODO Auto-generated method stub
@@ -119,6 +130,7 @@ public class Element implements Parcelable{
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
+		dest.writeInt(productId);
 		dest.writeString(description);
 		dest.writeString(materialCommon);
 		dest.writeString(materialScientific);

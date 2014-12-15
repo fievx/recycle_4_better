@@ -490,9 +490,13 @@ int string contents_location 0x7f0b001c
 int string contents_phone 0x7f0b001d
 int string contents_sms 0x7f0b001e
 int string contents_text 0x7f0b001f
+int string element_edit_failure 0x7f0b009f
+int string element_edit_success 0x7f0b009e
 int string element_name_label 0x7f0b0088
 int string element_name_textview 0x7f0b0089
 int string element_recyclable_label 0x7f0b008a
+int string element_save_failure 0x7f0b009d
+int string element_save_success 0x7f0b009c
 int string hello_world 0x7f0b0083
 int string history_clear_one_history_text 0x7f0b0021
 int string history_clear_text 0x7f0b0020

@@ -1402,9 +1402,13 @@ containing a value of this type.
         public static final int contents_phone=0x7f0b001d;
         public static final int contents_sms=0x7f0b001e;
         public static final int contents_text=0x7f0b001f;
+        public static final int element_edit_failure=0x7f0b009f;
+        public static final int element_edit_success=0x7f0b009e;
         public static final int element_name_label=0x7f0b0088;
         public static final int element_name_textview=0x7f0b0089;
         public static final int element_recyclable_label=0x7f0b008a;
+        public static final int element_save_failure=0x7f0b009d;
+        public static final int element_save_success=0x7f0b009c;
         public static final int hello_world=0x7f0b0083;
         public static final int history_clear_one_history_text=0x7f0b0021;
         public static final int history_clear_text=0x7f0b0020;

@@ -113,6 +113,7 @@ public class ElementsLoader {
                 for (int i = 0 ; i<elementJSON.length(); i++){
                 	Element element = new Element();
 	                JSONObject elementObj = elementJSON.getJSONObject(i);
+	                element.setProductId(elementObj.getInt(TAG_PRODUCT_ID));
 	                element.setName(elementObj.getString(TAG_ELEMENT_NAME));
 	                element.setDescription(elementObj.getString(TAG_ELEMENT_DESCRIPTION));
 	                element.setNumber(elementObj.getInt(TAG_ELEMENT_NUMBER));

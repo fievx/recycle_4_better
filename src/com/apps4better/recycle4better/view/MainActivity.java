@@ -42,6 +42,12 @@ public class MainActivity extends Activity {
 		findProductButton = (Button) layout.findViewById(R.id.findButton);
 		productIdTextField = (EditText) layout.findViewById(R.id.productIdTextField);
 		
+		setContentView(layout);
+	}
+
+	public void onResume(){
+		super.onResume();
+		
 		findProductButton.setOnClickListener(new OnClickListener (){
 
 			@Override
@@ -50,15 +56,15 @@ public class MainActivity extends Activity {
 				Log.d("Main activity", "giving product id = "+productIdTextField.getText().toString());
 				String a = productIdTextField.getText().toString();
 				int id = Integer.valueOf(a).intValue();
-				new GetProductDetailTask(id).execute();
+				Intent intent = new Intent(context, ProductDetailActivity.class);
+				intent.putExtra("product_id", id);
+				startActivity(intent);
 				
 			}
 			
 		});
-		
-		setContentView(layout);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -84,36 +90,6 @@ public void startScan (View view){
 	startActivity (i);
 }
 	
-protected class GetProductDetailTask extends AsyncTask <Void, Void, Void> {
-	ElementsLoader loader;
-	int pId;
-	public GetProductDetailTask (int pId){
-		this.pId = pId;
-	}
-	
-	@Override
-	protected Void doInBackground(Void... params) {
-		// TODO Auto-generated method stub
-		loader = new ElementsLoader (context, pId);
-		loader.load();
-		return null;
-	}
-	
-	protected void onPostExecute (Void param){
-		product = loader.getProduct();
-		
-		//If the loader returns a non null product, we start the ProductDetailActivity and give it the 
-		//product as extra.
-		if (product != null){
-			Intent intent = new Intent (context, ProductDetailActivity.class);
-			intent.putExtra("product", product);
-			startActivity(intent);
-		}
-		//we start the product not found activity
-		else {
-			
-		}
-	}
-}
+
 
 }
