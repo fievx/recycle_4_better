@@ -25,17 +25,15 @@ public class NewElementActivity extends Activity{
 	private RadioGroup eRecyclableRadio;
 	private ScrollView layout;
 	
-	private int pId;
-	private int elementNumber;
-	
 	private Element element = new Element();
 	
 	
 	public void onCreate (Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
 		//get the infos from the Intent.
 		Bundle extras = getIntent().getExtras();
-		pId = extras.getInt("pId");
-		elementNumber = extras.getInt("elementNumber");
+		element.setProductId(extras.getInt("pId"));
+		element.setNumber(extras.getInt("elementNumber"));
 		
 		layout = (ScrollView) ScrollView.inflate(this,R.layout.activity_add_element_layout, null);
 		
@@ -72,6 +70,7 @@ public class NewElementActivity extends Activity{
 		setContentView(layout);
 	}
 	
+	
 	public void takePhoto (){
 		
 	}
@@ -80,6 +79,28 @@ public class NewElementActivity extends Activity{
 	@Override
 	  protected void onResume() {
 	    super.onResume();
+	    
+		//We add listeners to the two buttons
+		addPhotoButton.setOnClickListener(new OnClickListener (){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				takePhoto();
+			}
+			
+		});
+		saveElementButton.setOnClickListener(new OnClickListener (){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				saveElement();
+			}
+			
+		});
+		
+	    
 	    LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("messageSave"));
 	  }
 	  @Override
@@ -96,7 +117,7 @@ public class NewElementActivity extends Activity{
 	private void saveElement (){
 		element.setName(eNameEdit.getText().toString());
 		element.setDescription(eDescEdit.getText().toString());
-		element.setWeight(Integer.valueOf(eWeightEdit.getText().toString()).intValue());
+		if (eWeightEdit.getText().toString().equals("")==false)element.setWeight(Integer.valueOf(eWeightEdit.getText().toString()).intValue());
 		switch (this.eRecyclableRadio.getCheckedRadioButtonId()){
 			case 1 :
 				element.setRecyclable(0);
@@ -142,7 +163,7 @@ public class NewElementActivity extends Activity{
 				String message = context.getResources().getString(R.string.element_edit_success);
 				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
 				Intent i = new Intent();
-				i.putExtra("product_id", pId);
+				i.putExtra("product_id", element.getProductId());
 			}
 			else {
 				String message = context.getResources().getString(R.string.element_edit_failure);

@@ -9,6 +9,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -37,15 +39,14 @@ public class ProductDetailActivity extends Activity {
 		super.onCreate(bundle);
 		context = this;
 
+		//We get the ProductId from the Intent
+		pId = getIntent().getIntExtra("product_id", 0);	
 
 		
 	}
 	
 	protected void onResume(){
 		super.onResume();
-		
-		//We get the ProductId from the Intent
-		pId = getIntent().getIntExtra("product_id", 0);	
 		
 		//We call the GetProductDetailTask
 		new GetProductDetailTask(pId).execute();
@@ -79,7 +80,7 @@ public class ProductDetailActivity extends Activity {
 				pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
 				pNameText = (TextView) layout.findViewById(R.id.product_name_text_view);
 				pDescText =(TextView) layout.findViewById(R.id.product_desc_text_view);
-				
+				addElementButton = (Button) layout.findViewById(R.id.add_element_button);
 				
 				// First the product
 				String imageUrl = context.getResources().getString(R.string.server_address)+product.getPhotoId()+extansion;
@@ -88,6 +89,22 @@ public class ProductDetailActivity extends Activity {
 				pNameText.setText(product.getName());
 				pDescText.setText(product.getDescription());
 				
+				//We set a listener on the button
+				addElementButton.setOnClickListener(new OnClickListener (){
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent (context, NewElementActivity.class);
+						intent.putExtra("elementNumber",product.getElementList().size()+1);
+						intent.putExtra("pId", product.getpId());
+						startActivity(intent);
+						
+					}
+					
+				});
+				
+				//We set the recyclerView with the elements from the product
 				RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 				recyclerView.setHasFixedSize(true);
 				recyclerView.setAdapter(new MyAdapter(product.getElementList()));

@@ -37,11 +37,12 @@ public class ElementEditorService extends IntentService{
     private static final String TAG_ELEMENT_WEIGHT = "element_weight";
     private static final String TAG_ELEMENT_TRUST = "element_trust_score";
 
-	public ElementEditorService(String name) {
-		super(name);
+	public ElementEditorService() {
+		super("ElementEditorService");
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		// TODO Auto-generated method stub
