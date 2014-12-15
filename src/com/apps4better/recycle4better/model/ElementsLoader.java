@@ -41,7 +41,11 @@ public class ElementsLoader {
     private static final String TAG_ELEMENT_NUMBER = "element_number";
     private static final String TAG_ELEMENT_RECYCLABLE = "element_recyclable";
     private static final String TAG_ELEMENT_DESCRIPTION = "element_description";
+    private static final String TAG_ELEMENT_NAME = "element_name";
     private static final String TAG_PHOTO_ID = "element_photo_id";
+    private static final String TAG_ELEMENT_MATERIAL_COMMON = "element_material_common";
+    private static final String TAG_ELEMENT_MATERIAL_SCIENTIFIC = "element_material_scientific";
+    private static final String TAG_ELEMENT_WEIGHT = "element_weight";
     private static final String TAG_ELEMENT_TRUST = "element_trust_score";
 
     
@@ -109,11 +113,16 @@ public class ElementsLoader {
                 for (int i = 0 ; i<elementJSON.length(); i++){
                 	Element element = new Element();
 	                JSONObject elementObj = elementJSON.getJSONObject(i);
+	                element.setName(elementObj.getString(TAG_ELEMENT_NAME));
 	                element.setDescription(elementObj.getString(TAG_ELEMENT_DESCRIPTION));
 	                element.setNumber(elementObj.getInt(TAG_ELEMENT_NUMBER));
 	                element.setPhotoId(elementObj.getString(TAG_PHOTO_ID));
 	                element.setRecyclable(elementObj.getInt(TAG_ELEMENT_RECYCLABLE));
 	                element.setTrustScore(elementObj.getInt(TAG_ELEMENT_TRUST));
+	                element.setMaterialCommon(elementObj.getString(TAG_ELEMENT_MATERIAL_COMMON));
+	                element.setMaterialScientific(elementObj.getString(TAG_ELEMENT_MATERIAL_SCIENTIFIC));
+	                element.setWeight(elementObj.getInt(TAG_ELEMENT_WEIGHT));
+	                
 	                this.elementList.add(element);
                 }
                 
