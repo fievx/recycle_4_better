@@ -1,17 +1,23 @@
 package com.apps4better.recycle4better.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /*
  * An element object represents a real part of a product to be recycled
  */
-public class Element implements Serializable{
+public class Element implements Parcelable{
 	private int number;
+	private String name;
 	private String description;
-	private float weight;
-	private boolean recyclable;
+	private int weight;
+	private int recyclable;
 	private String photoId;
+	private String materialCommon;
+	private String materialScientific;
 	private int trustScore;
+	
+	
 	
 	public Element (){
 		
@@ -25,11 +31,11 @@ public class Element implements Serializable{
 		return description;
 	}
 
-	public float getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 
-	public boolean isRecyclable() {
+	public int getRecyclable() {
 		return recyclable;
 	}
 
@@ -41,6 +47,30 @@ public class Element implements Serializable{
 		return trustScore;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public String getMaterialCommon() {
+		return materialCommon;
+	}
+
+	public String getMaterialScientific() {
+		return materialScientific;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setMaterialCommon(String materialCommon) {
+		this.materialCommon = materialCommon;
+	}
+
+	public void setMaterialScientific(String materialScientific) {
+		this.materialScientific = materialScientific;
+	}
+
 	public void setNumber(int number) {
 		this.number = number;
 	}
@@ -49,11 +79,11 @@ public class Element implements Serializable{
 		this.description = description;
 	}
 
-	public void setWeight(float weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 
-	public void setRecyclable(boolean recyclable) {
+	public void setRecyclable(int recyclable) {
 		this.recyclable = recyclable;
 	}
 
@@ -64,6 +94,50 @@ public class Element implements Serializable{
 	public void setTrustScore(int trustScore) {
 		this.trustScore = trustScore;
 	}
+
+	
+	
+	/////////  Parcelable Implementation ////////
+	//constructor for parcel
+	public Element (Parcel in){
+		this.description = in.readString();
+		this.materialCommon = in.readString();
+		this.materialScientific = in.readString();
+		this.name = in.readString();
+		this.number = in.readInt();
+		this.photoId = in.readString();
+		this.recyclable = in.readInt();
+		this.trustScore = in.readInt();
+		this.weight = in.readInt();
+	}
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(description);
+		dest.writeString(materialCommon);
+		dest.writeString(materialScientific);
+		dest.writeString(name);
+		dest.writeInt(number);
+		dest.writeString(photoId);
+		dest.writeInt(recyclable);
+		dest.writeInt(trustScore);
+		dest.writeInt(weight);
+	}
+	
+	public static final Parcelable.Creator<Element> CREATOR = new Parcelable.Creator<Element>() {
+		public Element createFromParcel (Parcel source){
+			return new Element (source);
+		}
+		public Element [] newArray (int size){
+			return new Element [size];
+		}
+	};
 	
 	
 }
