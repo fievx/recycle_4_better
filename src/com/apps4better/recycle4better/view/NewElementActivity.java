@@ -23,6 +23,9 @@ public class NewElementActivity extends Activity{
 	private Button addPhotoButton, saveElementButton;
 	private EditText eNameEdit, eDescEdit, eWeightEdit, eMaterialCommonEdit, eMaterialScientEdit;
 	private RadioGroup eRecyclableRadio;
+	private static final int RADIO_NO = R.id.radio_not_recyclable;
+	private static final int RADIO_YES = R.id.radio_recyclable;
+	private static final int RADIO_NOT_SURE = R.id.radio_not_sure;
 	private ScrollView layout;
 	
 	private Element element = new Element();
@@ -100,14 +103,9 @@ public class NewElementActivity extends Activity{
 			
 		});
 		
-	    
-	    LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("messageSave"));
 	  }
-	  @Override
-	  protected void onPause() {
-	    super.onPause();
-	    unregisterReceiver(saveElementReceiver);
-	  }
+	
+
 	
 	
 	/*
@@ -119,13 +117,13 @@ public class NewElementActivity extends Activity{
 		element.setDescription(eDescEdit.getText().toString());
 		if (eWeightEdit.getText().toString().equals("")==false)element.setWeight(Integer.valueOf(eWeightEdit.getText().toString()).intValue());
 		switch (this.eRecyclableRadio.getCheckedRadioButtonId()){
-			case 1 :
+			case RADIO_NO :
 				element.setRecyclable(0);
 				break;
-			case 2:
+			case RADIO_YES:
 				element.setRecyclable(1);
 				break;
-			case 3:
+			case RADIO_NOT_SURE:
 				element.setRecyclable(2);
 				break;
 			default:
@@ -144,34 +142,19 @@ public class NewElementActivity extends Activity{
 		}
 	}
 
+	/*
+	 * Start the ElementEditorService with the information saved
+	 * and then returns to the productDetailActivity
+	 */
 	private void uploadElement(){
 		Intent intent = new Intent (this, ElementEditorService.class);
 		intent.putExtra("element", element);
 		startService(intent);
+		intent = new Intent (this, ProductDetailActivity.class);
+		intent.putExtra("product_id", element.getProductId());
+		startActivity(intent);
 	}
 	
 	
-	//We need a receiver to handle the broadcast sent from the ElementEditorService
-	private BroadcastReceiver  saveElementReceiver = new BroadcastReceiver(){
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			// TODO Auto-generated method stub
-			
-			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
-			if (intent.getExtras().getBoolean("success")){
-				String message = context.getResources().getString(R.string.element_edit_success);
-				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
-				Intent i = new Intent();
-				i.putExtra("product_id", element.getProductId());
-			}
-			else {
-				String message = context.getResources().getString(R.string.element_edit_failure);
-				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
-			}
-				
-			
-		}
-		
-	};	
 }

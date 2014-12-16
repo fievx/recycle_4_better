@@ -66,7 +66,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // - get element from your dataset at this position
     // - replace the contents of the view with that element
     final Element element = mDataset.get(position);
-    holder.txtElementName.setText(element.getDescription());
+    holder.txtElementName.setText(element.getName());
     
     //We construct the image Url based on the server address from the resources and the image id.
     //Then we use picasso to load and display the image.

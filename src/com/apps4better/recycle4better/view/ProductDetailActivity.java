@@ -1,10 +1,13 @@
 package com.apps4better.recycle4better.view;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.ListView.MyAdapter;
@@ -50,9 +54,21 @@ public class ProductDetailActivity extends Activity {
 		
 		//We call the GetProductDetailTask
 		new GetProductDetailTask(pId).execute();
+		LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("message"));
 		
 	}
 
+  @Override
+  	protected void onPause() {
+    super.onPause();
+    try{
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(saveElementReceiver);
+    }catch (Exception e){
+    	e.printStackTrace();
+    }
+  }
+	
+	
 	protected class GetProductDetailTask extends AsyncTask <Void, Void, Void> {
 		ElementsLoader loader;
 		int pId;
@@ -70,6 +86,7 @@ public class ProductDetailActivity extends Activity {
 		
 		protected void onPostExecute (Void param){
 			product = loader.getProduct();
+			Log.d("debug recycler", "le produit contient "+String.valueOf(product.getElementCount()));
 			
 			//If the loader returns a non null product, we start the ProductDetailActivity and give it the 
 			//product as extra.
@@ -105,7 +122,7 @@ public class ProductDetailActivity extends Activity {
 				});
 				
 				//We set the recyclerView with the elements from the product
-				RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+				RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
 				recyclerView.setHasFixedSize(true);
 				recyclerView.setAdapter(new MyAdapter(product.getElementList()));
 				recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -119,4 +136,28 @@ public class ProductDetailActivity extends Activity {
 		}
 	}
 	
+	//We need a receiver to handle the broadcast sent from the ElementEditorService
+	private BroadcastReceiver  saveElementReceiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
+			if (intent.getExtras().getBoolean("success")){
+				String message = context.getResources().getString(R.string.element_edit_success);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+
+				//We reaload the product
+				new GetProductDetailTask(pId).execute();
+			}
+			else {
+				String message = context.getResources().getString(R.string.element_edit_failure);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+			}
+				
+			
+		}
+		
+	};	
 }

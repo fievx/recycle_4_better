@@ -51,8 +51,13 @@ public String getDescription(){
 	return description;
 }
 
+public int getElementCount(){
+	return elementList.size();
+}
+
 
 /////////////////////   SETTERS  ////////////////////////
+
 
 	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
