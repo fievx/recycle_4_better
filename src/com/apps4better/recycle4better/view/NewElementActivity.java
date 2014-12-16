@@ -45,9 +45,6 @@ public class NewElementActivity extends Activity{
 		this.saveElementButton = (Button) layout.findViewById(R.id.save_element_button);
 		this.eNameEdit = (EditText) layout.findViewById(R.id.element_name_edit_text);
 		this.eDescEdit = (EditText) layout.findViewById(R.id.element_descr_edit_text);
-		this.eWeightEdit = (EditText) layout.findViewById(R.id.element_weight_edit_text);
-		this.eMaterialCommonEdit = (EditText) layout.findViewById(R.id.element_material_common_edit_text);
-		this.eMaterialScientEdit = (EditText) layout.findViewById(R.id.element_material_scientific_edit_text);
 		this.eRecyclableRadio = (RadioGroup) layout.findViewById(R.id.element_recyclable_radio_group);
 		
 		//We add listeners to the two buttons

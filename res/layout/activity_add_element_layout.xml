@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     >
 
-<LinearLayout 
+<RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
@@ -13,15 +13,19 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
         android:text="@string/new_element_name_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/element_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/textView1"
+        android:layout_toRightOf="@id/textView1"
         android:ems="10"
-        android:hint="@string/new_element_name_hint"
         android:maxLength="50"
         android:textSize="14sp" >
 
@@ -32,21 +36,26 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_marginBottom="15dp"
         android:text="@string/new_element_description_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/element_descr_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/textView2"
+        android:layout_toRightOf="@id/textView2"
         android:ems="10"
-        android:hint="@string/new_element_description_hint"
         android:textSize="14sp" />
 
     <RadioGroup
         android:id="@+id/element_recyclable_radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView2"
         android:checkedButton="2"
         android:orientation="horizontal" >
 
@@ -78,72 +87,23 @@
         android:id="@+id/add_element_picture_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/element_recyclable_radio_group"
         android:text="@string/new_element_add_photo_button" />
-
-        <View
-        android:id="@+id/view1"
-        style="@style/Divider"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="1dp" />
-        
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/additional_options_text"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_element_weight_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/element_weight_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_element_material_common_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/element_material_common_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:maxLength="50"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_element_material_scientific_label"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/element_material_scientific_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:maxLength="100"
-        android:textSize="14sp" />
 
     <Button
         android:id="@+id/save_element_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/add_element_picture_button"
+        android:layout_toRightOf="@id/add_element_picture_button"
         android:text="@string/save_element_button" />
 
-</LinearLayout>
+        <View
+            android:id="@+id/view1"
+            style="@style/Divider"
+            android:layout_below="@id/add_element_picture_button"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp" />
+
+</RelativeLayout>
 </ScrollView>
