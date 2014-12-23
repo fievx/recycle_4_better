@@ -19,6 +19,7 @@ import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.camera.MyCameraActivity;
 import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementEditorService;
+import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.squareup.picasso.Picasso;
 
 public class NewElementActivity extends Activity {
@@ -36,6 +37,7 @@ public class NewElementActivity extends Activity {
 	public static final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
 	private static final int CODE_IMAGE_PATH = 1;
 	public static final String TAG_IMAGE_PATH = "image_path";
+	private String imagePath="";
 	
 	private Element element = new Element();
 	
@@ -103,7 +105,7 @@ public class NewElementActivity extends Activity {
 	private void saveElement (){
 		element.setName(eNameEdit.getText().toString());
 		element.setDescription(eDescEdit.getText().toString());
-		if (eWeightEdit.getText().toString().equals("")==false)element.setWeight(Integer.valueOf(eWeightEdit.getText().toString()).intValue());
+		//if (eWeightEdit.getText().toString().equals("")==false)element.setWeight(Integer.valueOf(eWeightEdit.getText().toString()).intValue());
 		switch (this.eRecyclableRadio.getCheckedRadioButtonId()){
 			case RADIO_NO :
 				element.setRecyclable(0);
@@ -118,8 +120,9 @@ public class NewElementActivity extends Activity {
 				element.setRecyclable(2);
 				break;
 		}
-		element.setMaterialCommon(this.eMaterialCommonEdit.getText().toString());
-		element.setMaterialScientific(this.eMaterialScientEdit.getText().toString());
+//		element.setMaterialCommon(this.eMaterialCommonEdit.getText().toString());
+//		element.setMaterialScientific(this.eMaterialScientEdit.getText().toString());
+		element.setPhotoId("/image/"+String.valueOf(element.getProductId())+"/element"+String.valueOf(element.getNumber()));
 		
 		if (eNameEdit.getText().toString() != null){
 			uploadElement();		
@@ -135,6 +138,7 @@ public class NewElementActivity extends Activity {
 	 * and then returns to the productDetailActivity
 	 */
 	private void uploadElement(){
+		//Upload the element in the DB using the ElementEditorService
 		Intent intent = new Intent (this, ElementEditorService.class);
 		intent.putExtra("element", element);
 		startService(intent);
@@ -142,6 +146,14 @@ public class NewElementActivity extends Activity {
 		intent.putExtra("product_id", element.getProductId());
 		intent.putExtra("load_info", false);
 		startActivity(intent);
+		
+		//Upload the photo on the server using the PictureUploaderService
+		if (!imagePath.isEmpty()){
+		intent = new Intent (this, PictureUploaderService.class);
+		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, element.getPhotoId());
+		intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
+		startActivity (intent);
+		}
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -149,9 +161,9 @@ public class NewElementActivity extends Activity {
 		if (requestCode == CODE_IMAGE_PATH){
 		switch (resultCode) {
 		case Activity.RESULT_OK :
-			String path = data.getStringExtra(TAG_IMAGE_PATH);
-			Log.d("main Activity result", "result is OK and image is loading with path : " + path);
-			File f = new File (path);
+			imagePath = data.getStringExtra(TAG_IMAGE_PATH);
+			Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
+			File f = new File (imagePath);
 			Picasso.with(this).load(f).centerInside().fit().into(photoView);
 			break;
 		}

@@ -45,7 +45,7 @@ public class ProductDetailActivity extends Activity {
 	private TextView pModelText;
 	private Button addElementButton;
 	
-	private static final String extansion = ".bmp";
+	private static final String extansion = ".png";
 	
 	public void onCreate (Bundle bundle){
 		super.onCreate(bundle);

@@ -44,6 +44,7 @@
         <activity android:name=".camera.MyCameraActivity"></activity>
         <service android:name=".model.ElementEditorService"></service>
         <service android:name=".model.ProductEditorService"></service>
+        <service android:name=".model.PictureUploaderService"></service>
     </application>
 
 </manifest>

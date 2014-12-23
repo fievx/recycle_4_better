@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.camera.MyCameraActivity;
+import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.model.ProductEditorService;
 import com.squareup.picasso.Picasso;
@@ -37,8 +38,9 @@ public class NewProductActivity extends Activity{
 	private static final int CODE_IMAGE_PATH = 1;
 	public static final String TAG_IMAGE_PATH = "image_path";
 	
+	
 	//a string to store the path once the user has taken a photo of the product
-	private String photoPath= "";
+	private String imagePath="";
 	
 	public void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -115,14 +117,14 @@ private void saveProduct (){
 	if (pBrandEdit.getText().toString().isEmpty() || pModelEdit.getText().toString().isEmpty()){
 		String a = getResources().getString(R.string.field_not_filled_text);
 		Toast.makeText(this, a, Toast.LENGTH_LONG).show();
-		if (photoPath.isEmpty()){
+		if (imagePath.isEmpty()){
 			String b = getResources().getString(R.string.no_product_photo_taken_text);
 			Toast.makeText(this, b, Toast.LENGTH_LONG).show();
 			return ;
 		}
 		return ;
 	}
-	if (photoPath.isEmpty()){
+	if (imagePath.isEmpty()){
 		String a = getResources().getString(R.string.no_product_photo_taken_text);
 		Toast.makeText(this, a, Toast.LENGTH_LONG).show();
 		return ;
@@ -131,12 +133,17 @@ private void saveProduct (){
 	//We store all the informations in the product
 	product.setBrand(pBrandEdit.getText().toString());
 	product.setModel(pModelEdit.getText().toString());
-	product.setPhotoId(photoPath);
+	product.setPhotoId("/images/"+String.valueOf(product.getpId())+"/product");
 	
 	//We upload the product using the ProductEditorService
 	Intent intent = new Intent (this, ProductEditorService.class);
 	intent.putExtra("product", product);
 	startService(intent);
+	
+	//We upload the image using the PictureUploaderService
+	intent = new Intent (this, PictureUploaderService.class);
+	intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, product.getPhotoId());
+	intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
 	
 	// We go back to the ProductDetailActivity and tell the activity to wait for the Receiver to receive succes from the service
 	intent = new Intent (this, ProductDetailActivity.class);
@@ -157,9 +164,9 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	if (requestCode == CODE_IMAGE_PATH){
 	switch (resultCode) {
 	case Activity.RESULT_OK :
-		String path = data.getStringExtra(TAG_IMAGE_PATH);
-		Log.d("main Activity result", "result is OK and image is loading with path : " + path);
-		File f = new File (path);
+		imagePath = data.getStringExtra(TAG_IMAGE_PATH);
+		Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
+		File f = new File (imagePath);
 		Picasso.with(this).load(f).centerInside().fit().into(photoView);
 		break;
 	}
