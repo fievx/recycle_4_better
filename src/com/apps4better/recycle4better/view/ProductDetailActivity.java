@@ -31,10 +31,18 @@ public class ProductDetailActivity extends Activity {
 	private Product product;
 	private int pId;
 	
+	/*
+	 *  the loadInfo boolean is used to tell the activity if it must download product information 
+	 *  if set to false, the Activity will not download the info
+	 *  We use it so that the activity will wait to receive an answer from either the ElementEditorService or
+	 *  ProductEditorService befor loading the product info
+	 */
+	private boolean loadInfo = true;
+	
 	private RelativeLayout layout;
 	private ImageView pPhotoView;
-	private TextView pNameText;
-	private TextView pDescText;
+	private TextView pBrandText;
+	private TextView pModelText;
 	private Button addElementButton;
 	
 	private static final String extansion = ".bmp";
@@ -44,7 +52,8 @@ public class ProductDetailActivity extends Activity {
 		context = this;
 
 		//We get the ProductId from the Intent
-		pId = getIntent().getIntExtra("product_id", 0);	
+		pId = getIntent().getIntExtra("product_id", 0);
+		loadInfo = getIntent().getBooleanExtra("load_info", true);
 
 		
 	}
@@ -53,7 +62,7 @@ public class ProductDetailActivity extends Activity {
 		super.onResume();
 		
 		//We call the GetProductDetailTask
-		new GetProductDetailTask(pId).execute();
+		if (loadInfo) new GetProductDetailTask(pId).execute();
 		LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("message"));
 		
 	}
@@ -86,25 +95,26 @@ public class ProductDetailActivity extends Activity {
 		
 		protected void onPostExecute (Void param){
 			product = loader.getProduct();
-			Log.d("debug recycler", "le produit contient "+String.valueOf(product.getElementCount()));
 			
 			//If the loader returns a non null product, we start the ProductDetailActivity and give it the 
 			//product as extra.
 			if (product != null){
+				Log.d("debug recycler", "le produit contient "+String.valueOf(product.getElementCount()));
+				
 				//We build the layout, first with the product details, and then the elements using the RecyclerView
 				layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
 				setContentView(layout);
 				pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
-				pNameText = (TextView) layout.findViewById(R.id.product_name_text_view);
-				pDescText =(TextView) layout.findViewById(R.id.product_desc_text_view);
+				pBrandText = (TextView) layout.findViewById(R.id.product_name_text_view);
+				pModelText =(TextView) layout.findViewById(R.id.product_desc_text_view);
 				addElementButton = (Button) layout.findViewById(R.id.add_element_button);
 				
 				// First the product
 				String imageUrl = context.getResources().getString(R.string.server_address)+product.getPhotoId()+extansion;
 				Log.d("picasso", imageUrl);
 				Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
-				pNameText.setText(product.getName());
-				pDescText.setText(product.getDescription());
+				pBrandText.setText(product.getBrand());
+				pModelText.setText(product.getModel());
 				
 				//We set a listener on the button
 				addElementButton.setOnClickListener(new OnClickListener (){
@@ -131,7 +141,9 @@ public class ProductDetailActivity extends Activity {
 			}
 			//we start the product not found activity
 			else {
-				
+				Intent intent = new Intent (context, NewProductActivity.class);
+				intent.putExtra("product_id", pId);
+				startActivity(intent);
 			}
 		}
 	}

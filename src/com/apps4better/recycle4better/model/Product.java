@@ -7,8 +7,8 @@ import android.os.Parcelable;
 
 public class Product implements Parcelable {
 	private ArrayList <Element> elementList = new ArrayList <Element>();
-	private String name ;
-	private String description;
+	private String brand ;
+	private String model;
 	private int pId;
 	private String photoId;
 	
@@ -24,8 +24,8 @@ public class Product implements Parcelable {
 	public Product(Parcel source) {
 		// TODO Auto-generated constructor stub
 		source.readList(elementList, null);
-		this.description = source.readString();
-		this.name = source.readString();
+		this.model = source.readString();
+		this.brand = source.readString();
 		this.photoId= source.readString();
 		this.pId = source.readInt();
 	}
@@ -35,8 +35,8 @@ public class Product implements Parcelable {
 		return elementList;
 	}
 
-	public String getName() {
-		return name;
+	public String getBrand() {
+		return brand;
 	}
 
 	public int getpId() {
@@ -47,8 +47,8 @@ public String getPhotoId() {
 		return photoId;
 	}
 
-public String getDescription(){
-	return description;
+public String getModel(){
+	return model;
 }
 
 public int getElementCount(){
@@ -68,8 +68,8 @@ public int getElementCount(){
 		this.elementList = elementList;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public void setpId(int pId) {
@@ -77,8 +77,8 @@ public int getElementCount(){
 	}
 
 	
-	public void setDescription (String desc){
-		description = desc;
+	public void setModel (String model){
+		this.model = model;
 	}
 	//////////////// Parcel Methods //////////////
 	
@@ -93,8 +93,8 @@ public int getElementCount(){
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
 		dest.writeList(elementList);
-		dest.writeString(description);
-		dest.writeString(name);
+		dest.writeString(model);
+		dest.writeString(brand);
 		dest.writeString(photoId);
 		dest.writeInt(pId);
 	}

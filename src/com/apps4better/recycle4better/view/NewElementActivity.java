@@ -1,32 +1,41 @@
 package com.apps4better.recycle4better.view;
 
+import java.io.File;
+
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.camera.MyCameraActivity;
 import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementEditorService;
+import com.squareup.picasso.Picasso;
 
-public class NewElementActivity extends Activity{
-	private Button addPhotoButton, saveElementButton;
+public class NewElementActivity extends Activity {
+	private Button saveElementButton;
 	private EditText eNameEdit, eDescEdit, eWeightEdit, eMaterialCommonEdit, eMaterialScientEdit;
 	private RadioGroup eRecyclableRadio;
+	private ImageView photoView;
 	private static final int RADIO_NO = R.id.radio_not_recyclable;
 	private static final int RADIO_YES = R.id.radio_recyclable;
 	private static final int RADIO_NOT_SURE = R.id.radio_not_sure;
 	private ScrollView layout;
+	
+	//Tags used for the camera implementation
+	public static final String TAG_CAMERA_FRAGMENT = "camera_fragment";
+	public static final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
+	private static final int CODE_IMAGE_PATH = 1;
+	public static final String TAG_IMAGE_PATH = "image_path";
 	
 	private Element element = new Element();
 	
@@ -41,38 +50,20 @@ public class NewElementActivity extends Activity{
 		layout = (ScrollView) ScrollView.inflate(this,R.layout.activity_add_element_layout, null);
 		
 		//We get all the widgets from the layout
-		this.addPhotoButton = (Button) layout.findViewById(R.id.add_element_picture_button);
 		this.saveElementButton = (Button) layout.findViewById(R.id.save_element_button);
 		this.eNameEdit = (EditText) layout.findViewById(R.id.element_name_edit_text);
 		this.eDescEdit = (EditText) layout.findViewById(R.id.element_descr_edit_text);
 		this.eRecyclableRadio = (RadioGroup) layout.findViewById(R.id.element_recyclable_radio_group);
-		
-		//We add listeners to the two buttons
-		addPhotoButton.setOnClickListener(new OnClickListener (){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				takePhoto();
-			}
-			
-		});
-		saveElementButton.setOnClickListener(new OnClickListener (){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				saveElement();
-			}
-			
-		});
+		this.photoView = (ImageView) layout.findViewById(R.id.element_image_view);
 		
 		setContentView(layout);
 	}
 	
 	
 	public void takePhoto (){
-		
+		Intent intent = new Intent (this, MyCameraActivity.class);
+		intent.putExtra("photo_name", "new_element"+String.valueOf(element.getNumber()));
+		startActivityForResult(intent, CODE_IMAGE_PATH);
 	}
 	
 	
@@ -81,7 +72,7 @@ public class NewElementActivity extends Activity{
 	    super.onResume();
 	    
 		//We add listeners to the two buttons
-		addPhotoButton.setOnClickListener(new OnClickListener (){
+	    photoView.setOnClickListener(new OnClickListener (){
 
 			@Override
 			public void onClick(View v) {
@@ -149,9 +140,23 @@ public class NewElementActivity extends Activity{
 		startService(intent);
 		intent = new Intent (this, ProductDetailActivity.class);
 		intent.putExtra("product_id", element.getProductId());
+		intent.putExtra("load_info", false);
 		startActivity(intent);
 	}
 	
-	
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    // Handle the logic for the requestCode, resultCode and data returned...
+		if (requestCode == CODE_IMAGE_PATH){
+		switch (resultCode) {
+		case Activity.RESULT_OK :
+			String path = data.getStringExtra(TAG_IMAGE_PATH);
+			Log.d("main Activity result", "result is OK and image is loading with path : " + path);
+			File f = new File (path);
+			Picasso.with(this).load(f).centerInside().fit().into(photoView);
+			break;
+		}
+		
+		}
+	}
 
 }

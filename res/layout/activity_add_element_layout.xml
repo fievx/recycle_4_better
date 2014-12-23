@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     >
 
-<RelativeLayout 
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
@@ -80,30 +80,35 @@
             android:layout_height="wrap_content"
             android:text="@string/new_element_recyclable_not_sure"
             android:textSize="13sp" />
-
     </RadioGroup>
 
-    <Button
-        android:id="@+id/add_element_picture_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/element_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@id/element_recyclable_radio_group"
-        android:text="@string/new_element_add_photo_button" />
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/add_photo_placeholder" />
 
+        <View
+        android:id="@+id/view1"
+        style="@style/Divider"
+        android:layout_below="@id/element_image_view"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp" />
+    
     <Button
         android:id="@+id/save_element_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/add_element_picture_button"
-        android:layout_toRightOf="@id/add_element_picture_button"
-        android:text="@string/save_element_button" />
+        android:layout_below="@id/view1"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/save"
+        android:text="@string/save_button" />
 
-        <View
-            android:id="@+id/view1"
-            style="@style/Divider"
-            android:layout_below="@id/add_element_picture_button"
-            android:layout_marginBottom="1dp"
-            android:layout_marginTop="1dp" />
 
 </RelativeLayout>
+
 </ScrollView>

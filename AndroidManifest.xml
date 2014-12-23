@@ -40,7 +40,10 @@
         <activity android:name=".view.ScannerActivity"></activity>
         <activity android:name=".view.ProductDetailActivity"></activity>
         <activity android:name=".view.NewElementActivity"></activity>
+        <activity android:name=".view.NewProductActivity"></activity>
+        <activity android:name=".camera.MyCameraActivity"></activity>
         <service android:name=".model.ElementEditorService"></service>
+        <service android:name=".model.ProductEditorService"></service>
     </application>
 
 </manifest>

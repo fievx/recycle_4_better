@@ -36,7 +36,8 @@ public class ElementsLoader {
     private static final String TAG_PRODUCT = "product";
     private static final String TAG_ELEMENT = "element";
     private static final String TAG_PRODUCT_ID = "product_id";
-    private static final String TAG_PRODUCT_NAME = "product_name";
+    private static final String TAG_PRODUCT_BRAND = "product_brand";
+    private static final String TAG_PRODUCT_MODEL = "product_model";
     private static final String TAG_PRODUCT_PHOTO = "product_photo_id";    
     private static final String TAG_ELEMENT_NUMBER = "element_number";
     private static final String TAG_ELEMENT_RECYCLABLE = "element_recyclable";
@@ -102,7 +103,8 @@ public class ElementsLoader {
                 
                 //We store the product informations in the Product Object
                 JSONObject productJSON = productObj.getJSONObject(0);
-                product.setName(productJSON.getString(TAG_PRODUCT_NAME));
+                product.setBrand(productJSON.getString(TAG_PRODUCT_BRAND));
+                product.setModel(productJSON.getString(TAG_PRODUCT_MODEL));
                 product.setpId(productJSON.getInt(TAG_PRODUCT_ID));
                 product.setPhotoId(productJSON.getString(TAG_PRODUCT_PHOTO));
                 
