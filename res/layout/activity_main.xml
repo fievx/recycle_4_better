@@ -64,7 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/codeResultText"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="number" >
 
         <requestFocus />
     </EditText>
@@ -73,9 +74,8 @@
         android:id="@+id/findButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/productIdTextField"
-        android:layout_below="@+id/productIdTextField"
-        android:layout_marginTop="22dp"
+        android:layout_alignBottom="@+id/productIdTextField"
+        android:layout_alignParentRight="true"
         android:text="Find" />
 
 </RelativeLayout>

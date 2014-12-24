@@ -151,18 +151,21 @@ public class NewElementActivity extends Activity {
 		Intent intent = new Intent (this, ElementEditorService.class);
 		intent.putExtra("element", element);
 		startService(intent);
-		intent = new Intent (this, ProductDetailActivity.class);
-		intent.putExtra("product_id", element.getProductId());
-		intent.putExtra("load_info", false);
-		startActivity(intent);
-		
+
 		//Upload the photo on the server using the PictureUploaderService
 		if (!imagePath.isEmpty()){
 		intent = new Intent (this, PictureUploaderService.class);
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber()));
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
-		startActivity (intent);
+		startService (intent);
 		}
+		
+		//Restart the product activity
+		intent = new Intent (this, ProductDetailActivity.class);
+		intent.putExtra("product_id", element.getProductId());
+		intent.putExtra("load_info", false);
+		startActivity(intent);
+		
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
