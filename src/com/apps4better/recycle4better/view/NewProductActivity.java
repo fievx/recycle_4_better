@@ -133,7 +133,7 @@ private void saveProduct (){
 	//We store all the informations in the product
 	product.setBrand(pBrandEdit.getText().toString());
 	product.setModel(pModelEdit.getText().toString());
-	product.setPhotoId("/images/"+String.valueOf(product.getpId())+"/product");
+	product.setPhotoId("/images/product_"+String.valueOf(product.getpId())+"_product");
 	
 	//We upload the product using the ProductEditorService
 	Intent intent = new Intent (this, ProductEditorService.class);
@@ -142,8 +142,9 @@ private void saveProduct (){
 	
 	//We upload the image using the PictureUploaderService
 	intent = new Intent (this, PictureUploaderService.class);
-	intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, product.getPhotoId());
+	intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(product.getpId())+"_product");
 	intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
+	startService (intent);
 	
 	// We go back to the ProductDetailActivity and tell the activity to wait for the Receiver to receive succes from the service
 	intent = new Intent (this, ProductDetailActivity.class);

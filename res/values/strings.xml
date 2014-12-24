@@ -10,7 +10,7 @@
     <string name="element_name_label">Element : </string>
     <string name="element_name_textview"/>
     <string name="element_recyclable_label">Recyclable :</string>
-    <string name="server_address">http://10.1.1.2/recycle_4_better</string>
+    <string name="server_address">http://10.1.1.10/recycle_4_better</string>
     <string name="add_element_button_text">Add an element</string>
 	<string name="new_element_name_label">Element name:</string>
 	<string name="new_element_description_label">Description:</string>
@@ -26,7 +26,8 @@
 	<string name="new_element_name_hint">A simple name to identify the element</string>
 	<string name="new_element_description_hint">A more complete description of the element so that other users can easily identify it.</string>
 	<string name="save_button">Save</string>
-	<string name="no_name_entered_toast">Hey, you forgot to give a name to your element. That\'s kinda important so do it please. =)</string>
+	<string name="no_name_entered_toast">Give a name to the element.</string>
+	<string name="no_photo_taken_toast">Add a photo of the element.</string>
 	<string name="element_save_success">Element was successfully saved.</string>
 	<string name="element_save_failure">There was an error while saving this element. Check your internet connection and try again.</string>
 	<string name="element_edit_success">Element was successfully edited.</string>

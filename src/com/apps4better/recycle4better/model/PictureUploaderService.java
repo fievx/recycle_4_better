@@ -12,13 +12,14 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.apps4better.recycle4better.R;
 
 public class PictureUploaderService extends IntentService{
 	 // URL to upload image
     private String serverAddress = "";
-    private String serverUrl = "";
+    private String serverUrl = "/upload_photo.php";
     
 	String imageName;
 	String imageFileName ;
@@ -29,11 +30,16 @@ public class PictureUploaderService extends IntentService{
     public static final String TAG_IMAGE_PATH = "image_path";
     
     private ByteArrayOutputStream bStream;
+    private int serverResponseCode = 0;
 	
 	
 	public PictureUploaderService(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
+	}
+	
+	public PictureUploaderService (){
+		super("PictureUploaderService");
 	}
 
 
@@ -47,13 +53,15 @@ public class PictureUploaderService extends IntentService{
 		imagePath = intent.getStringExtra(TAG_IMAGE_PATH);
 		imageName = intent.getStringExtra (TAG_IMAGE_NAME);
 		imageFileName = imageName + extension;
+		Log.d("PictureUploader", "picture full name is :" +imageFileName);
 		
 		//compress the image
 		if (compress(imagePath)){
+			Log.d("PictureUploader", "conversion success,starting upload now");
+			//upload it to the server
 			upload ();
 		}
-		
-		//upload it to the server
+		else Log.d("PictureUploader", "Conversion failed");
 	}
 
 	/**
@@ -91,7 +99,7 @@ public class PictureUploaderService extends IntentService{
 			DataOutputStream request = new DataOutputStream(httpUrlConnection.getOutputStream());
 
 			request.writeBytes(twoHyphens + boundary + crlf);
-			request.writeBytes("Content-Disposition: form-data; name=\"" + this.imageName + "\";filename=\"" + this.imageFileName + "\"" + crlf);
+			request.writeBytes("Content-Disposition: form-data; name=\"uploaded_file\";filename=\"" + this.imageFileName + "\"" + crlf);
 			request.writeBytes(crlf);
 			
 			//we write the ByteArrayOutputStream in the request
@@ -100,6 +108,17 @@ public class PictureUploaderService extends IntentService{
 			//end content wrapper
 			request.writeBytes(crlf);
 			request.writeBytes(twoHyphens + boundary + twoHyphens + crlf);
+			
+			 // Response code from the server
+            serverResponseCode = httpUrlConnection.getResponseCode();
+            if(serverResponseCode == 200){
+                Log.d("PictureUploader","Server responded OK after upload");              
+            }   
+            
+          //close the streams //
+            bStream.close();
+            request.flush();
+            request.close();
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

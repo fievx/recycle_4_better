@@ -122,14 +122,23 @@ public class NewElementActivity extends Activity {
 		}
 //		element.setMaterialCommon(this.eMaterialCommonEdit.getText().toString());
 //		element.setMaterialScientific(this.eMaterialScientEdit.getText().toString());
-		element.setPhotoId("/image/"+String.valueOf(element.getProductId())+"/element"+String.valueOf(element.getNumber()));
+		element.setPhotoId("/image/product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber()));
 		
-		if (eNameEdit.getText().toString() != null){
+		//Check that a name is entered and a photo is added. If not, displays Toasts.
+		if (eNameEdit.getText().toString() != null && !imagePath.equals("")){
 			uploadElement();		
 	}
-		else {
+		else if (eNameEdit.getText().toString() == null){
 			String a = getResources().getString(R.string.no_name_entered_toast);
 			Toast.makeText(this,a , Toast.LENGTH_SHORT).show();
+			if (imagePath.equals("")){
+				String b = getResources().getString(R.string.no_photo_taken_toast);
+				Toast.makeText(this,b , Toast.LENGTH_SHORT).show();
+			}
+		}
+		else if (imagePath.equals("")){
+			String b = getResources().getString(R.string.no_photo_taken_toast);
+			Toast.makeText(this,b , Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -150,7 +159,7 @@ public class NewElementActivity extends Activity {
 		//Upload the photo on the server using the PictureUploaderService
 		if (!imagePath.isEmpty()){
 		intent = new Intent (this, PictureUploaderService.class);
-		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, element.getPhotoId());
+		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber()));
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
 		startActivity (intent);
 		}
