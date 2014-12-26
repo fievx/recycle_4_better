@@ -3,17 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-<RelativeLayout
+<RelativeLayout
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
     
-<RelativeLayout
-    android:id="@+id/fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-
-</RelativeLayout>   
+ 
     
 <RelativeLayout
     android:layout_width="match_parent"
@@ -121,7 +116,12 @@
 
 
 </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
+</RelativeLayout>  
 
 </RelativeLayout>
 

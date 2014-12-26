@@ -276,7 +276,7 @@ int id action_mode_close_button 0x7f0a002b
 int id action_settings 0x7f0a0099
 int id activity_chooser_view_content 0x7f0a002c
 int id add_element_button 0x7f0a0069
-int id add_product_button 0x7f0a0054
+int id add_product_button 0x7f0a0053
 int id always 0x7f0a0016
 int id app_picker_list_item_icon 0x7f0a006b
 int id app_picker_list_item_label 0x7f0a006c
@@ -312,10 +312,10 @@ int id expanded_menu 0x7f0a0033
 int id findButton 0x7f0a0064
 int id firstLine 0x7f0a0086
 int id footerLayout 0x7f0a005c
-int id formLayout 0x7f0a0055
+int id formLayout 0x7f0a0054
 int id format_text_view 0x7f0a0073
 int id fragment_container 0x7f0a0044
-int id fragment_frame 0x7f0a0051
+int id fragment_frame 0x7f0a005b
 int id help_contents 0x7f0a0081
 int id history_detail 0x7f0a0083
 int id history_title 0x7f0a0082
@@ -325,7 +325,7 @@ int id icon 0x7f0a0031
 int id ifRoom 0x7f0a0018
 int id image 0x7f0a002e
 int id image_view 0x7f0a007c
-int id instructionTextView 0x7f0a0056
+int id instructionTextView 0x7f0a0055
 int id launch_product_query 0x7f0a0003
 int id listMode 0x7f0a000d
 int id list_item 0x7f0a0030
@@ -349,10 +349,10 @@ int id page_number_view 0x7f0a008b
 int id photo_view 0x7f0a007f
 int id preview_view 0x7f0a006f
 int id productIdTextField 0x7f0a0063
-int id product_brand_edit_text 0x7f0a0057
+int id product_brand_edit_text 0x7f0a0056
 int id product_desc_text_view 0x7f0a0068
-int id product_image_view 0x7f0a0059
-int id product_model_edit_text 0x7f0a0058
+int id product_image_view 0x7f0a0058
+int id product_model_edit_text 0x7f0a0057
 int id product_name_text_view 0x7f0a0067
 int id product_photo_image_view 0x7f0a0066
 int id product_view_header 0x7f0a0065
@@ -375,7 +375,7 @@ int id retake_photo_button 0x7f0a007d
 int id return_scan_result 0x7f0a0006
 int id save_button 0x7f0a007e
 int id save_element_button 0x7f0a004f
-int id save_product_button 0x7f0a005b
+int id save_product_button 0x7f0a005a
 int id search_badge 0x7f0a0039
 int id search_bar 0x7f0a0038
 int id search_button 0x7f0a003a
@@ -387,7 +387,7 @@ int id search_plate 0x7f0a003d
 int id search_src_text 0x7f0a003e
 int id search_voice_btn 0x7f0a0042
 int id secondLine 0x7f0a0085
-int id seperator1 0x7f0a005a
+int id seperator1 0x7f0a0059
 int id share_app_button 0x7f0a008d
 int id share_bookmark_button 0x7f0a008e
 int id share_clipboard_button 0x7f0a0090
@@ -405,10 +405,10 @@ int id submit_area 0x7f0a0040
 int id tabMode 0x7f0a000f
 int id textView1 0x7f0a0045
 int id textView2 0x7f0a0047
-int id textView3 0x7f0a0053
+int id textView3 0x7f0a0052
 int id time_text_view 0x7f0a0075
 int id title 0x7f0a0032
-int id topLayout 0x7f0a0052
+int id topLayout 0x7f0a0051
 int id top_action_bar 0x7f0a0027
 int id type_text_view 0x7f0a0074
 int id up 0x7f0a0028

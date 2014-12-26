@@ -1129,7 +1129,7 @@ containing a value of this type.
         public static final int action_settings=0x7f0a0099;
         public static final int activity_chooser_view_content=0x7f0a002c;
         public static final int add_element_button=0x7f0a0069;
-        public static final int add_product_button=0x7f0a0054;
+        public static final int add_product_button=0x7f0a0053;
         public static final int always=0x7f0a0016;
         public static final int app_picker_list_item_icon=0x7f0a006b;
         public static final int app_picker_list_item_label=0x7f0a006c;
@@ -1165,10 +1165,10 @@ containing a value of this type.
         public static final int findButton=0x7f0a0064;
         public static final int firstLine=0x7f0a0086;
         public static final int footerLayout=0x7f0a005c;
-        public static final int formLayout=0x7f0a0055;
+        public static final int formLayout=0x7f0a0054;
         public static final int format_text_view=0x7f0a0073;
         public static final int fragment_container=0x7f0a0044;
-        public static final int fragment_frame=0x7f0a0051;
+        public static final int fragment_frame=0x7f0a005b;
         public static final int help_contents=0x7f0a0081;
         public static final int history_detail=0x7f0a0083;
         public static final int history_title=0x7f0a0082;
@@ -1178,7 +1178,7 @@ containing a value of this type.
         public static final int ifRoom=0x7f0a0018;
         public static final int image=0x7f0a002e;
         public static final int image_view=0x7f0a007c;
-        public static final int instructionTextView=0x7f0a0056;
+        public static final int instructionTextView=0x7f0a0055;
         public static final int launch_product_query=0x7f0a0003;
         public static final int listMode=0x7f0a000d;
         public static final int list_item=0x7f0a0030;
@@ -1202,10 +1202,10 @@ containing a value of this type.
         public static final int photo_view=0x7f0a007f;
         public static final int preview_view=0x7f0a006f;
         public static final int productIdTextField=0x7f0a0063;
-        public static final int product_brand_edit_text=0x7f0a0057;
+        public static final int product_brand_edit_text=0x7f0a0056;
         public static final int product_desc_text_view=0x7f0a0068;
-        public static final int product_image_view=0x7f0a0059;
-        public static final int product_model_edit_text=0x7f0a0058;
+        public static final int product_image_view=0x7f0a0058;
+        public static final int product_model_edit_text=0x7f0a0057;
         public static final int product_name_text_view=0x7f0a0067;
         public static final int product_photo_image_view=0x7f0a0066;
         public static final int product_view_header=0x7f0a0065;
@@ -1228,7 +1228,7 @@ containing a value of this type.
         public static final int return_scan_result=0x7f0a0006;
         public static final int save_button=0x7f0a007e;
         public static final int save_element_button=0x7f0a004f;
-        public static final int save_product_button=0x7f0a005b;
+        public static final int save_product_button=0x7f0a005a;
         public static final int search_badge=0x7f0a0039;
         public static final int search_bar=0x7f0a0038;
         public static final int search_button=0x7f0a003a;
@@ -1240,7 +1240,7 @@ containing a value of this type.
         public static final int search_src_text=0x7f0a003e;
         public static final int search_voice_btn=0x7f0a0042;
         public static final int secondLine=0x7f0a0085;
-        public static final int seperator1=0x7f0a005a;
+        public static final int seperator1=0x7f0a0059;
         public static final int share_app_button=0x7f0a008d;
         public static final int share_bookmark_button=0x7f0a008e;
         public static final int share_clipboard_button=0x7f0a0090;
@@ -1258,10 +1258,10 @@ containing a value of this type.
         public static final int tabMode=0x7f0a000f;
         public static final int textView1=0x7f0a0045;
         public static final int textView2=0x7f0a0047;
-        public static final int textView3=0x7f0a0053;
+        public static final int textView3=0x7f0a0052;
         public static final int time_text_view=0x7f0a0075;
         public static final int title=0x7f0a0032;
-        public static final int topLayout=0x7f0a0052;
+        public static final int topLayout=0x7f0a0051;
         public static final int top_action_bar=0x7f0a0027;
         public static final int type_text_view=0x7f0a0074;
         public static final int up=0x7f0a0028;
