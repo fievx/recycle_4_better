@@ -36,6 +36,8 @@ public class ElementEditorService extends IntentService{
     private static final String TAG_ELEMENT_MATERIAL_SCIENTIFIC = "element_material_scientific";
     private static final String TAG_ELEMENT_WEIGHT = "element_weight";
     private static final String TAG_ELEMENT_TRUST = "element_trust_score";
+    
+	public static final String  CODE_ELEMENT_UPLOAD = "element_upload";
 
 	public ElementEditorService() {
 		super("ElementEditorService");
@@ -98,7 +100,7 @@ public class ElementEditorService extends IntentService{
 	 * Uses a LocalBroadcastManager to send the status of the upload
 	 */
 	private void sendBroadcast (boolean success){
-		Intent intent = new Intent ("message");
+		Intent intent = new Intent (CODE_ELEMENT_UPLOAD);
 		intent.putExtra("success", success);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 	}

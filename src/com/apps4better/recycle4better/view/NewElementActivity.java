@@ -3,8 +3,12 @@ package com.apps4better.recycle4better.view;
 import java.io.File;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,6 +42,10 @@ public class NewElementActivity extends Activity {
 	private static final int CODE_IMAGE_PATH = 1;
 	public static final String TAG_IMAGE_PATH = "image_path";
 	private String imagePath="";
+	
+	private boolean elementUploaded = false;
+	private boolean pictureUploaded = false;
+
 	
 	private Element element = new Element();
 	
@@ -93,11 +101,24 @@ public class NewElementActivity extends Activity {
 			
 		});
 		
+		//We register the broadcast recievers
+		LocalBroadcastManager.getInstance(this).registerReceiver(elementUploadReceiver, new IntentFilter (ElementEditorService.CODE_ELEMENT_UPLOAD));
+		LocalBroadcastManager.getInstance(this).registerReceiver(pictureUploadReceiver, new IntentFilter (PictureUploaderService.CODE_IMAGE_UPLOAD));
 	  }
-	
 
 	
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(elementUploadReceiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(pictureUploadReceiver);
+	}
+	
+	
+
+
 	/*
 	 * Method save element perfoms all the checks on the form and calls
 	 * SaveElementTask if successfull
@@ -160,11 +181,9 @@ public class NewElementActivity extends Activity {
 		startService (intent);
 		}
 		
-		//Restart the product activity
-		intent = new Intent (this, ProductDetailActivity.class);
-		intent.putExtra("product_id", element.getProductId());
-		intent.putExtra("load_info", false);
-		startActivity(intent);
+		//place the spinner fragment while the element and the picture are being uploaded
+		SpinnerFragment spin = new SpinnerFragment();
+		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin).commit();
 		
 	}
 	
@@ -183,4 +202,63 @@ public class NewElementActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Start the ProductDetailActivity and specify wether it should update the product detail 
+	 * at start of the activity
+	 * @param loadInfo
+	 */
+	private void startProductDetailActivity (boolean loadInfo){
+		// We go back to the ProductDetailActivity and tell the activity to wait for the Receiver to receive succes from the service
+		Intent i = new Intent (this, ProductDetailActivity.class);
+		i.putExtra("product_id", element.getProductId());
+		i.putExtra("load_info", loadInfo);
+		startActivity(i);
+	}
+	
+	/**
+	 * We need a receiver to handle the broadcast sent from the ProductEditorService
+	 * 
+	 */
+		private BroadcastReceiver  elementUploadReceiver = new BroadcastReceiver(){
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				// TODO Auto-generated method stub
+				
+				//If the element was successfully saved, display a succes toast and start ProductDetailActivity
+				if (intent.getExtras().getBoolean("success")){
+					elementUploaded = true;
+					if (pictureUploaded == true && elementUploaded == true){
+						startProductDetailActivity (true);
+					}
+				}
+				else {
+					String message = context.getResources().getString(R.string.element_edit_failure);
+					Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+				}
+					
+				
+			}
+			
+		};	
+		
+	private BroadcastReceiver pictureUploadReceiver = new BroadcastReceiver (){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
+			if (intent.getExtras().getBoolean("success")){
+				pictureUploaded = true;
+				if (pictureUploaded == true && elementUploaded == true){
+					startProductDetailActivity (true);
+				}
+			}
+			else {
+				String message = context.getResources().getString(R.string.picture_upload_failure);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+			}
+		}
+	
+};
 }

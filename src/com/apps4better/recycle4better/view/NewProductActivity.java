@@ -3,8 +3,12 @@ package com.apps4better.recycle4better.view;
 import java.io.File;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +23,7 @@ import com.apps4better.recycle4better.camera.MyCameraActivity;
 import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.model.ProductEditorService;
+import com.apps4better.recycle4better.view.ProductDetailActivity.GetProductDetailTask;
 import com.squareup.picasso.Picasso;
 
 public class NewProductActivity extends Activity{
@@ -37,6 +42,8 @@ public class NewProductActivity extends Activity{
 	public static final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
 	private static final int CODE_IMAGE_PATH = 1;
 	public static final String TAG_IMAGE_PATH = "image_path";
+	private boolean productUploaded = false;
+	private boolean pictureUploaded = false;
 	
 	
 	//a string to store the path once the user has taken a photo of the product
@@ -68,7 +75,7 @@ public class NewProductActivity extends Activity{
 	public void onResume (){
 		super.onResume();
 		
-		//We set here all the listeners
+		//We set here all the listeners on the buttons
 		addProductButton.setOnClickListener(new OnClickListener (){
 
 			@Override
@@ -96,10 +103,17 @@ public class NewProductActivity extends Activity{
 			}
 			
 		});
+		
+		//Listeners on the Broadcast receivers
+		LocalBroadcastManager.getInstance(this).registerReceiver(productUploadReceiver, new IntentFilter(ProductEditorService.CODE_PRODUCT_UPLOAD));
+		LocalBroadcastManager.getInstance(this).registerReceiver(pictureUploadReceiver, new IntentFilter(PictureUploaderService.CODE_IMAGE_UPLOAD));
 	}
-
 	
-	
+	protected void onPause (){
+		super.onPause();
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(productUploadReceiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(pictureUploadReceiver);
+	}
 	
 	private void showForm (){
 		if (formVisible == false){
@@ -146,13 +160,14 @@ private void saveProduct (){
 	intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
 	startService (intent);
 	
-	// We go back to the ProductDetailActivity and tell the activity to wait for the Receiver to receive succes from the service
-	intent = new Intent (this, ProductDetailActivity.class);
-	intent.putExtra("product_id", product.getpId());
-	intent.putExtra("load_info", false);
-	startActivity(intent);
+	//We start the spinner fragment while the picture and the product info are being uploaded
+	SpinnerFragment spin = new SpinnerFragment ();
+	getFragmentManager().beginTransaction().add(R.id.fragment_frame, spin, "spinner_tag").commit();
 }
 
+/**
+ * Start an intent of MyCameraActivity and waits for result.
+ */
 public void takePhoto (){
 	Intent intent = new Intent (this, MyCameraActivity.class);
 	intent.putExtra("photo_name", "new_product"+String.valueOf(product.getpId()));
@@ -162,17 +177,78 @@ public void takePhoto (){
 
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     // Handle the logic for the requestCode, resultCode and data returned...
-	if (requestCode == CODE_IMAGE_PATH){
-	switch (resultCode) {
-	case Activity.RESULT_OK :
-		imagePath = data.getStringExtra(TAG_IMAGE_PATH);
-		Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
-		File f = new File (imagePath);
-		Picasso.with(this).load(f).centerInside().fit().into(photoView);
+	switch (requestCode){
+	case   CODE_IMAGE_PATH :
+		if (resultCode == Activity.RESULT_OK ){
+			imagePath = data.getStringExtra(TAG_IMAGE_PATH);
+			Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
+			File f = new File (imagePath);
+			Picasso.with(this).load(f).centerInside().fit().into(photoView);
+		}
 		break;
-	}
 	
 	}
 }
+
+/**
+ * Start the ProductDetailActivity and specify wether it should update the product detail 
+ * at start of the activity
+ * @param loadInfo
+ */
+private void startProductDetailActivity (boolean loadInfo){
+	// We go back to the ProductDetailActivity and tell the activity to wait for the Receiver to receive succes from the service
+	Intent i = new Intent (this, ProductDetailActivity.class);
+	i.putExtra("product_id", product.getpId());
+	i.putExtra("load_info", loadInfo);
+	startActivity(i);
+}
+
+/**
+ * We need a receiver to handle the broadcast sent from the ProductEditorService
+ * 
+ */
+	private BroadcastReceiver  productUploadReceiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
+			if (intent.getExtras().getBoolean("success")){
+				productUploaded = true;
+				if (pictureUploaded == true && productUploaded == true){
+					startProductDetailActivity (true);
+				}
+			}
+			else {
+				String message = context.getResources().getString(R.string.element_edit_failure);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+			}
+				
+			
+		}
+		
+	};	
+
+
+	private BroadcastReceiver pictureUploadReceiver = new BroadcastReceiver (){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
+			if (intent.getExtras().getBoolean("success")){
+				pictureUploaded = true;
+				if (pictureUploaded == true && productUploaded == true){
+					startProductDetailActivity (true);
+				}
+			}
+			else {
+				String message = context.getResources().getString(R.string.picture_upload_failure);
+				Toast.makeText(context,message , Toast.LENGTH_SHORT).show();
+			}
+		}
+	
+};
 
 }

@@ -32,6 +32,7 @@
 	<string name="element_save_failure">There was an error while saving this element. Check your internet connection and try again.</string>
 	<string name="element_edit_success">Element was successfully edited.</string>
 	<string name="element_edit_failure">There was an error while editing this element. Check your internet connection and try again.</string>
+	<string name="picture_upload_failure">There was an error while uploading the picture. Check your internet connection and try again.</string>
 	<string name="product_brand_label">Brand</string>
 	<string name="product_model_label">Model</string>
 	<string name="add_product_button_text">Add a Product</string>

@@ -12,9 +12,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.view.NewProductActivity;
 
 public class PictureUploaderService extends IntentService{
 	 // URL to upload image
@@ -31,6 +33,8 @@ public class PictureUploaderService extends IntentService{
     
     private ByteArrayOutputStream bStream;
     private int serverResponseCode = 0;
+    
+    public static final String CODE_IMAGE_UPLOAD = "image_upload";
 	
 	
 	public PictureUploaderService(String name) {
@@ -112,7 +116,8 @@ public class PictureUploaderService extends IntentService{
 			 // Response code from the server
             serverResponseCode = httpUrlConnection.getResponseCode();
             if(serverResponseCode == 200){
-                Log.d("PictureUploader","Server responded OK after upload");              
+                Log.d("PictureUploader","Server responded OK after upload");
+                sendBroadcast (true);
             }   
             
           //close the streams //
@@ -123,13 +128,23 @@ public class PictureUploaderService extends IntentService{
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			sendBroadcast (false);
 		} catch (ProtocolException e){
-			
+			sendBroadcast (false);
 		} catch (IOException e){
-			
+			sendBroadcast (false);
 		} finally {
 			
 		}
 
+	}
+
+	/*
+	 * Uses a LocalBroadcastManager to send the status of the upload
+	 */
+	private void sendBroadcast (boolean success){
+		Intent intent = new Intent (CODE_IMAGE_UPLOAD);
+		intent.putExtra("success", success);
+		LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 	}
 }

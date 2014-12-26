@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.view.NewProductActivity;
 
 public class ProductEditorService extends IntentService{
 	private Product product;
@@ -30,6 +31,8 @@ public class ProductEditorService extends IntentService{
     private static final String TAG_PRODUCT_BRAND = "product_brand";
     private static final String TAG_PRODUCT_MODEL = "product_model";
     private static final String TAG_PHOTO_ID = "product_photo_id";
+    
+    public static final String  CODE_PRODUCT_UPLOAD = "product_upload";
 
 
 	public ProductEditorService() {
@@ -87,7 +90,7 @@ public class ProductEditorService extends IntentService{
 	 * Uses a LocalBroadcastManager to send the status of the upload
 	 */
 	private void sendBroadcast (boolean success){
-		Intent intent = new Intent ("message");
+		Intent intent = new Intent (CODE_PRODUCT_UPLOAD);
 		intent.putExtra("success", success);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 	}

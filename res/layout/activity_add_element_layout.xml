@@ -3,7 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+<RelativeLayout
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    
+<RelativeLayout
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
 
+</RelativeLayout>   
+    
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -107,6 +118,9 @@
         android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/save"
         android:text="@string/save_button" />
+
+
+</RelativeLayout>
 
 
 </RelativeLayout>
