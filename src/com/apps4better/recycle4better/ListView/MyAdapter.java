@@ -1,11 +1,11 @@
 package com.apps4better.recycle4better.ListView;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +20,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
   // Provide a reference to the views for each data item
   // Complex data items may need more than one view per item, and
   // you provide access to all the views for a data item in a view holder
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
     // each data item is just a string in this case
     public TextView txtElementName;
     public ImageView elementIcon;
@@ -32,6 +32,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
       elementIcon = (ImageView) v.findViewById(R.id.icon);
       recyclableTick = (ImageView) v.findViewById(R.id.recyclable_imageview);
     }
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+    
   }
 
   public void add(int position, Element item) {

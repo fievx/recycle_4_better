@@ -42,5 +42,7 @@
 	<string name="new_product_instruction_text">Please fill all fields and add a picture of the whole product.</string>
 	<string name="retake_photo">Retake photo</string>
 	<string name="shutter_text">Click</string>
+	<string name="trust_score">Trust Score</string>
+	<string name="edit">Edit</string>
 	
 </resources>
