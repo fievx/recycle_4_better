@@ -73,6 +73,7 @@ public class ElementEditorService extends IntentService{
 	        	params.add(new BasicNameValuePair(TAG_ELEMENT_MATERIAL_SCIENTIFIC, element.getMaterialScientific()));
 	        	params.add(new BasicNameValuePair(TAG_ELEMENT_MATERIAL_COMMON, element.getMaterialCommon()));
 	        	params.add(new BasicNameValuePair(TAG_ELEMENT_WEIGHT, String.valueOf(element.getWeight())));
+	        	params.add(new BasicNameValuePair(TAG_ELEMENT_TRUST, String.valueOf(element.getTrustScore())));
 
 	            // getting product details by making HTTP request
 	            // Note that product details url will use GET request

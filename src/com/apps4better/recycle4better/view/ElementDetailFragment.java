@@ -2,9 +2,11 @@ package com.apps4better.recycle4better.view;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.model.Element;
+import com.apps4better.recycle4better.model.ElementEditorService;
 import com.squareup.picasso.Picasso;
 
 public class ElementDetailFragment extends Fragment {
@@ -77,6 +80,46 @@ public class ElementDetailFragment extends Fragment {
 		return layout;
 	}
 	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		editButton.setOnClickListener (new OnClickListener (){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				edit ();
+			}
+			
+		});
+		upVoteButton.setOnClickListener(new OnClickListener (){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				upVote();
+			}
+			
+		});
+		downVoteButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				downVote ();
+			}
+			
+		});
+	
+	}
+
 	/**
 	 * Returns an intance of ElementDetailFragment with a Bundle as Argument. 
 	 * The Element in param is passed in the bundle.
@@ -90,5 +133,30 @@ public class ElementDetailFragment extends Fragment {
 		frag.setArguments(bundle);
 		return frag;
 	}
+
+	private void upVote(){
+		this.element.setTrustScore(this.element.getTrustScore()+1);
+		Intent intent = new Intent (activity, ElementEditorService.class);
+		intent.putExtra("element", this.element);
+		activity.startService(intent);
+		
+		//We update the score on the display
+		this.eTrustText.setText(String.valueOf(element.getTrustScore()));
+	}
+	
+	private void downVote (){
+		this.element.setTrustScore(this.element.getTrustScore()-1);
+		Intent intent = new Intent (activity, ElementEditorService.class);
+		intent.putExtra("element", this.element);
+		activity.startService(intent);
+		
+		//We update the score on the display
+		this.eTrustText.setText(String.valueOf(element.getTrustScore()));
+	}
+
+
+private void edit (){
+	
+}
 
 }
