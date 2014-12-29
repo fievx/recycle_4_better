@@ -60,8 +60,6 @@ public class NewElementActivity extends Activity {
 		//get the infos from the Intent.
 		Bundle extras = getIntent().getExtras();
 		element = extras.getParcelable(TAG_ELEMENT);
-		element.setProductId(extras.getInt(TAG_PRODUCT_ID));
-		element.setNumber(extras.getInt(TAG_ELEMENT_NUMBER));
 		
 		layout = (ScrollView) ScrollView.inflate(this,R.layout.activity_add_element_layout, null);
 		
@@ -175,7 +173,7 @@ public class NewElementActivity extends Activity {
 		}
 //		element.setMaterialCommon(this.eMaterialCommonEdit.getText().toString());
 //		element.setMaterialScientific(this.eMaterialScientEdit.getText().toString());
-		element.setPhotoId("/image/product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber()));
+		element.setPhotoId("/images/product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber()));
 		
 		//Check that a name is entered and a photo is added. If not, displays Toasts.
 		if (eNameEdit.getText().toString() != null && !imagePath.equals("")){

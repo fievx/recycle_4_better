@@ -3,6 +3,7 @@ package com.apps4better.recycle4better.ListView;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,8 +91,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     
     //We construct the image Url based on the server address from the resources and the image id.
     //Then we use picasso to load and display the image.
-    String imageUrl = holder.elementIcon.getContext().getResources().getString(R.string.server_address) + element.getPhotoId() + ".png";
-    Picasso.with(holder.elementIcon.getContext()).load(imageUrl).into(holder.elementIcon);
+    String imageUrl = activity.getResources().getString(R.string.server_address) + element.getPhotoId() + ".png";
+    Drawable placeHolder = activity.getResources().getDrawable(R.drawable.no_photo_placeholder);
+    Picasso.with(activity).load(imageUrl).placeholder(placeHolder).into(holder.elementIcon);
     
     //we test to see if the element is recyclable and display the correct logo
     if (element.getRecyclable()==1){

@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/product_photo_image_view"
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            android:layout_width="120dp"
+            android:layout_height="120dp" />
 
         <TextView
             android:id="@+id/product_name_text_view"
@@ -41,8 +41,9 @@
             android:id="@+id/add_element_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/product_photo_image_view"
             android:layout_alignLeft="@id/product_name_text_view"
-            android:layout_below="@id/product_desc_text_view"
+            android:drawableLeft="@drawable/plus"
             android:text="@string/add_element_button_text" />
 
     </RelativeLayout>

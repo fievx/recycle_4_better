@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,7 +28,8 @@ public class ElementDetailFragment extends Fragment {
 	
 	private ImageView ePictureView, eRecyclable;
 	private TextView eNameText, eDescText, eTrustText;
-	private Button editButton, upVoteButton, downVoteButton;
+	private Button editButton; 
+	private ImageButton upVoteButton, downVoteButton;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -51,8 +53,8 @@ public class ElementDetailFragment extends Fragment {
 		eDescText = (TextView) layout.findViewById(R.id.element_description_text_view);
 		eTrustText = (TextView) layout.findViewById(R.id.element_trust_score_text);
 		editButton = (Button) layout.findViewById(R.id.element_edit_button);
-		upVoteButton = (Button) layout.findViewById(R.id.element_upvote_button);
-		downVoteButton = (Button) layout.findViewById(R.id.element_down_vote_button);
+		upVoteButton = (ImageButton) layout.findViewById(R.id.element_upvote_button);
+		downVoteButton = (ImageButton) layout.findViewById(R.id.element_down_vote_button);
 		
 		//We create the view with all the variables from the Element
 		// the element image loaded via Picasso

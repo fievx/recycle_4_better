@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.ListView.MyAdapter;
 import com.apps4better.recycle4better.ListView.MyAdapterListener;
+import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementsLoader;
 import com.apps4better.recycle4better.model.Product;
 import com.squareup.picasso.Picasso;
@@ -124,9 +125,11 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						Element e = new Element();
+						e.setNumber(product.getElementList().size()+1);
+						e.setProductId(product.getpId());
 						Intent intent = new Intent (context, NewElementActivity.class);
-						intent.putExtra("elementNumber",product.getElementList().size()+1);
-						intent.putExtra("pId", product.getpId());
+						intent.putExtra(NewElementActivity.TAG_ELEMENT, e);
 						startActivity(intent);
 						
 					}
