@@ -1,6 +1,7 @@
 package com.apps4better.recycle4better.view;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +23,12 @@ import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.ListView.MyAdapter;
+import com.apps4better.recycle4better.ListView.MyAdapterListener;
 import com.apps4better.recycle4better.model.ElementsLoader;
 import com.apps4better.recycle4better.model.Product;
 import com.squareup.picasso.Picasso;
 
-public class ProductDetailActivity extends Activity {
+public class ProductDetailActivity extends Activity implements MyAdapterListener{
 	private Context context;
 	private Product product;
 	private int pId;
@@ -134,7 +136,7 @@ public class ProductDetailActivity extends Activity {
 				//We set the recyclerView with the elements from the product
 				RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
 				recyclerView.setHasFixedSize(true);
-				recyclerView.setAdapter(new MyAdapter(product.getElementList()));
+				recyclerView.setAdapter(new MyAdapter(product.getElementList(), ProductDetailActivity.this));
 				recyclerView.setLayoutManager(new LinearLayoutManager(context));
 				recyclerView.setItemAnimator(new DefaultItemAnimator());
 				Log.d("getProductDetailClass", "layout for recycler View loaded");
@@ -171,5 +173,14 @@ public class ProductDetailActivity extends Activity {
 			
 		}
 		
-	};	
+	};
+
+	
+	@Override
+	public void displayElementFragment(int elementId) {
+		// TODO Auto-generated method stub
+		ElementDetailFragment frag = ElementDetailFragment.getInstance(product.getElementById(elementId));
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		transaction.add(R.id.product_detail_fragment_container, frag).commit();
+	}	
 }

@@ -55,6 +55,21 @@ public int getElementCount(){
 	return elementList.size();
 }
 
+/**
+ * Browse the ElementList and return the first element which has a matching element number
+ * return null if no matching element is found.
+ * @param elementNumber
+ * @return
+ */
+public Element getElementById (int elementNumber){
+	Element e;
+	for (int i = 0; i<elementList.size(); i++){
+		e = elementList.get(i);
+		if (e.getNumber() == elementNumber) return e;
+	}
+	return null;
+}
+
 
 /////////////////////   SETTERS  ////////////////////////
 

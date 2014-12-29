@@ -30,7 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/element_trust_score_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/element_name_textview"
@@ -53,8 +53,8 @@
         android:id="@+id/codeResultText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/element_trust_score_text_view"
+        android:layout_alignBottom="@+id/element_trust_score_text_view"
         android:layout_alignLeft="@+id/codeTypeText"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -62,7 +62,7 @@
         android:id="@+id/productIdTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignLeft="@+id/element_trust_score_text_view"
         android:layout_below="@+id/codeResultText"
         android:ems="10"
         android:inputType="number" >

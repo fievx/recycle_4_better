@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="wrap_content"
+    android:clickable="true"
     android:padding="6dip" >
 
     <View
@@ -10,10 +11,22 @@
         android:layout_marginBottom="3dp"
         android:layout_marginTop="3dp" />
     
+        <TextView
+        android:id="@+id/firstLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider1"
+        android:layout_marginBottom="10dp"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:gravity="center_vertical"
+        android:text="@string/element_name_label"
+        android:textSize="16sp" />
+    
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentTop="false"
         android:layout_below="@id/divider1"
         android:contentDescription="TODO"
@@ -23,34 +36,23 @@
         android:id="@+id/secondLine"
         android:layout_width="wrap_content"
         android:layout_height="26dip"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentBottom="false"
+        android:layout_below="@id/firstLine"
+        android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/icon"
         android:layout_toRightOf="@id/icon"
         android:ellipsize="marquee"
         android:singleLine="true"
         android:text="@string/element_recyclable_label"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/firstLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/secondLine"
-        android:layout_alignParentTop="true"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
-        android:gravity="center_vertical"
-        android:text="@string/element_name_label"
         android:textSize="16sp" />
 
-    
+
 
     <ImageView
         android:id="@+id/recyclable_imageview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/secondLine"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/secondLine"
         android:layout_toRightOf="@+id/secondLine"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
@@ -63,5 +65,25 @@
         android:layout_alignBaseline="@id/firstLine"
         android:layout_toRightOf="@+id/firstLine"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/icon"
+        android:layout_alignLeft="@+id/secondLine"
+        android:layout_marginRight="5dp"
+        android:text="@string/trust_score"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/element_trust_score_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_toRightOf="@id/textView1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp" />
 
 </RelativeLayout>

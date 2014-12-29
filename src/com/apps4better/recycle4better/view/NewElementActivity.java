@@ -43,6 +43,11 @@ public class NewElementActivity extends Activity {
 	public static final String TAG_IMAGE_PATH = "image_path";
 	private String imagePath="";
 	
+	//Tags used for the Bundle
+	public static final String TAG_ELEMENT = "element";
+	public static final String TAG_PRODUCT_ID = "pId";
+	public static final String TAG_ELEMENT_NUMBER = "elementNumber";
+	
 	private boolean elementUploaded = false;
 	private boolean pictureUploaded = false;
 
@@ -54,8 +59,9 @@ public class NewElementActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		//get the infos from the Intent.
 		Bundle extras = getIntent().getExtras();
-		element.setProductId(extras.getInt("pId"));
-		element.setNumber(extras.getInt("elementNumber"));
+		element = extras.getParcelable(TAG_ELEMENT);
+		element.setProductId(extras.getInt(TAG_PRODUCT_ID));
+		element.setNumber(extras.getInt(TAG_ELEMENT_NUMBER));
 		
 		layout = (ScrollView) ScrollView.inflate(this,R.layout.activity_add_element_layout, null);
 		
@@ -65,6 +71,32 @@ public class NewElementActivity extends Activity {
 		this.eDescEdit = (EditText) layout.findViewById(R.id.element_descr_edit_text);
 		this.eRecyclableRadio = (RadioGroup) layout.findViewById(R.id.element_recyclable_radio_group);
 		this.photoView = (ImageView) layout.findViewById(R.id.element_image_view);
+		
+		//For each component of the element, if it is not null, we pre-fill the form.
+		if (element.getName()!=null)this.eNameEdit.setText(element.getName());
+		if (element.getDescription()!= null) this.eDescEdit.setText(element.getDescription());
+		switch (element.getRecyclable()){ //A switch for the radio group of recyclable options
+		case 0:
+			this.eRecyclableRadio.getChildAt(RADIO_NO).setSelected(true);
+			break;
+		case 1:
+			this.eRecyclableRadio.getChildAt(RADIO_YES).setSelected(true);
+			break;
+		case 2:
+			this.eRecyclableRadio.getChildAt(RADIO_NOT_SURE).setSelected(true);
+			break;
+		default:
+			this.eRecyclableRadio.getChildAt(RADIO_NO).setSelected(true);
+		}
+		//If the element photo is stored in cache we take it, if not we try to load from the server
+		if (element.getCacheImagePath()!= null){ 
+			File file = new File(element.getCacheImagePath());
+			Picasso.with(this).load(file).fit().into(photoView);
+		}
+		else if (element.getPhotoId()!=null){
+			File file = new File(element.getPhotoId());
+			Picasso.with(this).load(file).fit().into(photoView);			
+		}
 		
 		setContentView(layout);
 	}

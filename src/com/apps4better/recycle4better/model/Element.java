@@ -17,6 +17,7 @@ public class Element implements Parcelable{
 	private String materialCommon;
 	private String materialScientific;
 	private int trustScore;
+	private String cacheImagePath;
 	
 	
 	
@@ -62,6 +63,14 @@ public class Element implements Parcelable{
 
 	public int getProductId() {
 		return productId;
+	}
+
+	public String getCacheImagePath() {
+		return cacheImagePath;
+	}
+
+	public void setCacheImagePath(String cacheImagePath) {
+		this.cacheImagePath = cacheImagePath;
 	}
 
 	public void setProductId(int productId) {

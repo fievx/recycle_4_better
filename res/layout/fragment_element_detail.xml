@@ -62,7 +62,7 @@
         android:src="@drawable/arrow_up" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/element_trust_score_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
@@ -75,7 +75,7 @@
         android:id="@+id/element_trust_score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBottom="@+id/element_trust_score_text_view"
         android:layout_centerHorizontal="true"
         android:text="0"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -103,6 +103,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/element_edit_button"
-        android:layout_alignRight="@+id/textView2" />
+        android:layout_alignRight="@+id/element_trust_score_text_view" />
 
 </RelativeLayout>
