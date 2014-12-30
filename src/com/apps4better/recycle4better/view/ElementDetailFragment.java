@@ -3,6 +3,7 @@ package com.apps4better.recycle4better.view;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.model.Element;
+import com.apps4better.recycle4better.model.ElementDetailObserver;
 import com.apps4better.recycle4better.model.ElementEditorService;
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +61,8 @@ public class ElementDetailFragment extends Fragment {
 		//We create the view with all the variables from the Element
 		// the element image loaded via Picasso
 		String imageUrl = activity.getResources().getString(R.string.server_address)+element.getPhotoId()+extansion;
-		Picasso.with(activity).load(imageUrl).fit().into(ePictureView);
+		Drawable placeHolder = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
+		Picasso.with(activity).load(imageUrl).placeholder(placeHolder).fit().into(ePictureView);
 		
 		this.eNameText.setText(element.getName());//name
 		this.eDescText.setText(element.getDescription());//description
@@ -86,12 +89,6 @@ public class ElementDetailFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		// TODO Auto-generated method stub
-		super.onPause();
 		editButton.setOnClickListener (new OnClickListener (){
 
 			@Override
@@ -120,6 +117,13 @@ public class ElementDetailFragment extends Fragment {
 			
 		});
 	
+	}
+
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+
 	}
 
 	/**
@@ -158,7 +162,7 @@ public class ElementDetailFragment extends Fragment {
 
 
 private void edit (){
-	
+	((ElementDetailObserver)activity).editElement(element);
 }
 
 }

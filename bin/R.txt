@@ -359,7 +359,7 @@ int id never 0x7f0b0019
 int id none 0x7f0b0020
 int id normal 0x7f0b000e
 int id page_number_view 0x7f0b0093
-int id photo_view 0x7f0b0088
+int id photo_view 0x7f0b0087
 int id preview_view 0x7f0b0070
 int id productIdTextField 0x7f0b0063
 int id product_brand_edit_text 0x7f0b0056
@@ -370,7 +370,7 @@ int id product_model_edit_text 0x7f0b0057
 int id product_name_text_view 0x7f0b0067
 int id product_photo_image_view 0x7f0b0066
 int id product_view_header 0x7f0b0065
-int id progressBar1 0x7f0b0085
+int id progressBar1 0x7f0b0088
 int id progress_circular 0x7f0b0004
 int id progress_horizontal 0x7f0b0005
 int id query_button 0x7f0b0091
@@ -385,9 +385,9 @@ int id restart_preview 0x7f0b000b
 int id result_button_view 0x7f0b007b
 int id result_list_view 0x7f0b0092
 int id result_view 0x7f0b0072
-int id retake_photo_button 0x7f0b0086
+int id retake_photo_button 0x7f0b0085
 int id return_scan_result 0x7f0b000c
-int id save_button 0x7f0b0087
+int id save_button 0x7f0b0086
 int id save_element_button 0x7f0b004e
 int id save_product_button 0x7f0b005a
 int id search_badge 0x7f0b0039

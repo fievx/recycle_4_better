@@ -1212,7 +1212,7 @@ containing a value of this type.
         public static final int none=0x7f0b0020;
         public static final int normal=0x7f0b000e;
         public static final int page_number_view=0x7f0b0093;
-        public static final int photo_view=0x7f0b0088;
+        public static final int photo_view=0x7f0b0087;
         public static final int preview_view=0x7f0b0070;
         public static final int productIdTextField=0x7f0b0063;
         public static final int product_brand_edit_text=0x7f0b0056;
@@ -1223,7 +1223,7 @@ containing a value of this type.
         public static final int product_name_text_view=0x7f0b0067;
         public static final int product_photo_image_view=0x7f0b0066;
         public static final int product_view_header=0x7f0b0065;
-        public static final int progressBar1=0x7f0b0085;
+        public static final int progressBar1=0x7f0b0088;
         public static final int progress_circular=0x7f0b0004;
         public static final int progress_horizontal=0x7f0b0005;
         public static final int query_button=0x7f0b0091;
@@ -1238,9 +1238,9 @@ containing a value of this type.
         public static final int result_button_view=0x7f0b007b;
         public static final int result_list_view=0x7f0b0092;
         public static final int result_view=0x7f0b0072;
-        public static final int retake_photo_button=0x7f0b0086;
+        public static final int retake_photo_button=0x7f0b0085;
         public static final int return_scan_result=0x7f0b000c;
-        public static final int save_button=0x7f0b0087;
+        public static final int save_button=0x7f0b0086;
         public static final int save_element_button=0x7f0b004e;
         public static final int save_product_button=0x7f0b005a;
         public static final int search_badge=0x7f0b0039;

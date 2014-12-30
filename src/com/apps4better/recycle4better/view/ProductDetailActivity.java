@@ -25,11 +25,12 @@ import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.ListView.MyAdapter;
 import com.apps4better.recycle4better.ListView.MyAdapterListener;
 import com.apps4better.recycle4better.model.Element;
+import com.apps4better.recycle4better.model.ElementDetailObserver;
 import com.apps4better.recycle4better.model.ElementsLoader;
 import com.apps4better.recycle4better.model.Product;
 import com.squareup.picasso.Picasso;
 
-public class ProductDetailActivity extends Activity implements MyAdapterListener{
+public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver{
 	private Context context;
 	private Product product;
 	private int pId;
@@ -49,6 +50,10 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private Button addElementButton;
 	
 	private static final String extansion = ".png";
+	
+	//Fragment tags
+	private static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
+	private static final String TAG_ELEMENT_DETAIL = "element_detail";
 	
 	public void onCreate (Bundle bundle){
 		super.onCreate(bundle);
@@ -125,13 +130,10 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Element e = new Element();
+						Element e = new Element ();
 						e.setNumber(product.getElementList().size()+1);
 						e.setProductId(product.getpId());
-						Intent intent = new Intent (context, NewElementActivity.class);
-						intent.putExtra(NewElementActivity.TAG_ELEMENT, e);
-						startActivity(intent);
-						
+						displayNewElementFragment (e);
 					}
 					
 				});
@@ -184,6 +186,24 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		// TODO Auto-generated method stub
 		ElementDetailFragment frag = ElementDetailFragment.getInstance(product.getElementById(elementId));
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
-		transaction.add(R.id.product_detail_fragment_container, frag).commit();
+		transaction.addToBackStack(null);
+		transaction.add(R.id.product_detail_fragment_container, frag, ProductDetailActivity.TAG_ELEMENT_DETAIL).commit();
+	}
+
+	public void displayNewElementFragment (Element e){
+		NewElementFragment fragment = NewElementFragment.getInstance(e);
+		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		//if there is an ElementDetailFramgent, we remove it
+		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
+		if ( f != null)
+			transac.remove(f);
+		transac.add(R.id.product_detail_fragment_container, fragment, ProductDetailActivity.TAG_NEW_ELEMENT_FRAGMENT);
+		transac.addToBackStack(null).commit();
+	}
+	
+	@Override
+	public void editElement(Element element) {
+		// TODO Auto-generated method stub
+		displayNewElementFragment(element);
 	}	
 }
