@@ -13,12 +13,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.apps4better.recycle4better.R;
-import com.apps4better.recycle4better.view.NewElementActivity;
+import com.apps4better.recycle4better.view.NewElementFragment;
 import com.commonsware.cwac.camera.CameraFragment;
 
 
 
-public class MyCameraActivity extends Activity implements FragmentObserver{
+public class MyCameraActivity extends Activity implements PreviewFragmentObserver{
 	private final String TAG_CAMERA_FRAGMENT = "camera_fragment";
 	private final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
 	private String photoName;
@@ -55,7 +55,7 @@ public class MyCameraActivity extends Activity implements FragmentObserver{
     }
     
     /**
-     * remove the CameraFragment and start the preview fragment.
+     * start the preview fragment.
      */
     private void startPreview (){
         shutterButton.setVisibility(Button.GONE);
@@ -73,21 +73,22 @@ public class MyCameraActivity extends Activity implements FragmentObserver{
 		case "save_photo" :
 			Log.d("MyCameraActivity", "Update method called with parameter : save_photo");
 			Intent intent = new Intent ();
-			intent.putExtra(NewElementActivity.TAG_IMAGE_PATH, pictureFile.getAbsolutePath());
+			intent.putExtra(NewElementFragment.TAG_IMAGE_PATH, pictureFile.getAbsolutePath());
 			setResult(Activity.RESULT_OK, intent);
 			finish();
 			break;
 		case "retake_photo" :
 			Log.d("MyCameraActivity", "Update method called with parameter : retake_photo");
+			delFile (pictureFile.getAbsolutePath());
 			CameraFragment cF = (CameraFragment) getFragmentManager().findFragmentByTag(TAG_CAMERA_FRAGMENT);
 			shutterButton.setVisibility(Button.VISIBLE);
 			FragmentTransaction transac = getFragmentManager().beginTransaction();
 			PreviewFragment f = (PreviewFragment) getFragmentManager().findFragmentByTag(TAG_PREVIEW_FRAGMENT);
 			//transac.remove(cF);
-			cF.restartPreview();
 			transac.remove(f).commit();
+			cF.restartPreview();
+
 			//initCamera();
-			delFile (pictureFile.getAbsolutePath());
 			break;
 		case "start_preview":
 			runOnUiThread(new Runnable (){

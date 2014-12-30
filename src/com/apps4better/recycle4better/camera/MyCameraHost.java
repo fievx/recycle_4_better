@@ -54,7 +54,7 @@ public class MyCameraHost extends SimpleCameraHost {
 		super.saveImage(xact, bitmap);
 		
 		//Once the photo is saved, we notify the CameraActivity to start the preview fragment
-		((FragmentObserver) activity).update("start_preview");
+		((PreviewFragmentObserver) activity).update("start_preview");
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class MyCameraHost extends SimpleCameraHost {
 		// TODO Auto-generated method stub
 		super.saveImage(arg0, arg1);
 		//Once the photo is saved, we notify the CameraActivity to start the preview fragment
-		((FragmentObserver) activity).update("start_preview");
+		((PreviewFragmentObserver) activity).update("start_preview");
 	}
 
 

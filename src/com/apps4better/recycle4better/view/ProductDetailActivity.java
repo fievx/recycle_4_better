@@ -1,5 +1,7 @@
 package com.apps4better.recycle4better.view;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
@@ -194,7 +196,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		NewElementFragment fragment = NewElementFragment.getInstance(e);
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
 		//if there is an ElementDetailFramgent, we remove it
-		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
+		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL);
 		if ( f != null)
 			transac.remove(f);
 		transac.add(R.id.product_detail_fragment_container, fragment, ProductDetailActivity.TAG_NEW_ELEMENT_FRAGMENT);
@@ -206,4 +208,26 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		// TODO Auto-generated method stub
 		displayNewElementFragment(element);
 	}	
+
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+		// Handle the logic for the requestCode, resultCode and data returned...
+		
+//		/*
+//		 * if the result comes from the MyCameraActivity, the productDetailActivity must
+//		 * handle the way NewElementFragment must react. 
+//		 * 
+//		 */
+//		if (requestCode == NewElementFragment.CODE_IMAGE_PATH){
+//		switch (resultCode) {
+//		case Activity.RESULT_OK :
+//			//We find the fragment
+//			NewElementFragment frag = (NewElementFragment) getFragmentManager().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
+//			frag.setImagePath(data.getStringExtra(NewElementFragment.TAG_IMAGE_PATH));
+//			frag.displaySavedImage();
+//			break;
+//		}
+		
+//		}
+	}
 }

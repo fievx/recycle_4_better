@@ -81,7 +81,7 @@ public class PreviewFragment extends Fragment{
 				// TODO Auto-generated method stub
 				//we send the action to the main activity through the FragmentObserver Interface
 				 try{
-			            ((FragmentObserver) activity).update("save_photo");
+			            ((PreviewFragmentObserver) activity).update("save_photo");
 			        }catch (ClassCastException cce){
 			 
 			        }
@@ -93,7 +93,7 @@ public class PreviewFragment extends Fragment{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				((FragmentObserver) activity).update("retake_photo");
+				((PreviewFragmentObserver) activity).update("retake_photo");
 			}
 			
 		});
