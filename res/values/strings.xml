@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Recycle 4 Better</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="welcome_text">Welcome on Recycle 4 Better. \n \nTo see if a product is recyclable, simply scan it\'s barcode</string>
+    <string name="type_code_text">or type in the barcode number.</string>
     <string name="action_settings">Settings</string>
     <string name="scanButtonText">Start Scanner</string>
     <string name="BCTypeText">Barcode Type</string>

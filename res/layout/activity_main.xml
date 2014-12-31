@@ -8,62 +8,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.apps4better.recycle4better.view.MainActivity" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:text="@string/welcome_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/buttonScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:layout_below="@id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="18dp"
-        android:onClick="startScan"
+        android:drawableLeft="@drawable/barcode"
         android:text="@string/scanButtonText" />
 
     <TextView
-        android:id="@+id/element_name_textview"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonScan"
-        android:layout_below="@+id/buttonScan"
-        android:layout_marginTop="20dp"
-        android:text="@string/BCTypeText"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/element_trust_score_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/element_name_textview"
-        android:layout_below="@+id/element_name_textview"
-        android:layout_marginTop="18dp"
-        android:text="@string/BCResultText"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/codeTypeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/element_name_textview"
-        android:layout_alignBottom="@+id/element_name_textview"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/element_name_textview"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/codeResultText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/element_trust_score_text_view"
-        android:layout_alignBottom="@+id/element_trust_score_text_view"
-        android:layout_alignLeft="@+id/codeTypeText"
+        android:layout_below="@id/buttonScan"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="@string/type_code_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/productIdTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/element_trust_score_text_view"
-        android:layout_below="@+id/codeResultText"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/textView2"
         android:ems="10"
         android:inputType="number" >
 

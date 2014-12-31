@@ -3,7 +3,6 @@ package com.apps4better.recycle4better.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,16 +12,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
-import com.apps4better.recycle4better.model.ElementsLoader;
 import com.apps4better.recycle4better.model.Product;
+import com.apps4better.recycle4better.scanner.IntentIntegrator;
+import com.apps4better.recycle4better.scanner.IntentResult;
 
 public class MainActivity extends Activity {
 	private Button scanButton;
-	private TextView bcTypeView;
-	private TextView bcResultView;
 	private Button findProductButton;
 	private EditText productIdTextField;
 	private Product product;
@@ -37,8 +34,6 @@ public class MainActivity extends Activity {
 		//We inflate the layout and get all relevant resources
 		RelativeLayout layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_main, null);
 		scanButton = (Button) layout.findViewById(R.id.buttonScan);
-		bcTypeView = (TextView) layout.findViewById(R.id.codeTypeText);
-		bcResultView = (TextView) layout.findViewById(R.id.codeResultText);
 		findProductButton = (Button) layout.findViewById(R.id.findButton);
 		productIdTextField = (EditText) layout.findViewById(R.id.productIdTextField);
 		
@@ -64,6 +59,11 @@ public class MainActivity extends Activity {
 			}
 			
 		});
+		scanButton.setOnClickListener(new OnClickListener (){
+			public void onClick (View v){
+				startScan();
+			}
+		});
 	}
 	
 	@Override
@@ -85,12 +85,27 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	return super.onOptionsItemSelected(item);
 }
 	
-public void startScan (View view){
+public void startScan (){
 	Log.d("Main", "scan started");
-	Intent i = new Intent (this,ScannerActivity.class);
-	startActivity (i);
-}
+//	Intent i = new Intent (this,ScannerActivity.class);
+//	startActivity (i);
 	
+	IntentIntegrator integrator = new IntentIntegrator(this);
+	integrator.initiateScan();
+}
+
+public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	  IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+	  if (scanResult != null) {
+		  if (scanResult.getFormatName().equals("UPC_A")||scanResult.getFormatName().equals("UPC_E") || scanResult.getFormatName().equals("UPC_EAN_EXTENSION")){
+			  int id = Integer.valueOf(scanResult.getContents()).intValue();
+				Intent i = new Intent(context, ProductDetailActivity.class);
+				i.putExtra("product_id", id);
+				i.putExtra("load_info", true);
+				startActivity(i);
+	  }
+	  }	  
+	}
 
 
 }
