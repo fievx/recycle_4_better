@@ -43,7 +43,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	 *  We use it so that the activity will wait to receive an answer from either the ElementEditorService or
 	 *  ProductEditorService befor loading the product info
 	 */
-	private boolean loadInfo = true;
+	private boolean loadInfo = false;
 	
 	private RelativeLayout layout;
 	private ImageView pPhotoView;
@@ -55,7 +55,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	
 	//Fragment tags
 	private static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
-	private static final String TAG_ELEMENT_DETAIL = "element_detail";
+	private static final String TAG_ELEMENT_DETAIL_FRAGMENT = "element_detail";
 	
 	public void onCreate (Bundle bundle){
 		super.onCreate(bundle);
@@ -63,14 +63,20 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 
 		//We get the ProductId from the Intent
 		pId = getIntent().getIntExtra("product_id", 0);
-		loadInfo = getIntent().getBooleanExtra("load_info", true);
+		loadInfo = getIntent().getBooleanExtra("load_info", false);
 
 		
 	}
 	
 	protected void onResume(){
 		super.onResume();
-		
+		/*
+		 * We check if there is a fragment built that should be visible. If yes, we don't build the view
+		 */
+		NewElementFragment f = (NewElementFragment) getFragmentManager().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
+		if (f!=null){
+			loadInfo = false;
+		}
 		//We call the GetProductDetailTask
 		if (loadInfo) new GetProductDetailTask(pId).execute();
 		LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("message"));
@@ -105,7 +111,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		
 		protected void onPostExecute (Void param){
 			product = loader.getProduct();
-			
+						
 			//If the loader returns a non null product, we start the ProductDetailActivity and give it the 
 			//product as extra.
 			if (product != null){
@@ -183,20 +189,22 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	};
 
 	
+	
+	
 	@Override
-	public void displayElementFragment(int elementId) {
+public void displayElementFragment(int elementId) {
 		// TODO Auto-generated method stub
 		ElementDetailFragment frag = ElementDetailFragment.getInstance(product.getElementById(elementId));
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
-		transaction.addToBackStack(null);
-		transaction.add(R.id.product_detail_fragment_container, frag, ProductDetailActivity.TAG_ELEMENT_DETAIL).commit();
+		transaction.add(R.id.product_detail_fragment_container, frag, ProductDetailActivity.TAG_ELEMENT_DETAIL_FRAGMENT);
+		transaction.addToBackStack(null).commit();
 	}
 
 	public void displayNewElementFragment (Element e){
 		NewElementFragment fragment = NewElementFragment.getInstance(e);
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
 		//if there is an ElementDetailFramgent, we remove it
-		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL);
+		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL_FRAGMENT);
 		if ( f != null)
 			transac.remove(f);
 		transac.add(R.id.product_detail_fragment_container, fragment, ProductDetailActivity.TAG_NEW_ELEMENT_FRAGMENT);
@@ -207,27 +215,17 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	public void editElement(Element element) {
 		// TODO Auto-generated method stub
 		displayNewElementFragment(element);
-	}	
+	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, resultCode, data);
-		// Handle the logic for the requestCode, resultCode and data returned...
-		
-//		/*
-//		 * if the result comes from the MyCameraActivity, the productDetailActivity must
-//		 * handle the way NewElementFragment must react. 
-//		 * 
-//		 */
-//		if (requestCode == NewElementFragment.CODE_IMAGE_PATH){
-//		switch (resultCode) {
-//		case Activity.RESULT_OK :
-//			//We find the fragment
-//			NewElementFragment frag = (NewElementFragment) getFragmentManager().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
-//			frag.setImagePath(data.getStringExtra(NewElementFragment.TAG_IMAGE_PATH));
-//			frag.displaySavedImage();
-//			break;
-//		}
-		
-//		}
+		//put the NewElementFragment back on top
+		if (requestCode == NewElementFragment.CODE_IMAGE_PATH){
+			//we set loadinfo to false so that the activity view won't get built 
+			this.loadInfo = false;
+		}
+		//Do default action on result (nothing) so that the result is passed on the the fragments
+		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+	
 }

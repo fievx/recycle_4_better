@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
 				int id = Integer.valueOf(a).intValue();
 				Intent intent = new Intent(context, ProductDetailActivity.class);
 				intent.putExtra("product_id", id);
+				intent.putExtra("load_info", true);
 				startActivity(intent);
 				
 			}

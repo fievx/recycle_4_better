@@ -23,6 +23,7 @@ public class PreviewFragment extends Fragment{
 	private Button saveButton, retakePhotoButton;
 	private ImageView photoView;
 	private String imagePath;
+	private File imageFile;
 	private View view;
 	
 	private Activity activity;
@@ -60,8 +61,8 @@ public class PreviewFragment extends Fragment{
 		retakePhotoButton = (Button) view.findViewById(R.id.retake_photo_button);	
 		
 		//We set the photo on the imageView
-		File f = new File (imagePath);
-		Picasso.with(activity).load(f).fit().into(photoView);
+		imageFile = new File (imagePath);
+		Picasso.with(activity).load(imageFile).fit().into(photoView);
 		return view;
 	}
 
@@ -98,6 +99,15 @@ public class PreviewFragment extends Fragment{
 			
 		});
 		
+	}
+
+
+
+	
+	@Override
+	public void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
 	}
 	
 	

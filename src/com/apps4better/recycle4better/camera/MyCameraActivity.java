@@ -128,10 +128,13 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 	private void delFile(String filePath) {
 	    try {
 	        // delete the original file
-	        new File(filePath).delete();  
-	    }
+	    	if(new File(filePath).delete())
+	        Log.d("File Delete", "dele file success");
+	    	else Log.d("File Delete", "dele file failure");
+	    	}
 	   catch (Exception e) {
 	        Log.e("tag", e.getMessage());
+	        Log.d("File Delete", "dele file failure");
 	    }
 	}
 
