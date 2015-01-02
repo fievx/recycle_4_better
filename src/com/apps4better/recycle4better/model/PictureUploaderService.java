@@ -12,11 +12,11 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.apps4better.recycle4better.R;
-import com.apps4better.recycle4better.view.NewProductActivity;
 
 public class PictureUploaderService extends IntentService{
 	 // URL to upload image
@@ -25,7 +25,7 @@ public class PictureUploaderService extends IntentService{
     
 	String imageName;
 	String imageFileName ;
-	private static final String extension = ".png";
+	private static final String extension = ".jpg";
 	public static final String TAG_IMAGE_NAME = "image_name";
     
     private String imagePath;
@@ -75,8 +75,55 @@ public class PictureUploaderService extends IntentService{
 	private boolean compress (String path){
 		bStream = new ByteArrayOutputStream();
 		Bitmap b = BitmapFactory.decodeFile(path);
-		if (b.compress(Bitmap.CompressFormat.PNG, 100, bStream)) return true;
+		
+		float actualHeight = b.getHeight();
+		float actualWidth = b.getWidth();
+		Log.d("Picture uploader", "Actual Height is : "+actualHeight+" and actual width is : "+actualWidth);
+		float newHeight, newWidth;
+		float maxHeight = 600;
+		float maxWidth = 800;
+		float imgRatio = actualWidth/actualHeight;
+		float maxRatio = maxWidth/maxHeight;
+	    int compressionQuality = 80;//50 percent compression
+		
+	    //if the original image is bigger than 600x800, we rescale it
+	    if (actualHeight > maxHeight || actualWidth > maxWidth){
+	        if(imgRatio < maxRatio){
+	            //adjust width according to maxHeight
+	            imgRatio = maxHeight / actualHeight;
+	            newWidth = imgRatio * actualWidth;
+	            newHeight = maxHeight;
+	        }
+	        else if(imgRatio > maxRatio){
+	            //adjust height according to maxWidth
+	            imgRatio = maxWidth / actualWidth;
+	            newHeight = imgRatio * actualHeight;
+	            newWidth = maxWidth;
+	        }
+	        else{
+	        	newHeight = maxHeight;
+	        	newWidth = maxWidth;
+	        }
+	        Log.d ("Picture uploader", "New Height is : "+(int)newHeight+" and new width is : "+(int)newWidth);
+	        
+		    //We rescale the image to have it match our new new Height and Width
+//		    //We use a Matrix approach 
+//		    Matrix matrix = new Matrix ();
+//		    matrix.postScale(newWidth, newHeight);
+//		    Bitmap resizedBitmap = Bitmap.createBitmap(b, 0, 0, actualWidth, actualHeight, matrix, false);
+	        
+	        Bitmap resizedBitmap = Bitmap.createScaledBitmap(b, (int)newWidth, (int)newHeight, false);
+		    
+		    //We compress it using the chosen compression quality
+			if (resizedBitmap.compress(Bitmap.CompressFormat.JPEG, compressionQuality, bStream)) return true;
+			else return false;
+	    }
+	    
+	    else {
+	    //We compress it using the chosen compression quality
+		if (b.compress(Bitmap.CompressFormat.JPEG, compressionQuality, bStream)) return true;
 		else return false;
+	    }
 	}
 	
 	private void upload (){

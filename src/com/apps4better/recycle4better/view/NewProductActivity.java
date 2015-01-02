@@ -36,6 +36,7 @@ public class NewProductActivity extends Activity{
 	private View formView;
 	private boolean formVisible = false;
 	private ImageView photoView;
+	private String extension;
 	
 	//Tags used for the camera implementation
 	public static final String TAG_CAMERA_FRAGMENT = "camera_fragment";
@@ -55,6 +56,7 @@ public class NewProductActivity extends Activity{
 		//We get the product Id from the Intent
 		Bundle extra = getIntent().getExtras();
 		product.setpId(extra.getInt("product_id"));
+		extension = getResources().getString(R.string.image_extension);
 		
 		//We inflate the layout and get all the widgets
 		layout = (ScrollView) ScrollView.inflate(this, R.layout.activity_add_product_layout, null);
@@ -147,7 +149,7 @@ private void saveProduct (){
 	//We store all the informations in the product
 	product.setBrand(pBrandEdit.getText().toString());
 	product.setModel(pModelEdit.getText().toString());
-	product.setPhotoId("/images/product_"+String.valueOf(product.getpId())+"_product");
+	product.setPhotoId("/images/product_"+String.valueOf(product.getpId())+"_product"+extension);
 	
 	//We upload the product using the ProductEditorService
 	Intent intent = new Intent (this, ProductEditorService.class);

@@ -51,7 +51,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private TextView pModelText;
 	private Button addElementButton;
 	
-	private static final String extansion = ".png";
+	String extension; 
 	
 	//Fragment tags
 	private static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
@@ -60,6 +60,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	public void onCreate (Bundle bundle){
 		super.onCreate(bundle);
 		context = this;
+		extension = getResources().getString(R.string.image_extension);
 
 		//We get the ProductId from the Intent
 		pId = getIntent().getIntExtra("product_id", 0);
@@ -126,7 +127,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				addElementButton = (Button) layout.findViewById(R.id.add_element_button);
 				
 				// First the product
-				String imageUrl = context.getResources().getString(R.string.server_address)+product.getPhotoId()+extansion;
+				String imageUrl = context.getResources().getString(R.string.server_address)+product.getPhotoId();
 				Log.d("picasso", imageUrl);
 				Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
 				pBrandText.setText(product.getBrand());
