@@ -60,7 +60,7 @@ public class ElementDetailFragment extends Fragment {
 		
 		//We create the view with all the variables from the Element
 		// the element image loaded via Picasso
-		String imageUrl = activity.getResources().getString(R.string.server_address)+element.getPhotoId()+extansion;
+		String imageUrl = activity.getResources().getString(R.string.server_address)+element.getPhotoId();
 		Drawable placeHolder = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
 		Picasso.with(activity).load(imageUrl).placeholder(placeHolder).fit().into(ePictureView);
 		
