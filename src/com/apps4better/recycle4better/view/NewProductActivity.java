@@ -202,6 +202,7 @@ private void startProductDetailActivity (boolean loadInfo){
 	Intent i = new Intent (this, ProductDetailActivity.class);
 	i.putExtra("product_id", product.getpId());
 	i.putExtra("load_info", loadInfo);
+	i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//flag used to clear all activities started after ProductDetail Activity.
 	startActivity(i);
 }
 

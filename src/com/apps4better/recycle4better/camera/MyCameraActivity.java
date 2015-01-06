@@ -5,6 +5,7 @@ import java.io.File;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,9 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		//We lock the orientation to portrait to have all pictures in portrait mode
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		
 		photoName = getIntent().getStringExtra("photo_name");
 		layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_camera ,null);
 		shutterButton = (Button) layout.findViewById(R.id.shutter_button);
@@ -75,6 +79,9 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 			Intent intent = new Intent ();
 			intent.putExtra(NewElementFragment.TAG_IMAGE_PATH, pictureFile.getAbsolutePath());
 			setResult(Activity.RESULT_OK, intent);
+			
+			//We resume the orientation to sensor
+			setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_SENSOR);
 			finish();
 			break;
 		case "retake_photo" :

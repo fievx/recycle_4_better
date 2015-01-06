@@ -17,8 +17,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.cloud.CloudStorage;
+import com.apps4better.recycle4better.cloud.CloudStorageListener;
 
-public class PictureUploaderService extends IntentService{
+public class PictureUploaderService extends IntentService implements CloudStorageListener{
 	 // URL to upload image
     private String serverAddress = "";
     private String serverUrl = "/upload_photo.php";
@@ -63,7 +65,8 @@ public class PictureUploaderService extends IntentService{
 		if (compress(imagePath)){
 			Log.d("PictureUploader", "conversion success,starting upload now");
 			//upload it to the server
-			upload ();
+			//upload ();
+			this.uploadToCloudStorage();
 		}
 		else Log.d("PictureUploader", "Conversion failed");
 	}
@@ -193,5 +196,24 @@ public class PictureUploaderService extends IntentService{
 		Intent intent = new Intent (CODE_IMAGE_UPLOAD);
 		intent.putExtra("success", success);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+	}
+
+	private void uploadToCloudStorage (){
+		try {
+			CloudStorage.uploadImageFromStream("recycle4better_images", bStream,this.imageFileName, this.getApplicationContext());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void update(String param) {
+		// TODO Auto-generated method stub
+		switch (param){
+		case CloudStorageListener.TAG_SUCCESS :
+			sendBroadcast (true);
+			break;			
+		}
 	}
 }
