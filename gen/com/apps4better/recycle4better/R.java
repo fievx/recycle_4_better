@@ -1174,7 +1174,7 @@ containing a value of this type.
         public static final int end=0x7f0b001e;
         public static final int expand_activities_button=0x7f0b002d;
         public static final int expanded_menu=0x7f0b0033;
-        public static final int findButton=0x7f0b0063;
+        public static final int findButton=0x7f0b0062;
         public static final int firstLine=0x7f0b008b;
         public static final int footerLayout=0x7f0b005c;
         public static final int formLayout=0x7f0b0054;
@@ -1213,7 +1213,7 @@ containing a value of this type.
         public static final int page_number_view=0x7f0b0092;
         public static final int photo_view=0x7f0b0085;
         public static final int preview_view=0x7f0b006f;
-        public static final int productIdTextField=0x7f0b0062;
+        public static final int productIdTextField=0x7f0b0063;
         public static final int product_brand_edit_text=0x7f0b0056;
         public static final int product_desc_text_view=0x7f0b0067;
         public static final int product_detail_fragment_container=0x7f0b006a;

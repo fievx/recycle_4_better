@@ -86,7 +86,14 @@ public class ElementDetailFragment extends Fragment {
 	}
 	
 	@Override
-	public void onResume() {
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+	}
+
+	
+	@Override
+public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		editButton.setOnClickListener (new OnClickListener (){

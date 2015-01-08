@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.model.Product;
@@ -32,12 +33,40 @@ public class MainActivity extends Activity {
 		context = this;
 		
 		//We inflate the layout and get all relevant resources
-		RelativeLayout layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_main, null);
+		ScrollView layout = (ScrollView) ScrollView.inflate(this, R.layout.activity_main, null);
 		scanButton = (Button) layout.findViewById(R.id.buttonScan);
 		findProductButton = (Button) layout.findViewById(R.id.findButton);
 		productIdTextField = (EditText) layout.findViewById(R.id.productIdTextField);
 		
+		//We restore the values from the Bundle in case the Activity had to be recreated
+		if (savedInstanceState != null){
+		if (savedInstanceState.getString("pIdTextFieldValue")!= null)
+		productIdTextField.setText(savedInstanceState.getString("pIdTextFieldValue"));
+		}
+		
 		setContentView(layout);
+	}
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		outState.putString("pIdTextFieldValue", productIdTextField.getText().toString());
+	}
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
+	 */
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(savedInstanceState);
+		//We restore the values from the Bundle in case the Activity had to be recreated
+		if (savedInstanceState.getString("pIdTextFieldValue")!= null)
+		productIdTextField.setText(savedInstanceState.getString("pIdTextFieldValue"));
 	}
 
 	public void onResume(){
@@ -93,6 +122,8 @@ public void startScan (){
 	IntentIntegrator integrator = new IntentIntegrator(this);
 	integrator.initiateScan();
 }
+
+
 
 public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	  IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
