@@ -51,20 +51,41 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private TextView pModelText;
 	private Button addElementButton;
 	
+	//tags used for the saved instance state
+	private static final String TAG_SAVED_PRODUCT = "saved_product";
+	private static final String TAG_LOAD_INFO = "load_info";
+	
 	String extension; 
 	
 	//Fragment tags
 	private static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
 	private static final String TAG_ELEMENT_DETAIL_FRAGMENT = "element_detail";
 	
-	public void onCreate (Bundle bundle){
-		super.onCreate(bundle);
+	public void onCreate (Bundle savedInstanceState){
+		super.onCreate(savedInstanceState);
 		context = this;
 		extension = getResources().getString(R.string.image_extension);
 
 		//We get the ProductId from the Intent
 		pId = getIntent().getIntExtra("product_id", 0);
 		loadInfo = getIntent().getBooleanExtra("load_info", false);
+		
+		if (savedInstanceState != null){
+			product = savedInstanceState.getParcelable(TAG_SAVED_PRODUCT);
+			loadInfo = savedInstanceState.getBoolean (TAG_LOAD_INFO);
+			
+			//we set the fragments from the Fragment Manager
+			FragmentTransaction transac = getFragmentManager().beginTransaction();
+			ElementDetailFragment detailFrag = (ElementDetailFragment) getFragmentManager().findFragmentByTag(TAG_ELEMENT_DETAIL_FRAGMENT);
+			NewElementFragment newElementFrag = (NewElementFragment) getFragmentManager ().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
+			
+			if (detailFrag != null){
+				transac.add(detailFrag, TAG_ELEMENT_DETAIL_FRAGMENT).commit();
+			}
+			if (newElementFrag != null){
+				transac.add(newElementFrag, TAG_NEW_ELEMENT_FRAGMENT);
+			}
+		}
 
 		
 	}
@@ -95,6 +116,31 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
   }
 	
 	
+  
+	/* (non-Javadoc)
+ * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
+ */
+@Override
+protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	// TODO Auto-generated method stub
+	super.onRestoreInstanceState(savedInstanceState);
+}
+
+/* (non-Javadoc)
+ * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
+ */
+@Override
+protected void onSaveInstanceState(Bundle outState) {
+	// TODO Auto-generated method stub
+	super.onSaveInstanceState(outState);
+	
+	// We save the product
+	outState.putParcelable(TAG_SAVED_PRODUCT, product);
+	outState.putBoolean(TAG_LOAD_INFO, false);//set load info to false
+}
+
+
+
 	protected class GetProductDetailTask extends AsyncTask <Void, Void, Void> {
 		ElementsLoader loader;
 		int pId;
