@@ -204,7 +204,7 @@ public class NewElementFragment extends Fragment {
 		//We check that there is an imagePath (which indicates that the user just took a picture or chose from library
 		//and we asign this image path to element.photoId
 		if (!imagePath.equals(""))
-		element.setPhotoId("/images/product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber())+extension);
+		element.setPhotoId("/product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber())+extension);
 		
 		//Check that a name is entered and a photo is added. If not, displays Toasts.
 		if (element.getName()!=null && element.getPhotoId()!=null){

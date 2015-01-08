@@ -127,7 +127,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				addElementButton = (Button) layout.findViewById(R.id.add_element_button);
 				
 				// First the product
-				String imageUrl = context.getResources().getString(R.string.server_address)+product.getPhotoId();
+				String imageUrl = context.getResources().getString(R.string.image_bucket_url)+product.getPhotoId();
 				Log.d("picasso", imageUrl);
 				Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
 				pBrandText.setText(product.getBrand());

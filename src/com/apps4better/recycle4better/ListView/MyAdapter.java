@@ -92,7 +92,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     //We construct the image Url based on the server address from the resources and the image id.
     //Then we use picasso to load and display the image.
     String extension = activity.getResources().getString(R.string.image_extension);
-    String imageUrl = activity.getResources().getString(R.string.server_address) + element.getPhotoId();
+    String imageUrl = activity.getResources().getString(R.string.image_bucket_url) + element.getPhotoId();
     Drawable placeHolder = activity.getResources().getDrawable(R.drawable.no_photo_placeholder);
     Picasso.with(activity).load(imageUrl).placeholder(placeHolder).into(holder.elementIcon);
     

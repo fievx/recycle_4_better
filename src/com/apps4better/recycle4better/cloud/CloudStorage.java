@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -44,7 +45,7 @@ public class CloudStorage {
 	private static final String PROJECT_ID_PROPERTY = "snappy-storm-816";
 	private static final String APPLICATION_NAME_PROPERTY = "Recycle4better";
 	private static final String ACCOUNT_ID_PROPERTY = "330354908046-acis24og10mqrb47db4f8mkn0mbocbv5@developer.gserviceaccount.com";
-	private static final String PRIVATE_KEY_PATH_PROPERTY = "android.resource://Recycle4Better-af4dee8649bc.p12";
+	private static final String PRIVATE_KEY_PATH_PROPERTY = "Recycle4Better-af4dee8649bc.p12";
 
 	public CloudStorage (){}
 	
@@ -99,9 +100,10 @@ public class CloudStorage {
 		object.setBucket(bucketName);
 		
 		OutputStream outputStream = null;
+		String filePath = context.getCacheDir()+"/"+ fileName;
 		try {
-			
-			outputStream = new FileOutputStream (fileName); 
+
+			outputStream = new FileOutputStream (filePath); 
 			bStream.writeTo(outputStream);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -111,7 +113,7 @@ public class CloudStorage {
 		}
 		
 		
-		File file = new File(fileName);
+		File file = new File(filePath);
 
 		InputStream stream = new FileInputStream(file);
 		try {
@@ -290,7 +292,7 @@ public class CloudStorage {
 	
 	private static File getTempPkc12File(Context context) throws IOException {
 	    // xxx.p12 export from google API console
-	    InputStream pkc12Stream = context.getAssets().open("Recycle4Better-af4dee8649bc.p12");
+	    InputStream pkc12Stream = context.getAssets().open(PRIVATE_KEY_PATH_PROPERTY);
 	    File tempPkc12File = File.createTempFile("temp_pkc12_file", "p12");
 	    OutputStream tempFileStream = new FileOutputStream(tempPkc12File);
 
@@ -318,6 +320,8 @@ public class CloudStorage {
 		      case MEDIA_COMPLETE:
 		        System.out.println("Upload is complete!");
 		        ((CloudStorageListener)parent).update(CloudStorageListener.TAG_SUCCESS);
+		        Log.d("CloudStorage", "upload finised and successfull");
+		        break;
 			case NOT_STARTED:
 				break;
 			default:

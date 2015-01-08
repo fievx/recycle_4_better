@@ -12,6 +12,7 @@
     <string name="element_name_textview"/>
     <string name="element_recyclable_label">Recyclable :</string>
     <string name="server_address">http://snappy-storm-816.appspot.com</string>
+    <string name="image_bucket_url">http://storage.googleapis.com/recycle4better_images</string>
     <string name="image_extension">.jpg</string>
     <string name="add_element_button_text">Add an element</string>
 	<string name="new_element_name_label">Element name:</string>

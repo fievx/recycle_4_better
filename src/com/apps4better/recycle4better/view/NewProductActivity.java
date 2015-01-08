@@ -149,7 +149,7 @@ private void saveProduct (){
 	//We store all the informations in the product
 	product.setBrand(pBrandEdit.getText().toString());
 	product.setModel(pModelEdit.getText().toString());
-	product.setPhotoId("/images/product_"+String.valueOf(product.getpId())+"_product"+extension);
+	product.setPhotoId("/product_"+String.valueOf(product.getpId())+"_product"+extension);
 	
 	//We upload the product using the ProductEditorService
 	Intent intent = new Intent (this, ProductEditorService.class);
