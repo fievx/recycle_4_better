@@ -200,7 +200,8 @@ public class PictureUploaderService extends IntentService implements CloudStorag
 
 	private void uploadToCloudStorage (){
 		try {
-			CloudStorage.uploadImageFromStream("recycle4better_images", bStream,this.imageFileName, this.getApplicationContext());
+			CloudStorage storage = new CloudStorage (this);
+			storage.uploadImageFromStream("recycle4better_images", bStream,this.imageFileName, this.getApplicationContext());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

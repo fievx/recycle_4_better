@@ -36,7 +36,7 @@ public class CloudStorage {
 
 	private static Properties properties;
 	private static Storage storage;
-	private Object parent;
+	private CloudStorageListener parent;
 
 	/**
 	 * Static fields must be entered per application.
@@ -47,9 +47,8 @@ public class CloudStorage {
 	private static final String ACCOUNT_ID_PROPERTY = "330354908046-acis24og10mqrb47db4f8mkn0mbocbv5@developer.gserviceaccount.com";
 	private static final String PRIVATE_KEY_PATH_PROPERTY = "Recycle4Better-af4dee8649bc.p12";
 
-	public CloudStorage (){}
 	
-	public CloudStorage (Object parent){
+	public CloudStorage (CloudStorageListener parent){
 		this.parent = parent;
 	}
 	
@@ -63,7 +62,7 @@ public class CloudStorage {
 	 *            Absolute path of the file to upload
 	 * @throws Exception
 	 */
-	public static void uploadFile(String bucketName, String filePath, Context context)
+	public void uploadFile(String bucketName, String filePath, Context context)
 			throws Exception {
 		
 		Storage storage = getStorage(context);
@@ -83,15 +82,14 @@ public class CloudStorage {
 			Storage.Objects.Insert insert = storage.objects().insert(
 					bucketName, null, content);
 			insert.setName(file.getName());
-			CloudStorage s = new CloudStorage();
-			insert.getMediaHttpUploader().setProgressListener(s.new CustomProgressListener());
+			insert.getMediaHttpUploader().setProgressListener(this.new CustomProgressListener());
 			insert.execute();
 		} finally {
 			stream.close();
 		}
 	}
 	
-	public static void uploadImageFromStream(String bucketName, ByteArrayOutputStream bStream, String fileName, Context context)
+	public void uploadImageFromStream(String bucketName, ByteArrayOutputStream bStream, String fileName, Context context)
 			throws Exception {
 		
 		Storage storage = getStorage(context);
@@ -125,8 +123,7 @@ public class CloudStorage {
 			Storage.Objects.Insert insert = storage.objects().insert(
 					bucketName, null, content);
 			insert.setName(file.getName());
-			CloudStorage s = new CloudStorage();
-			insert.getMediaHttpUploader().setProgressListener(s.new CustomProgressListener());
+			insert.getMediaHttpUploader().setProgressListener( this.new CustomProgressListener());
 			insert.execute();
 		} finally {
 			stream.close();
@@ -319,7 +316,7 @@ public class CloudStorage {
 		        break;
 		      case MEDIA_COMPLETE:
 		        System.out.println("Upload is complete!");
-		        ((CloudStorageListener)parent).update(CloudStorageListener.TAG_SUCCESS);
+		        parent.update(CloudStorageListener.TAG_SUCCESS);
 		        Log.d("CloudStorage", "upload finised and successfull");
 		        break;
 			case NOT_STARTED:
