@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:clickable="true" >
+
+    <ImageView
+        android:id="@+id/product_picture_view"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/placeholder_element_detail" />
+
+    <TextView
+        android:id="@+id/product_brand_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/product_picture_view"
+        android:layout_toRightOf="@+id/product_picture_view"
+        android:maxLines="1"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/product_model_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/product_brand_text_view"
+        android:layout_below="@+id/product_brand_text_view"
+        android:layout_marginTop="20dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/product_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/product_model_text_view"
+        android:layout_alignBottom="@+id/product_picture_view"
+        android:drawableLeft="@drawable/edit"
+        android:text="@string/edit" />
+
+    <ImageButton
+        android:id="@+id/product_upvote_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/product_edit_button"
+        android:layout_below="@+id/product_edit_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/arrow_up" />
+
+    <TextView
+        android:id="@+id/product_trust_score_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/product_picture_view"
+        android:layout_below="@+id/product_upvote_button"
+        android:layout_marginTop="20dp"
+        android:text="@string/trust_score"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/product_trust_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/product_trust_score_text_view"
+        android:layout_alignRight="@id/product_upvote_button"
+        android:layout_centerHorizontal="false"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageButton
+        android:id="@+id/product_down_vote_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/product_trust_score_text"
+        android:layout_alignLeft="@id/product_upvote_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/arrow_down" />
+
+</RelativeLayout>
+

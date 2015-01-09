@@ -38,7 +38,8 @@ public class ElementsLoader {
     private static final String TAG_PRODUCT_ID = "product_id";
     private static final String TAG_PRODUCT_BRAND = "product_brand";
     private static final String TAG_PRODUCT_MODEL = "product_model";
-    private static final String TAG_PRODUCT_PHOTO = "product_photo_id";    
+    private static final String TAG_PRODUCT_PHOTO = "product_photo_id";   
+    private static final String TAG_PRODUCT_TRUST_SCORE = "page_score";   
     private static final String TAG_ELEMENT_NUMBER = "element_number";
     private static final String TAG_ELEMENT_RECYCLABLE = "element_recyclable";
     private static final String TAG_ELEMENT_DESCRIPTION = "element_description";
@@ -107,6 +108,7 @@ public class ElementsLoader {
                 product.setModel(productJSON.getString(TAG_PRODUCT_MODEL));
                 product.setpId(productJSON.getInt(TAG_PRODUCT_ID));
                 product.setPhotoId(productJSON.getString(TAG_PRODUCT_PHOTO));
+                product.setTrustScore(productJSON.getInt(TAG_PRODUCT_TRUST_SCORE));
                 
                 //We move to the second part of the JSON Object and retrieve the elements
                 JSONArray elementJSON = json.getJSONArray(TAG_ELEMENT); // JSON Array

@@ -33,6 +33,9 @@ public class ProductEditorService extends IntentService{
     private static final String TAG_PHOTO_ID = "product_photo_id";
     
     public static final String  CODE_PRODUCT_UPLOAD = "product_upload";
+    
+    //Intent tag
+    public static final String TAG_PRODUCT = "product";
 
 
 	public ProductEditorService() {
@@ -49,7 +52,7 @@ public class ProductEditorService extends IntentService{
 		
 		//We get the element from the Intent
 		Bundle extra = intent.getExtras();
-		product = extra.getParcelable("product");
+		product = extra.getParcelable(TAG_PRODUCT);
 		
 		uploadProduct();		
 	}

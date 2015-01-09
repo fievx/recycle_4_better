@@ -11,6 +11,7 @@ public class Product implements Parcelable {
 	private String model;
 	private int pId;
 	private String photoId;
+	private int trustScore;
 	
 	public Product (){
 		
@@ -73,6 +74,20 @@ public Element getElementById (int elementNumber){
 
 /////////////////////   SETTERS  ////////////////////////
 
+
+	/**
+ * @return the trustScore
+ */
+public int getTrustScore() {
+	return trustScore;
+}
+
+/**
+ * @param trustScore the trustScore to set
+ */
+public void setTrustScore(int trustScore) {
+	this.trustScore = trustScore;
+}
 
 	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
