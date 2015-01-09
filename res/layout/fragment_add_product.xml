@@ -1,8 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@android:color/white"
+    android:clickable="true" >
     
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:clickable="true" >
+        
+            <RelativeLayout
+    android:id="@+id/formLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="15dp" 
+    android:paddingTop="10dp">
+    
+    <TextView
+        android:id="@+id/instructionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/new_product_instruction_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15sp" />
+    
+    <TextView
+        android:id="@+id/element_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/instructionTextView"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/product_brand_label"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15sp" />
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/product_brand_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/element_name_text_view"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:textSize="15sp" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/element_trust_score_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/element_name_text_view"
+        android:layout_marginTop="15dp"
+        android:text="@string/product_model_label"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/product_model_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/element_trust_score_text_view"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:textSize="15sp" />
+    
+    <ImageView
+        android:id="@+id/product_image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/element_trust_score_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="6dp"
+        android:clickable="true"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:src="@drawable/add_photo_placeholder" />
+
+    <View
+        android:id="@+id/seperator1"
+        style="@style/Divider"
+        android:layout_below="@id/product_image_view"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp" />
+    
+    <Button
+        android:id="@+id/save_product_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="false"
+        android:layout_below="@id/seperator1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="40dp"
+        android:drawableLeft="@drawable/save"
+        android:text="@string/save_button" />
+
+		</RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+            </RelativeLayout>
+       
+    </FrameLayout>
+
+</ScrollView>

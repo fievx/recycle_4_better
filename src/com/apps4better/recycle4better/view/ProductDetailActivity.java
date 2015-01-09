@@ -1,7 +1,5 @@
 package com.apps4better.recycle4better.view;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
@@ -30,9 +28,10 @@ import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementDetailObserver;
 import com.apps4better.recycle4better.model.ElementsLoader;
 import com.apps4better.recycle4better.model.Product;
+import com.apps4better.recycle4better.model.ProductDetailObserver;
 import com.squareup.picasso.Picasso;
 
-public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver{
+public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver, ProductDetailObserver{
 	private Context context;
 	private Product product;
 	private int pId;
@@ -45,7 +44,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	 */
 	private boolean loadInfo = false;
 	
-	private RelativeLayout layout;
+	private RelativeLayout layout, headerLayout;
 	private ImageView pPhotoView;
 	private TextView pBrandText;
 	private TextView pModelText;
@@ -59,10 +58,17 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	
 	//Fragment tags
 	private static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
+	private static final String TAG_NEW_PRODUCT_FRAGMENT = "new_product";
 	private static final String TAG_ELEMENT_DETAIL_FRAGMENT = "element_detail";
+	private static final String TAG_PRODUCT_DETAIL_FRAGMENT = "product_detail";
 	
 	public void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		/*
+		 * The view is not build in the onCreate method but in the 
+		 * GetProductDetailTask.
+		 */
+		
 		context = this;
 		extension = getResources().getString(R.string.image_extension);
 
@@ -70,9 +76,59 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		pId = getIntent().getIntExtra("product_id", 0);
 		loadInfo = getIntent().getBooleanExtra("load_info", false);
 		
+		//If the savedInstanceBundle is not null, we rebuild the view from here without using the GetProductDetailTask
 		if (savedInstanceState != null){
 			product = savedInstanceState.getParcelable(TAG_SAVED_PRODUCT);
 			loadInfo = savedInstanceState.getBoolean (TAG_LOAD_INFO);
+			
+			//We build the layout, first with the product details, and then the elements using the RecyclerView
+			layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+			setContentView(layout);
+			headerLayout = (RelativeLayout) layout.findViewById(R.id.product_view_header);
+			pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
+			pBrandText = (TextView) layout.findViewById(R.id.product_name_text_view);
+			pModelText =(TextView) layout.findViewById(R.id.product_desc_text_view);
+			addElementButton = (Button) layout.findViewById(R.id.add_element_button);
+			
+			// First the product
+			String imageUrl = context.getResources().getString(R.string.image_bucket_url)+product.getPhotoId();
+			Log.d("picasso", imageUrl);
+			Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
+			pBrandText.setText(product.getBrand());
+			pModelText.setText(product.getModel());
+			
+			//We set a listener on the button
+			addElementButton.setOnClickListener(new OnClickListener (){
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Element e = new Element ();
+					e.setNumber(product.getElementList().size()+1);
+					e.setProductId(product.getpId());
+					displayNewElementFragment (e);
+				}
+				
+			});
+			
+			//We set the recyclerView with the elements from the product
+			RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
+			recyclerView.setHasFixedSize(true);
+			recyclerView.setAdapter(new MyAdapter(product.getElementList(), ProductDetailActivity.this));
+			recyclerView.setLayoutManager(new LinearLayoutManager(context));
+			recyclerView.setItemAnimator(new DefaultItemAnimator());
+			Log.d("getProductDetailClass", "layout for recycler View loaded");
+			
+			//We set a listener on the header to display the ProductDetailFragment
+			headerLayout.setOnClickListener(new OnClickListener (){
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					displayProductDetailFragment(product);				
+				}
+				
+			});
 			
 			//we set the fragments from the Fragment Manager
 			FragmentTransaction transac = getFragmentManager().beginTransaction();
@@ -167,6 +223,7 @@ protected void onSaveInstanceState(Bundle outState) {
 				//We build the layout, first with the product details, and then the elements using the RecyclerView
 				layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
 				setContentView(layout);
+				headerLayout = (RelativeLayout) layout.findViewById(R.id.product_view_header);
 				pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
 				pBrandText = (TextView) layout.findViewById(R.id.product_name_text_view);
 				pModelText =(TextView) layout.findViewById(R.id.product_desc_text_view);
@@ -200,6 +257,17 @@ protected void onSaveInstanceState(Bundle outState) {
 				recyclerView.setLayoutManager(new LinearLayoutManager(context));
 				recyclerView.setItemAnimator(new DefaultItemAnimator());
 				Log.d("getProductDetailClass", "layout for recycler View loaded");
+				
+				//We set a listener on the header to display the ProductDetailFragment
+				headerLayout.setOnClickListener(new OnClickListener (){
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						displayProductDetailFragment(product);
+					}
+					
+				});
 			}
 			//we start the product not found activity
 			else {
@@ -258,6 +326,31 @@ public void displayElementFragment(int elementId) {
 		transac.addToBackStack(null).commit();
 	}
 	
+	public void displayProductDetailFragment( Product product){
+		Log.d("product detail", "click detected on Header");
+		ProductDetailFragment frag = ProductDetailFragment.getInstance(product);
+		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		transac.add(R.id.product_detail_fragment_container, frag, TAG_PRODUCT_DETAIL_FRAGMENT);
+		transac.addToBackStack(null);
+		transac.commit();
+	}
+	
+	/**
+	 * Removes the ProductDetailFragment if it exists and places the 
+	 * NewProductFragment instead
+	 * @param Product
+	 */
+	public void displayNewProductFragment (Product p){
+		NewProductFragment fragment = NewProductFragment.getInstance(p);
+		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		//if there is a ProductDetailFramgent, we remove it
+		ProductDetailFragment f = (ProductDetailFragment) getFragmentManager().findFragmentByTag(ProductDetailActivity.TAG_PRODUCT_DETAIL_FRAGMENT);
+		if ( f != null)
+			transac.remove(f);
+		transac.add(R.id.product_detail_fragment_container, fragment, ProductDetailActivity.TAG_NEW_PRODUCT_FRAGMENT);
+		transac.addToBackStack(null).commit();
+	}
+	
 	@Override
 	public void editElement(Element element) {
 		// TODO Auto-generated method stub
@@ -270,8 +363,18 @@ public void displayElementFragment(int elementId) {
 			//we set loadinfo to false so that the activity view won't get built 
 			this.loadInfo = false;
 		}
+		//Else put the NewPRoductFragment back on top
+		else if (requestCode == NewProductFragment.CODE_IMAGE_PATH){
+			this.loadInfo = false;
+		}
 		//Do default action on result (nothing) so that the result is passed on the the fragments
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void editProduct(Product product) {
+		// TODO Auto-generated method stub
+		displayNewProductFragment(product);
 	}
 
 	
