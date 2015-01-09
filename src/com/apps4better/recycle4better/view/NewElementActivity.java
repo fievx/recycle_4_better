@@ -26,6 +26,12 @@ import com.apps4better.recycle4better.model.ElementEditorService;
 import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.squareup.picasso.Picasso;
 
+
+/**
+ * This class is note used anymore
+ * @author jeremy
+ *
+ */
 public class NewElementActivity extends Activity {
 	private Button saveElementButton;
 	private EditText eNameEdit, eDescEdit, eWeightEdit, eMaterialCommonEdit, eMaterialScientEdit;

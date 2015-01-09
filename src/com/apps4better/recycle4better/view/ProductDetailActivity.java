@@ -152,9 +152,11 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		 * We check if there is a fragment built that should be visible. If yes, we don't build the view
 		 */
 		NewElementFragment f = (NewElementFragment) getFragmentManager().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
-		if (f!=null){
+		NewProductFragment fr = (NewProductFragment) getFragmentManager().findFragmentByTag(TAG_NEW_PRODUCT_FRAGMENT);
+		if (f!=null||fr!=null){
 			loadInfo = false;
 		}
+
 		//We call the GetProductDetailTask
 		if (loadInfo) new GetProductDetailTask(pId).execute();
 		LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("message"));
@@ -371,8 +373,9 @@ public void displayElementFragment(int elementId) {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 
+	
 	@Override
-	public void editProduct(Product product) {
+public void editProduct(Product product) {
 		// TODO Auto-generated method stub
 		displayNewProductFragment(product);
 	}

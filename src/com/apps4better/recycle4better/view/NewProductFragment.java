@@ -40,6 +40,7 @@ public class NewProductFragment extends Fragment{
 	Button saveButton;
 	private boolean productUploaded = false;
 	private boolean pictureUploaded = false;
+	private boolean pictureChanged = false;
 	
 	//Tags used for the camera implementation
 	public static final String TAG_CAMERA_FRAGMENT = "camera_fragment";
@@ -189,6 +190,8 @@ public class NewProductFragment extends Fragment{
 		switch (requestCode){
 		case   CODE_IMAGE_PATH :
 			if (resultCode == Activity.RESULT_OK ){
+				//we set the pictureChanged boolean to true so that it gets uploaded on save
+				pictureChanged = true;
 				imagePath = data.getStringExtra(TAG_IMAGE_PATH);
 				Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
 				File f = new File (imagePath);
@@ -202,7 +205,7 @@ public class NewProductFragment extends Fragment{
 	public void takePhoto (){
 		Intent intent = new Intent (activity, MyCameraActivity.class);
 		intent.putExtra("photo_name", "new_product");
-		startActivityForResult(intent, NewElementFragment.CODE_IMAGE_PATH);
+		startActivityForResult(intent, NewProductFragment.CODE_IMAGE_PATH);
 	}
 	
 	private void saveProduct (){
@@ -229,18 +232,21 @@ public class NewProductFragment extends Fragment{
 		
 		//We upload the product using the ProductEditorService
 		Intent intent = new Intent (activity, ProductEditorService.class);
-		intent.putExtra("product", product);
+		intent.putExtra("product", product.getCloneWithoutElements());
 		activity.startService(intent);
 		
 		//We upload the image using the PictureUploaderService
+		if (pictureChanged == true){
 		intent = new Intent (activity, PictureUploaderService.class);
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(product.getpId())+"_product");
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
 		activity.startService (intent);
-		
+		}
+		else pictureUploaded = true;
+			
 		//We start the spinner fragment while the picture and the product info are being uploaded
 		SpinnerFragment spin = new SpinnerFragment ();
-		getFragmentManager().beginTransaction().add(R.id.fragment_frame, spin, "spinner_tag").commit();
+		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin, "spinner_tag").commit();
 	}
 
 	/**

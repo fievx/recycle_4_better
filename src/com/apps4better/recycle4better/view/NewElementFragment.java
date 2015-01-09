@@ -53,6 +53,7 @@ public class NewElementFragment extends Fragment {
 	public static final String TAG_PRODUCT_ID = "pId";
 	public static final String TAG_ELEMENT_NUMBER = "elementNumber";
 	
+	private boolean pictureChanged = false;
 	private boolean elementUploaded = false;
 	private boolean pictureUploaded = false;
 
@@ -231,12 +232,15 @@ public class NewElementFragment extends Fragment {
 		activity.startService(intent);
 
 		//Upload the photo on the server using the PictureUploaderService
-		if (!imagePath.isEmpty()){
+		if (!imagePath.isEmpty()&& pictureChanged== true){
 		intent = new Intent (activity, PictureUploaderService.class);
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber()));
 		intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
 		activity.startService (intent);
 		}
+		//We set pictureUploaded to true otherwise the fragment will consider that the picture is never uploaded 
+		// and the spinner will spin forever and ever and ever...
+		else pictureUploaded= true;
 		
 		//place the spinner fragment while the element and the picture are being uploaded
 		SpinnerFragment spin = new SpinnerFragment();
@@ -249,6 +253,8 @@ public class NewElementFragment extends Fragment {
 		if (requestCode == CODE_IMAGE_PATH){
 		switch (resultCode) {
 		case Activity.RESULT_OK :
+			//We set the pictureChanged boolean to true so that the picture gets uploaded
+			pictureChanged = true;
 			imagePath = data.getStringExtra(TAG_IMAGE_PATH);
 			Log.d("New Element Fragment", "OnresultActivity is OK and image is loading with path : " + imagePath);
 			File f = new File (imagePath);

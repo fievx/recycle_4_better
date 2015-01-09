@@ -145,5 +145,15 @@ public void setTrustScore(int trustScore) {
 		
 	};
 	
-	
+	/**
+	 * Conveniance method which return a Product object identical to the one calling the method, but 
+	 * with a null list of Elements. This method is meant to be called before a product is passed to the 
+	 * ProductEditorService to avoid bugs.
+	 * @return Product
+	 */
+	public Product getCloneWithoutElements (){
+		Product p = this;
+		p.setElementList(null);
+		return p;
+	}
 }
