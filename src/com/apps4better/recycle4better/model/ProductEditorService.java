@@ -31,6 +31,7 @@ public class ProductEditorService extends IntentService{
     private static final String TAG_PRODUCT_BRAND = "product_brand";
     private static final String TAG_PRODUCT_MODEL = "product_model";
     private static final String TAG_PHOTO_ID = "product_photo_id";
+    private static final String TAG_PRODUCT_TRUST = "product_trust_score";
     
     public static final String  CODE_PRODUCT_UPLOAD = "product_upload";
     
@@ -66,6 +67,7 @@ public class ProductEditorService extends IntentService{
 	        	params.add(new BasicNameValuePair(TAG_PRODUCT_BRAND, product.getBrand()));
 	        	params.add(new BasicNameValuePair(TAG_PRODUCT_MODEL, product.getModel()));
 	        	params.add(new BasicNameValuePair(TAG_PHOTO_ID, product.getPhotoId()));
+	        	params.add(new BasicNameValuePair(TAG_PRODUCT_TRUST, String.valueOf(product.getTrustScore())));
 
 	            // getting product details by making HTTP request
 	            // Note that product details url will use GET request

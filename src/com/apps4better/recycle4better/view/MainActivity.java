@@ -129,7 +129,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	  IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 	  if (scanResult != null) {
 		  if (scanResult.getFormatName().equals("UPC_A")||scanResult.getFormatName().equals("UPC_E") || scanResult.getFormatName().equals("UPC_EAN_EXTENSION")){
-			  int id = Integer.valueOf(scanResult.getContents()).intValue();
+			  long id = Integer.valueOf(scanResult.getContents()).intValue();
 				Intent i = new Intent(context, ProductDetailActivity.class);
 				i.putExtra("product_id", id);
 				i.putExtra("load_info", true);

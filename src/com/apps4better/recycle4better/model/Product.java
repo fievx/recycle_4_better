@@ -9,7 +9,7 @@ public class Product implements Parcelable {
 	private ArrayList <Element> elementList = new ArrayList <Element>();
 	private String brand ;
 	private String model;
-	private int pId;
+	private long pId;
 	private String photoId;
 	private int trustScore;
 	
@@ -40,7 +40,7 @@ public class Product implements Parcelable {
 		return brand;
 	}
 
-	public int getpId() {
+	public long getpId() {
 		return pId;
 	}
 	
@@ -126,7 +126,7 @@ public void setTrustScore(int trustScore) {
 		dest.writeString(model);
 		dest.writeString(brand);
 		dest.writeString(photoId);
-		dest.writeInt(pId);
+		dest.writeLong(pId);
 	}
 	
 	public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){
