@@ -12,12 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
-import com.apps4better.recycle4better.model.ElementDetailObserver;
-import com.apps4better.recycle4better.model.ElementEditorService;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.model.ProductDetailObserver;
 import com.apps4better.recycle4better.model.ProductEditorService;
@@ -26,11 +24,11 @@ import com.squareup.picasso.Picasso;
 public class ProductDetailFragment extends Fragment{
 	private Product product;
 	private Activity activity;
-	private RelativeLayout layout;
+	private ScrollView layout;
 	public static final String TAG_PRODUCT = "product";
-	private static final String extansion = ".png";
+
 	
-	private ImageView ePictureView, eRecyclable;
+	private ImageView ePictureView;
 	private TextView pBrandText, pModelText, pTrustText;
 	private Button editButton; 
 	private ImageButton upVoteButton, downVoteButton;
@@ -50,7 +48,7 @@ public class ProductDetailFragment extends Fragment{
 		Bundle bundle = this.getArguments();
 		this.product = bundle.getParcelable(TAG_PRODUCT);
 		
-		layout = (RelativeLayout) inflater.inflate(R.layout.fragment_product_detail, container, false);
+		layout = (ScrollView) inflater.inflate(R.layout.fragment_product_detail, container, false);
 		ePictureView = (ImageView) layout.findViewById(R.id.product_picture_view);
 		pBrandText = (TextView) layout.findViewById(R.id.product_brand_text_view);
 		pModelText = (TextView) layout.findViewById(R.id.product_model_text_view);

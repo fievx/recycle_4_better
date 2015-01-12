@@ -106,7 +106,7 @@ public class ElementsLoader {
                 JSONObject productJSON = productObj.getJSONObject(0);
                 product.setBrand(productJSON.getString(TAG_PRODUCT_BRAND));
                 product.setModel(productJSON.getString(TAG_PRODUCT_MODEL));
-                product.setpId(productJSON.getInt(TAG_PRODUCT_ID));
+                product.setpId(productJSON.getLong(TAG_PRODUCT_ID));
                 product.setPhotoId(productJSON.getString(TAG_PRODUCT_PHOTO));
                 product.setTrustScore(productJSON.getInt(TAG_PRODUCT_TRUST_SCORE));
                 
@@ -117,7 +117,7 @@ public class ElementsLoader {
                 for (int i = 0 ; i<elementJSON.length(); i++){
                 	Element element = new Element();
 	                JSONObject elementObj = elementJSON.getJSONObject(i);
-	                element.setProductId(elementObj.getInt(TAG_PRODUCT_ID));
+	                element.setProductId(elementObj.getLong(TAG_PRODUCT_ID));
 	                element.setName(elementObj.getString(TAG_ELEMENT_NAME));
 	                element.setDescription(elementObj.getString(TAG_ELEMENT_DESCRIPTION));
 	                element.setNumber(elementObj.getInt(TAG_ELEMENT_NUMBER));

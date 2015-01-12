@@ -98,6 +98,7 @@ public class NewProductFragment extends Fragment{
 		// TODO Auto-generated method stub
 		Bundle b = getArguments();
 		this.product = b.getParcelable(TAG_PRODUCT);
+		Log.d("Debug product fragment", "product id = "+product.getpId());
 		
 		layout = (ScrollView) inflater.inflate(R.layout.fragment_add_product, container, false);
 		brandEdit = (EditText) layout.findViewById(R.id.product_brand_edit_text);

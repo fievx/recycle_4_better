@@ -58,7 +58,7 @@ public class NewProductActivity extends Activity{
 		
 		//We get the product Id from the Intent
 		Bundle extra = getIntent().getExtras();
-		product.setpId(extra.getInt("product_id"));
+		product.setpId(extra.getLong("product_id"));
 		extension = getResources().getString(R.string.image_extension);
 		
 		//We inflate the layout and get all the widgets

@@ -28,7 +28,7 @@ public class Product implements Parcelable {
 		this.model = source.readString();
 		this.brand = source.readString();
 		this.photoId= source.readString();
-		this.pId = source.readInt();
+		this.pId = source.readLong();
 	}
 
 //////////////////////    GETTERS   ///////////////////

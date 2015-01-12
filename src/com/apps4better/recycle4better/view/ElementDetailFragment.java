@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
@@ -24,7 +25,7 @@ import com.squareup.picasso.Picasso;
 public class ElementDetailFragment extends Fragment {
 	private Element element;
 	private Activity activity;
-	private RelativeLayout layout;
+	private ScrollView layout;
 	public static final String TAG_ELEMENT = "element";
 	private static final String extansion = ".png";
 	
@@ -48,7 +49,7 @@ public class ElementDetailFragment extends Fragment {
 		Bundle bundle = this.getArguments();
 		this.element = bundle.getParcelable(TAG_ELEMENT);
 		
-		layout = (RelativeLayout) inflater.inflate(R.layout.fragment_element_detail, container, false);
+		layout = (ScrollView) inflater.inflate(R.layout.fragment_element_detail, container, false);
 		ePictureView = (ImageView) layout.findViewById(R.id.element_picture_view);
 		eRecyclable = (ImageView) layout.findViewById(R.id.element_recyclable_view);
 		eNameText = (TextView) layout.findViewById(R.id.element_name_text_view);

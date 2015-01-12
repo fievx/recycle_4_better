@@ -54,7 +54,7 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
         if (f != null && f.isVisible()) {
         	Time timeText = new Time();
         	timeText.setToNow();
-            cameraHost.setPhotoName(photoName+timeText);
+            cameraHost.setPhotoName(photoName+timeText.second);
         	f.takePicture();
             pictureFile = cameraHost.getPhotoPath();
             Log.d("camera activity", "photo path is : "+pictureFile.getAbsolutePath());

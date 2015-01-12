@@ -118,7 +118,7 @@ public class Element implements Parcelable{
 	/////////  Parcelable Implementation ////////
 	//constructor for parcel
 	public Element (Parcel in){
-		this.productId = in.readInt();
+		this.productId = in.readLong();
 		this.description = in.readString();
 		this.materialCommon = in.readString();
 		this.materialScientific = in.readString();
