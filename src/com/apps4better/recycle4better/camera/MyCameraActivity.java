@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +52,9 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
     private void takePicture() {
         CameraFragment f = (CameraFragment) getFragmentManager().findFragmentByTag(TAG_CAMERA_FRAGMENT);
         if (f != null && f.isVisible()) {
-            cameraHost.setPhotoName(photoName);
+        	Time timeText = new Time();
+        	timeText.setToNow();
+            cameraHost.setPhotoName(photoName+timeText);
         	f.takePicture();
             pictureFile = cameraHost.getPhotoPath();
             Log.d("camera activity", "photo path is : "+pictureFile.getAbsolutePath());

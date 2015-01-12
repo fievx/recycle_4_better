@@ -102,14 +102,14 @@ public void setTrustScore(int trustScore) {
 		this.brand = brand;
 	}
 
-	public void setpId(int pId) {
+	public void setpId(long pId) {
 		this.pId = pId;
 	}
 
-	
 	public void setModel (String model){
 		this.model = model;
 	}
+	
 	//////////////// Parcel Methods //////////////
 	
 	
