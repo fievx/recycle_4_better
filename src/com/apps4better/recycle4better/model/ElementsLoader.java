@@ -57,7 +57,7 @@ public class ElementsLoader {
     
     private int success;
     
-    private int pId;
+    private long pId;
     
     //An instance of the Product Object to store the product and the elements info
     private Product product;
@@ -70,7 +70,7 @@ public class ElementsLoader {
     
     //	Public constructor which takes an int as parameter. The int is the campaign Id and is passed on
     // to the JSONParser
-    public ElementsLoader (Context context, int productId){
+    public ElementsLoader (Context context, long productId){
     	this.context = context;
     	this.serverAddress=context.getResources().getString(R.string.server_address);
     	this.url = this.serverAddress + this.url;

@@ -73,7 +73,7 @@ public class Element implements Parcelable{
 		this.cacheImagePath = cacheImagePath;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(long productId) {
 		this.productId = productId;
 	}
 

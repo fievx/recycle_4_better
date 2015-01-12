@@ -13,6 +13,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,7 +37,7 @@ import com.squareup.picasso.Picasso;
 public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver, ProductDetailObserver{
 	private Context context;
 	private Product product;
-	private int pId;
+	private long pId;
 	
 	/*
 	 *  the loadInfo boolean is used to tell the activity if it must download product information 
@@ -73,7 +76,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		extension = getResources().getString(R.string.image_extension);
 
 		//We get the ProductId from the Intent
-		pId = getIntent().getIntExtra("product_id", 0);
+		pId = getIntent().getLongExtra("product_id", 0);
 		loadInfo = getIntent().getBooleanExtra("load_info", false);
 		
 		//If the savedInstanceBundle is not null, we rebuild the view from here without using the GetProductDetailTask
@@ -146,6 +149,36 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.product_detail_action, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onMenuItemSelected(int, android.view.MenuItem)
+	 */
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()){
+		case R.id.action_main_activity :
+			Intent i = new Intent (this, MainActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(i);
+			return true;
+		default:
+			return super.onMenuItemSelected(featureId, item);
+		}
+
+	}
+
 	protected void onResume(){
 		super.onResume();
 		/*
@@ -179,16 +212,16 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
  * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
  */
 @Override
-protected void onRestoreInstanceState(Bundle savedInstanceState) {
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 	// TODO Auto-generated method stub
 	super.onRestoreInstanceState(savedInstanceState);
 }
 
-/* (non-Javadoc)
- * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
- */
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
+	 */
 @Override
-protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(Bundle outState) {
 	// TODO Auto-generated method stub
 	super.onSaveInstanceState(outState);
 	
@@ -201,8 +234,8 @@ protected void onSaveInstanceState(Bundle outState) {
 
 	protected class GetProductDetailTask extends AsyncTask <Void, Void, Void> {
 		ElementsLoader loader;
-		int pId;
-		public GetProductDetailTask (int pId){
+		long pId;
+		public GetProductDetailTask (long pId){
 			this.pId = pId;
 		}
 		
@@ -309,7 +342,7 @@ protected void onSaveInstanceState(Bundle outState) {
 	
 	
 	@Override
-public void displayElementFragment(int elementId) {
+	public void displayElementFragment(int elementId) {
 		// TODO Auto-generated method stub
 		ElementDetailFragment frag = ElementDetailFragment.getInstance(product.getElementById(elementId));
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -375,7 +408,7 @@ public void displayElementFragment(int elementId) {
 
 	
 	@Override
-public void editProduct(Product product) {
+	public void editProduct(Product product) {
 		// TODO Auto-generated method stub
 		displayNewProductFragment(product);
 	}

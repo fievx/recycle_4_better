@@ -18,8 +18,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="19dp"
         android:text="@string/welcome_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView1"
+        android:layout_centerHorizontal="true"
+        android:text="@string/explanation_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
@@ -28,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="false"
-        android:layout_below="@id/textView1"
+        android:layout_below="@id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
@@ -62,8 +74,6 @@
         android:layout_alignParentLeft="true"
         android:ems="10"
         android:inputType="number" >
-
-        <requestFocus />
     </EditText>
 
 

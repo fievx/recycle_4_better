@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.model.NetworkInspector;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.scanner.IntentIntegrator;
 import com.apps4better.recycle4better.scanner.IntentResult;
@@ -77,20 +79,31 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Log.d("Main activity", "giving product id = "+productIdTextField.getText().toString());
-				String a = productIdTextField.getText().toString();
-				int id = Integer.valueOf(a).intValue();
-				Intent intent = new Intent(context, ProductDetailActivity.class);
-				intent.putExtra("product_id", id);
-				intent.putExtra("load_info", true);
-				startActivity(intent);
-				
+				//check for network connection before anything
+				if (NetworkInspector.haveNetworkConnection(MainActivity.this)){
+					Log.d("Main activity", "giving product id = "+productIdTextField.getText().toString());
+					String a = productIdTextField.getText().toString();
+					long id = Long.valueOf(a).longValue();
+					Intent intent = new Intent(context, ProductDetailActivity.class);
+					intent.putExtra("product_id", id);
+					intent.putExtra("load_info", true);
+					startActivity(intent);
+				}
+				else {
+					String text = getResources().getString(R.string.no_network_connection);
+					Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+				}
 			}
 			
 		});
 		scanButton.setOnClickListener(new OnClickListener (){
 			public void onClick (View v){
+				if (NetworkInspector.haveNetworkConnection(MainActivity.this))
 				startScan();
+				else {
+					String text = getResources().getString(R.string.no_network_connection);
+					Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+				}
 			}
 		});
 	}

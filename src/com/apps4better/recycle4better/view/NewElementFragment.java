@@ -27,6 +27,7 @@ import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.camera.MyCameraActivity;
 import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementEditorService;
+import com.apps4better.recycle4better.model.NetworkInspector;
 import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.squareup.picasso.Picasso;
 
@@ -205,7 +206,12 @@ public class NewElementFragment extends Fragment {
 		
 		//Check that a name is entered and a photo is added. If not, displays Toasts.
 		if (element.getName()!=null && element.getPhotoId()!=null){
+			if (NetworkInspector.haveNetworkConnection(activity))
 			uploadElement();		
+			else {
+				String text = getResources().getString(R.string.no_network_connection);
+				Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
+			}
 	}
 		else if (element.getName()!=null){
 			String a = getResources().getString(R.string.no_name_entered_toast);

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.camera.MyCameraActivity;
 import com.apps4better.recycle4better.model.ElementEditorService;
+import com.apps4better.recycle4better.model.NetworkInspector;
 import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.model.ProductEditorService;
@@ -48,7 +49,7 @@ public class NewProductFragment extends Fragment{
 	public static final int CODE_IMAGE_PATH = 2;
 	public static final String TAG_IMAGE_PATH = "image_path";
 	private String imagePath="";
-	private String extension;
+	private String extension = ".jpg";
 	
 	//Tag for Bundle
 	public static final String TAG_PRODUCT = "product";
@@ -230,25 +231,36 @@ public class NewProductFragment extends Fragment{
 		product.setModel(modelEdit.getText().toString());
 		product.setPhotoId("/product_"+String.valueOf(product.getpId())+"_product"+extension);
 		
-		//We upload the product using the ProductEditorService
-		Intent intent = new Intent (activity, ProductEditorService.class);
-		intent.putExtra("product", product.getCloneWithoutElements());
-		activity.startService(intent);
-		
-		//We upload the image using the PictureUploaderService
-		if (pictureChanged == true){
-		intent = new Intent (activity, PictureUploaderService.class);
-		intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(product.getpId())+"_product");
-		intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
-		activity.startService (intent);
+		//We check for internet connect and then call uploadProduct method
+		if (NetworkInspector.haveNetworkConnection(activity))
+			uploadProduct();
+		else {
+			String text = getResources().getString(R.string.no_network_connection);
+			Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
 		}
-		else pictureUploaded = true;
-			
-		//We start the spinner fragment while the picture and the product info are being uploaded
-		SpinnerFragment spin = new SpinnerFragment ();
-		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin, "spinner_tag").commit();
 	}
 
+	private void uploadProduct(){
+		//We upload the product using the ProductEditorService
+				Intent intent = new Intent (activity, ProductEditorService.class);
+				intent.putExtra("product", product.getCloneWithoutElements());
+				activity.startService(intent);
+				
+				//We upload the image using the PictureUploaderService
+				if (pictureChanged == true){
+				intent = new Intent (activity, PictureUploaderService.class);
+				//When setting the image name, we dont set the extension as the PictureUploaderService does it
+				intent.putExtra(PictureUploaderService.TAG_IMAGE_NAME, "product_"+String.valueOf(product.getpId())+"_product");
+				intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
+				activity.startService (intent);
+				}
+				else pictureUploaded = true;
+					
+				//We start the spinner fragment while the picture and the product info are being uploaded
+				SpinnerFragment spin = new SpinnerFragment ();
+				getFragmentManager().beginTransaction().add(R.id.fragment_container, spin, "spinner_tag").commit();
+	}
+	
 	/**
 	 * We need a receiver to handle the broadcast sent from the ProductEditorService
 	 * 
