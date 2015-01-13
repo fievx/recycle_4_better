@@ -44,10 +44,6 @@ public class MyCameraHost extends SimpleCameraHost {
 	}
 
 
-
-
-
-
 	@Override
 	public void saveImage(PictureTransaction xact, Bitmap bitmap) {
 		// TODO Auto-generated method stub

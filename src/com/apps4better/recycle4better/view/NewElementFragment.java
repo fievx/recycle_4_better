@@ -120,7 +120,7 @@ public class NewElementFragment extends Fragment {
 		//If the element photo is stored in cache we take it, if not we try to load from the server
 		Drawable placeholder = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
 		if (element.getPhotoId()!=null){
-			 String imageUrl = activity.getResources().getString(R.string.server_address) + element.getPhotoId();
+			 String imageUrl = activity.getResources().getString(R.string.image_bucket_url)+ element.getPhotoId();
 			Picasso.with(activity).load(imageUrl).placeholder(placeholder).fit().into(photoView);			
 		}
 		

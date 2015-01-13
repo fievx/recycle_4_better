@@ -40,6 +40,10 @@ public class Product implements Parcelable {
 		return brand;
 	}
 
+	/**
+	 * 
+	 * @return long pId
+	 */
 	public long getpId() {
 		return pId;
 	}

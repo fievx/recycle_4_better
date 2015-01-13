@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +27,6 @@ public class ProductDetailFragment extends Fragment{
 	private Activity activity;
 	private ScrollView layout;
 	public static final String TAG_PRODUCT = "product";
-
 	
 	private ImageView ePictureView;
 	private TextView pBrandText, pModelText, pTrustText;
@@ -47,6 +47,7 @@ public class ProductDetailFragment extends Fragment{
 		//Retrieve the Bundle from the argument and extract the product
 		Bundle bundle = this.getArguments();
 		this.product = bundle.getParcelable(TAG_PRODUCT);
+		Log.d ("product detail frag", "product Id = "+product.getpId());
 		
 		layout = (ScrollView) inflater.inflate(R.layout.fragment_product_detail, container, false);
 		ePictureView = (ImageView) layout.findViewById(R.id.product_picture_view);
