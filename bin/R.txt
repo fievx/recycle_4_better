@@ -258,11 +258,10 @@ int id action_bar_root 0x7f09001a
 int id action_bar_subtitle 0x7f090023
 int id action_bar_title 0x7f090022
 int id action_context_bar 0x7f09001d
-int id action_main_activity 0x7f09007e
+int id action_main_activity 0x7f09007d
 int id action_menu_divider 0x7f090002
 int id action_menu_presenter 0x7f090003
 int id action_mode_close_button 0x7f090024
-int id action_settings 0x7f09007d
 int id activity_chooser_view_content 0x7f090025
 int id add_element_button 0x7f09005c
 int id add_product_button 0x7f09004c

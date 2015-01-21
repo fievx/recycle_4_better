@@ -1103,11 +1103,10 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f090023;
         public static final int action_bar_title=0x7f090022;
         public static final int action_context_bar=0x7f09001d;
-        public static final int action_main_activity=0x7f09007e;
+        public static final int action_main_activity=0x7f09007d;
         public static final int action_menu_divider=0x7f090002;
         public static final int action_menu_presenter=0x7f090003;
         public static final int action_mode_close_button=0x7f090024;
-        public static final int action_settings=0x7f09007d;
         public static final int activity_chooser_view_content=0x7f090025;
         public static final int add_element_button=0x7f09005c;
         public static final int add_product_button=0x7f09004c;
