@@ -35,9 +35,25 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/product_name_text_view"
             android:layout_below="@id/product_name_text_view"
-            android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/product_desc_text_view"
+            android:layout_below="@id/product_desc_text_view"
+            android:text="@string/barcode"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/barcode_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/textView1"
+            android:layout_toRightOf="@id/textView1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
             android:id="@+id/add_element_button"

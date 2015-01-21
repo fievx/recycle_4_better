@@ -52,6 +52,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private TextView pBrandText;
 	private TextView pModelText;
 	private Button addElementButton;
+	private TextView barcodeNumberLabel;
 	
 	//tags used for the saved instance state
 	private static final String TAG_SAVED_PRODUCT = "saved_product";
@@ -262,6 +263,8 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
 				pBrandText = (TextView) layout.findViewById(R.id.product_name_text_view);
 				pModelText =(TextView) layout.findViewById(R.id.product_desc_text_view);
+				barcodeNumberLabel =(TextView) layout.findViewById(R.id.barcode_number_label);
+				
 				addElementButton = (Button) layout.findViewById(R.id.add_element_button);
 				
 				// First the product
@@ -270,6 +273,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
 				pBrandText.setText(product.getBrand());
 				pModelText.setText(product.getModel());
+				barcodeNumberLabel.setText(product.getDisplayableProductId());
 				
 				//We set a listener on the button
 				addElementButton.setOnClickListener(new OnClickListener (){
