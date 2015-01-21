@@ -1109,11 +1109,12 @@ containing a value of this type.
         public static final int action_mode_close_button=0x7f090024;
         public static final int activity_chooser_view_content=0x7f090025;
         public static final int add_element_button=0x7f09005c;
-        public static final int add_product_button=0x7f09004c;
+        public static final int add_product_button=0x7f09004e;
         public static final int always=0x7f09000f;
+        public static final int barcode_number_label=0x7f09004c;
         public static final int beginning=0x7f090016;
-        public static final int buttonScan=0x7f090054;
-        public static final int camera_container=0x7f090051;
+        public static final int buttonScan=0x7f090055;
+        public static final int camera_container=0x7f090053;
         public static final int checkbox=0x7f09002d;
         public static final int collapseActionView=0x7f090010;
         public static final int default_activity_button=0x7f090028;
@@ -1141,10 +1142,10 @@ containing a value of this type.
         public static final int expanded_menu=0x7f09002c;
         public static final int findButton=0x7f090056;
         public static final int firstLine=0x7f090079;
-        public static final int footerLayout=0x7f09004f;
-        public static final int formLayout=0x7f09004d;
+        public static final int footerLayout=0x7f090051;
+        public static final int formLayout=0x7f09004f;
         public static final int fragment_container=0x7f090048;
-        public static final int fragment_frame=0x7f09004e;
+        public static final int fragment_frame=0x7f090050;
         public static final int home=0x7f090000;
         public static final int homeAsUp=0x7f09000a;
         public static final int icon=0x7f09002a;
@@ -1172,7 +1173,7 @@ containing a value of this type.
         public static final int product_model_edit_text=0x7f090061;
         public static final int product_model_text_view=0x7f090071;
         public static final int product_name_text_view=0x7f09005a;
-        public static final int product_not_found_text=0x7f09004b;
+        public static final int product_not_found_text=0x7f09004d;
         public static final int product_photo_image_view=0x7f090059;
         public static final int product_picture_view=0x7f09006f;
         public static final int product_trust_score_text=0x7f090075;
@@ -1207,13 +1208,12 @@ containing a value of this type.
         public static final int showCustom=0x7f09000b;
         public static final int showHome=0x7f09000c;
         public static final int showTitle=0x7f09000d;
-        public static final int shutter_button=0x7f090050;
+        public static final int shutter_button=0x7f090052;
         public static final int split_action_bar=0x7f09001e;
         public static final int submit_area=0x7f090039;
         public static final int tabMode=0x7f090008;
-        public static final int textView1=0x7f090052;
-        public static final int textView2=0x7f090055;
-        public static final int textView3=0x7f090053;
+        public static final int textView1=0x7f09004b;
+        public static final int textView3=0x7f090054;
         public static final int title=0x7f09002b;
         public static final int topLayout=0x7f09004a;
         public static final int top_action_bar=0x7f090020;
@@ -1290,8 +1290,8 @@ containing a value of this type.
         public static final int product_detail_action=0x7f0c0001;
     }
     public static final class string {
-        public static final int BCResultText=0x7f0a0014;
         public static final int BCTypeText=0x7f0a0013;
+        public static final int Barcode_number=0x7f0a0014;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0a0001;

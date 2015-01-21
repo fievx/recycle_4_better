@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
 	private Button findProductButton;
 	private EditText productIdTextField;
 	private Product product;
+	private long pId;
 	
 	private Context context;
 
@@ -42,8 +43,15 @@ public class MainActivity extends Activity {
 		
 		//We restore the values from the Bundle in case the Activity had to be recreated
 		if (savedInstanceState != null){
-		if (savedInstanceState.getString("pIdTextFieldValue")!= null)
-		productIdTextField.setText(savedInstanceState.getString("pIdTextFieldValue"));
+			if (savedInstanceState.getString("pIdTextFieldValue")!= null)
+			productIdTextField.setText(savedInstanceState.getString("pIdTextFieldValue"));
+			if (Long.valueOf(savedInstanceState.getLong("product_id"))!=null){
+				pId = savedInstanceState.getLong("product_id");
+				Intent i = new Intent(context, ProductDetailActivity.class);
+				i.putExtra("product_id", pId);
+				i.putExtra("load_info", true);
+				startActivity(i);
+			}
 		}
 		
 		setContentView(layout);
@@ -57,6 +65,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
 		outState.putString("pIdTextFieldValue", productIdTextField.getText().toString());
+		if (Long.valueOf(pId) != null) outState.putLong("product_id", pId);
 	}
 	
 	/* (non-Javadoc)
@@ -138,9 +147,9 @@ public void startScan (){
 public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	  IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 	  if (scanResult != null) {
-			  long id = Long.valueOf(scanResult.getContents()).longValue();
+		  		pId= Long.valueOf(scanResult.getContents()).longValue();
 				Intent i = new Intent(context, ProductDetailActivity.class);
-				i.putExtra("product_id", id);
+				i.putExtra("product_id", pId);
 				i.putExtra("load_info", true);
 				startActivity(i);
 	  }	  

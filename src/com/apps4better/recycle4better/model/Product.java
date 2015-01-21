@@ -75,7 +75,34 @@ public Element getElementById (int elementNumber){
 	return null;
 }
 
-
+/**
+ * builds a string to represent the product barcode number the way it shows on the packaging
+ * @return a String built to resemble the number below a barcode
+ */
+public String getDisplayableProductId (){
+	String s = new String ();
+	Long l = Long.valueOf(pId);
+	String text = l.toString();
+	if (text.length()==13){
+		s = (String.valueOf(text.charAt(0)));
+		s = s + " ";
+		for (int i =1; i<=6; i++)
+			s = s + String.valueOf(text.charAt(i));
+		s = s + " ";
+		for (int i =7; i<=12; i++)
+			s = s + String.valueOf(text.charAt(i));
+		return s;
+	}
+	if (text.length()==10){
+		for (int i =0; i<=4; i++)
+			s = s + String.valueOf(text.charAt(i));
+		s = s + " ";
+		for (int i =5; i<=9; i++)
+			s = s + String.valueOf(text.charAt(i));
+		return s;
+	}
+	return text;
+}
 /////////////////////   SETTERS  ////////////////////////
 
 

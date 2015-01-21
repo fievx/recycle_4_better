@@ -1,16 +1,9 @@
 package com.apps4better.recycle4better.view;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,14 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.apps4better.recycle4better.R;
-import com.apps4better.recycle4better.camera.MyCameraActivity;
-import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.apps4better.recycle4better.model.Product;
-import com.apps4better.recycle4better.model.ProductEditorService;
-import com.squareup.picasso.Picasso;
 
 public class NewProductActivity extends Activity{
 	
@@ -36,6 +25,7 @@ public class NewProductActivity extends Activity{
 	
 	private EditText pBrandEdit, pModelEdit;
 	private Button addProductButton;
+	private TextView barcodeNumberView;
 	private boolean formVisible = false;
 	private ImageView photoView;
 	private String extension;
@@ -64,7 +54,11 @@ public class NewProductActivity extends Activity{
 		//We inflate the layout and get all the widgets
 		layout = (ScrollView) ScrollView.inflate(this, R.layout.activity_add_product_layout, null);
 		addProductButton = (Button) layout.findViewById(R.id.add_product_button);
-//		formView = (View) layout.findViewById(R.id.formLayout);
+		this.barcodeNumberView = (TextView) layout.findViewById(R.id.barcode_number_label);
+		
+		//We asign the barcode number to the barcodeNumberView
+		this.barcodeNumberView.setText(product.getDisplayableProductId());
+		
 		
 		//We check if the savedInstanceState bundle if empty, if not we inspect it
 		if (savedInstanceState!=null){
