@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Recycle 4 Better</string>
+    <string name="appName">Recycle 4 Better</string>
     <string name="welcome_text">Welcome on Recycle 4 Better.</string>
     <string name="explanation_text">To see if a product is recyclable, simply scan it\'s barcode</string>
     <string name="type_code_text">or type in the barcode number.</string>
