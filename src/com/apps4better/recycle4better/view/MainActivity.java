@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 		if (savedInstanceState != null){
 			if (savedInstanceState.getString("pIdTextFieldValue")!= null)
 			productIdTextField.setText(savedInstanceState.getString("pIdTextFieldValue"));
-			if (Long.valueOf(savedInstanceState.getLong("product_id"))!=null){
+			if (Long.valueOf(savedInstanceState.getLong("product_id"))!=0){
 				pId = savedInstanceState.getLong("product_id");
 				Intent i = new Intent(context, ProductDetailActivity.class);
 				i.putExtra("product_id", pId);
@@ -65,7 +65,8 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
 		outState.putString("pIdTextFieldValue", productIdTextField.getText().toString());
-		if (Long.valueOf(pId) != null) outState.putLong("product_id", pId);
+		//we save the product id
+		if (Long.valueOf(pId) != 0) outState.putLong("product_id", pId);
 	}
 	
 	/* (non-Javadoc)
