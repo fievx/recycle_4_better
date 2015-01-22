@@ -50,7 +50,6 @@
         android:ems="10"
         android:hint="@string/product_brand_label"
         android:inputType="text"
-        android:nextFocusForward="@id/product_model_edit_text"
         android:textSize="15sp" >
 
         <requestFocus />

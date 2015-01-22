@@ -36,7 +36,6 @@
         android:ems="10"
         android:hint="@string/new_element_name_label"
         android:maxLength="50"
-        android:nextFocusForward="@id/element_descr_edit_text"
         android:textSize="14sp" >
 
         <requestFocus />
