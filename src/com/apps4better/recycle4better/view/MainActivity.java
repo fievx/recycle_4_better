@@ -147,7 +147,8 @@ public void startScan (){
 
 public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	  IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-	  if (scanResult != null) {
+	  
+	  if (scanResult.getContents() != null) {
 		  		pId= Long.valueOf(scanResult.getContents()).longValue();
 				Intent i = new Intent(context, ProductDetailActivity.class);
 				i.putExtra("product_id", pId);

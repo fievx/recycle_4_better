@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.apps4better.recycle4better.R;
@@ -45,7 +46,20 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 	}
 	
 	
-	 /**
+	
+	 /* (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+	}
+
+
+
+	/**
      * Checks that the CameraFragment exists and is visible to the user,
      * then takes a picture.
      */
@@ -117,7 +131,7 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 
 	public void initCamera (){
 		//Create the CameraFragment and add it to the layout
-        CameraFragment f = new CameraFragment();
+        final CameraFragment f = new CameraFragment();
         getFragmentManager().beginTransaction().add(R.id.camera_container, f, TAG_CAMERA_FRAGMENT).commit();
  
         //Set the CameraHost
@@ -132,6 +146,19 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
                
             }
         });
+        
+      //set a listener to the camerafragment to enable autofocus on click
+      FrameLayout frame = (FrameLayout) layout.findViewById(R.id.camera_container);
+      frame.setOnClickListener(new OnClickListener (){
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			f.cancelAutoFocus();
+			f.autoFocus();
+		}
+    	  
+      });
 	}
 
 	
