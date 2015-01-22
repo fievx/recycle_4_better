@@ -34,7 +34,9 @@
         android:layout_alignBaseline="@id/element_name_text_view"
         android:layout_toRightOf="@id/element_name_text_view"
         android:ems="10"
+        android:hint="@string/new_element_name_label"
         android:maxLength="50"
+        android:nextFocusForward="@id/element_descr_edit_text"
         android:textSize="14sp" >
 
         <requestFocus />
@@ -57,6 +59,7 @@
         android:layout_alignBaseline="@id/element_trust_score_text_view"
         android:layout_toRightOf="@id/element_trust_score_text_view"
         android:ems="10"
+        android:hint="@string/new_element_description_label"
         android:textSize="14sp" />
 
     <RadioGroup

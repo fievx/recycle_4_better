@@ -48,6 +48,9 @@
         android:layout_alignBottom="@id/element_name_text_view"
         android:layout_alignParentRight="true"
         android:ems="10"
+        android:hint="@string/product_brand_label"
+        android:inputType="text"
+        android:nextFocusForward="@id/product_model_edit_text"
         android:textSize="15sp" >
 
         <requestFocus />
@@ -74,6 +77,7 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentRight="true"
         android:ems="10"
+        android:hint="@string/product_model_label"
         android:textSize="15sp" />
     
     <ImageView
