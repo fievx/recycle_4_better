@@ -62,7 +62,7 @@ public class PreviewFragment extends Fragment{
 		
 		//We set the photo on the imageView
 		imageFile = new File (imagePath);
-		Picasso.with(activity).load(imageFile).fit().into(photoView);
+		Picasso.with(activity).load(imageFile).into(photoView);
 		return view;
 	}
 

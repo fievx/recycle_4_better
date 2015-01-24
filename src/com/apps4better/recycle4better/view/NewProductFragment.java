@@ -122,8 +122,9 @@ public class NewProductFragment extends Fragment{
 				if (savedInstanceState.getString(TAG_PRODUCT_MODEL)!=null)modelEdit.setText(savedInstanceState.getString(TAG_PRODUCT_MODEL));
 				if (savedInstanceState.getString(TAG_IMAGE_PATH)!=null){
 					String imageUrl = savedInstanceState.getString(TAG_IMAGE_PATH);
+					imagePath = imageUrl;
 					Drawable placeHolder = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
-					Picasso.with(activity).load(imageUrl).placeholder(placeHolder).fit().into(pImageView);
+					Picasso.with(activity).load(imageUrl).placeholder(placeHolder).into(pImageView);
 				}
 			}
 			
@@ -197,7 +198,7 @@ public class NewProductFragment extends Fragment{
 				imagePath = data.getStringExtra(TAG_IMAGE_PATH);
 				Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
 				File f = new File (imagePath);
-				Picasso.with(activity).load(f).centerInside().fit().into(pImageView);
+				Picasso.with(activity).load(f).into(pImageView);
 			}
 			break;
 		

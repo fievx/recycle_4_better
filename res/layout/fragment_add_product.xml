@@ -82,7 +82,7 @@
     <ImageView
         android:id="@+id/product_image_view"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="133dp"
         android:layout_below="@id/element_trust_score_text_view"
         android:layout_centerHorizontal="true"
         android:layout_margin="6dp"

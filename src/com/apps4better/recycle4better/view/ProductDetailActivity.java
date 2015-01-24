@@ -77,9 +77,18 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		context = this;
 		extension = getResources().getString(R.string.image_extension);
 
+		if (savedInstanceState == null){
 		//We get the ProductId from the Intent
 		pId = getIntent().getLongExtra("product_id", 0);
 		loadInfo = getIntent().getBooleanExtra("load_info", false);
+		}
+		
+		//We recreate the view on state change.
+		if (savedInstanceState != null && savedInstanceState.getParcelable(TAG_SAVED_PRODUCT)!=null){
+			product = savedInstanceState.getParcelable(TAG_SAVED_PRODUCT);
+			displayView();
+		}
+		
 		
 	}
 	
@@ -161,6 +170,9 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	
 	//we save the product id in case the view is recreated before the product is loaded
 	outState.putLong(TAG_PRODUCT_ID, pId);
+	
+	//we save the current view
+
 	
 	// We save the product
 	outState.putParcelable(TAG_SAVED_PRODUCT, product);
@@ -279,8 +291,6 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	};
 
 	
-	
-	
 	@Override
 	public void displayElementFragment(int elementId) {
 		// TODO Auto-generated method stub
@@ -353,5 +363,61 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		displayNewProductFragment(product);
 	}
 
+	/**
+	 * funcion used to recreate the view in case of state change.
+	 */
+	private void displayView (){
+		//We build the layout, first with the product details, and then the elements using the RecyclerView
+		layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+		setContentView(layout);
+		headerLayout = (RelativeLayout) layout.findViewById(R.id.product_view_header);
+		pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
+		pBrandText = (TextView) layout.findViewById(R.id.product_name_text_view);
+		pModelText =(TextView) layout.findViewById(R.id.product_desc_text_view);
+		barcodeNumberLabel =(TextView) layout.findViewById(R.id.barcode_number_label);
+		
+		addElementButton = (Button) layout.findViewById(R.id.add_element_button);
+		
+		// First the product
+		String imageUrl = context.getResources().getString(R.string.image_bucket_url)+product.getPhotoId();
+		Log.d("picasso", imageUrl);
+		Picasso.with(context).load(imageUrl).into(pPhotoView);
+		pBrandText.setText(product.getBrand());
+		pModelText.setText(product.getModel());
+		barcodeNumberLabel.setText(product.getDisplayableProductId());
+		
+		//We set a listener on the button
+		addElementButton.setOnClickListener(new OnClickListener (){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Element e = new Element ();
+				e.setNumber(product.getElementList().size()+1);
+				e.setProductId(product.getpId());
+				displayNewElementFragment (e);
+			}
+			
+		});
+		
+		//We set the recyclerView with the elements from the product
+		RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
+		recyclerView.setHasFixedSize(true);
+		recyclerView.setAdapter(new MyAdapter(product.getElementList(), ProductDetailActivity.this));
+		recyclerView.setLayoutManager(new LinearLayoutManager(context));
+		recyclerView.setItemAnimator(new DefaultItemAnimator());
+		Log.d("getProductDetailClass", "layout for recycler View loaded");
+		
+		//We set a listener on the header to display the ProductDetailFragment
+		headerLayout.setOnClickListener(new OnClickListener (){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				displayProductDetailFragment(product);
+			}
+			
+		});
+	}
 	
 }

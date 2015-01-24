@@ -95,7 +95,7 @@
     <ImageView
         android:id="@+id/element_image_view"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="133dp"
         android:layout_below="@id/element_recyclable_radio_group"
         android:layout_centerHorizontal="true"
         android:clickable="true"

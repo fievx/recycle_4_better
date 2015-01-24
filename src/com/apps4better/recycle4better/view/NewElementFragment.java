@@ -53,6 +53,9 @@ public class NewElementFragment extends Fragment {
 	public static final String TAG_ELEMENT = "element";
 	public static final String TAG_PRODUCT_ID = "pId";
 	public static final String TAG_ELEMENT_NUMBER = "elementNumber";
+	public static final String TAG_ELEMENT_NAME = "element_name";
+	public static final String TAG_ELEMENT_DESCR = "element_description";
+	public static final String TAG_ELEMENT_RECYC = "element_recyclable";
 	
 	private boolean pictureChanged = false;
 	private boolean elementUploaded = false;
@@ -71,6 +74,46 @@ public class NewElementFragment extends Fragment {
 		extension = activity.getResources().getString(R.string.image_extension);
 	}
 	
+	
+	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onActivityCreated(android.os.Bundle)
+	 */
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		
+		//We check if the savedInstanceState bundle is not null and recreate the view if needed
+		if (savedInstanceState != null){
+			eNameEdit.setText(savedInstanceState.getString(TAG_ELEMENT_NAME));
+			eDescEdit.setText(savedInstanceState.getString(TAG_ELEMENT_DESCR));
+			switch (savedInstanceState.getInt(TAG_ELEMENT_RECYC)){ //A switch for the radio group of recyclable options
+			case 0:
+				this.eRecyclableRadio.check(RADIO_NO);
+				break;
+			case 1:
+				this.eRecyclableRadio.check(RADIO_YES);
+				break;
+			case 2:
+				this.eRecyclableRadio.check(RADIO_NOT_SURE);
+				break;
+			default:
+				this.eRecyclableRadio.check(RADIO_NO);
+			}
+			Drawable placeholder1 = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
+			if (element.getPhotoId()!=null){
+				String imageUrl = savedInstanceState.getString(TAG_IMAGE_PATH);
+				imagePath = imageUrl;
+				Picasso.with(activity).load(imageUrl).placeholder(placeholder1).into(photoView);			
+			
+		}
+		}
+		
+	}
+
+
+
 	/**
 	 * Static method used to create an instance of NewElementFragment
 	 * @param e
@@ -85,7 +128,6 @@ public class NewElementFragment extends Fragment {
 	}
 
 	public View onCreateView (LayoutInflater inflater, ViewGroup root, Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
 		//get the infos from the Intent.
 		Bundle extras = this.getArguments();
 		element = extras.getParcelable(TAG_ELEMENT);
@@ -98,6 +140,7 @@ public class NewElementFragment extends Fragment {
 		this.eDescEdit = (EditText) layout.findViewById(R.id.element_descr_edit_text);
 		this.eRecyclableRadio = (RadioGroup) layout.findViewById(R.id.element_recyclable_radio_group);
 		this.photoView = (ImageView) layout.findViewById(R.id.element_image_view);
+		
 		
 		//For each component of the element, if it is not null, we pre-fill the form.
 		if (element.getName()!=null)this.eNameEdit.setText(element.getName());
@@ -121,9 +164,8 @@ public class NewElementFragment extends Fragment {
 		Drawable placeholder = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
 		if (element.getPhotoId()!=null){
 			 String imageUrl = activity.getResources().getString(R.string.image_bucket_url)+ element.getPhotoId();
-			Picasso.with(activity).load(imageUrl).placeholder(placeholder).fit().into(photoView);			
-		}
-		
+			Picasso.with(activity).load(imageUrl).placeholder(placeholder).into(photoView);			
+		}		
 		return(layout);
 	}
 	
@@ -174,6 +216,30 @@ public class NewElementFragment extends Fragment {
 	}
 
 
+	
+	/* (non-Javadoc)
+	 * @see android.app.Fragment#onSaveInstanceState(android.os.Bundle)
+	 */
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		outState.putString(TAG_ELEMENT_NAME, eNameEdit.getText().toString());
+		outState.putString(TAG_ELEMENT_DESCR, eDescEdit.getText().toString());
+		outState.putString(TAG_IMAGE_PATH, imagePath);
+		switch (this.eRecyclableRadio.getCheckedRadioButtonId()){
+		case RADIO_NO :
+			outState.putInt(TAG_ELEMENT_RECYC,0);
+			break;
+		case RADIO_YES:
+			outState.putInt(TAG_ELEMENT_RECYC,1);
+			break;
+		case RADIO_NOT_SURE:
+			outState.putInt(TAG_ELEMENT_RECYC,2);
+	}
+	}
+	
+
 	/*
 	 * Method save element perfoms all the checks on the form and calls
 	 * SaveElementTask if successfull
@@ -212,16 +278,16 @@ public class NewElementFragment extends Fragment {
 				String text = getResources().getString(R.string.no_network_connection);
 				Toast.makeText(activity, text, Toast.LENGTH_LONG).show();
 			}
-	}
-		else if (element.getName()!=null){
+		}
+		else if (element.getName()==null){
 			String a = getResources().getString(R.string.no_name_entered_toast);
 			Toast.makeText(activity,a , Toast.LENGTH_SHORT).show();
-			if (element.getPhotoId()!=null){
+			if (element.getPhotoId()==null){
 				String b = getResources().getString(R.string.no_photo_taken_toast);
 				Toast.makeText(activity,b , Toast.LENGTH_SHORT).show();
 			}
 		}
-		else if (element.getPhotoId()!=null){
+		else if (element.getPhotoId()==null){
 			String b = getResources().getString(R.string.no_photo_taken_toast);
 			Toast.makeText(activity,b , Toast.LENGTH_SHORT).show();
 		}
@@ -264,7 +330,7 @@ public class NewElementFragment extends Fragment {
 			imagePath = data.getStringExtra(TAG_IMAGE_PATH);
 			Log.d("New Element Fragment", "OnresultActivity is OK and image is loading with path : " + imagePath);
 			File f = new File (imagePath);
-			Picasso.with(activity).load(f).centerInside().fit().into(photoView);
+			Picasso.with(activity).load(f).into(photoView);
 			break;
 		}
 		
