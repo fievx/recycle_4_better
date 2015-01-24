@@ -14,7 +14,7 @@
     <ImageView
         android:id="@+id/product_picture_view"
         android:layout_width="120dp"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"

@@ -62,7 +62,7 @@ public class ProductDetailFragment extends Fragment{
 		// the product image loaded via Picasso
 		String imageUrl = activity.getResources().getString(R.string.image_bucket_url)+product.getPhotoId();
 		Drawable placeHolder = activity.getResources().getDrawable(R.drawable.placeholder_element_detail);
-		Picasso.with(activity).load(imageUrl).placeholder(placeHolder).fit().into(ePictureView);
+		Picasso.with(activity).load(imageUrl).placeholder(placeHolder).into(ePictureView);
 		
 		this.pBrandText.setText(product.getBrand());//name
 		this.pModelText.setText(product.getModel());//description

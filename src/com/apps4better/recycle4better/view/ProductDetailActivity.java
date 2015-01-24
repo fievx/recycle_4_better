@@ -206,7 +206,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				// First the product
 				String imageUrl = context.getResources().getString(R.string.image_bucket_url)+product.getPhotoId();
 				Log.d("picasso", imageUrl);
-				Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
+				Picasso.with(context).load(imageUrl).into(pPhotoView);
 				pBrandText.setText(product.getBrand());
 				pModelText.setText(product.getModel());
 				barcodeNumberLabel.setText(product.getDisplayableProductId());
