@@ -57,6 +57,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	//tags used for the saved instance state
 	private static final String TAG_SAVED_PRODUCT = "saved_product";
 	private static final String TAG_LOAD_INFO = "load_info";
+	private static final String TAG_PRODUCT_ID = "product_id";
 	
 	String extension; 
 	
@@ -79,74 +80,6 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		//We get the ProductId from the Intent
 		pId = getIntent().getLongExtra("product_id", 0);
 		loadInfo = getIntent().getBooleanExtra("load_info", false);
-		
-		//If the savedInstanceBundle is not null, we rebuild the view from here without using the GetProductDetailTask
-		if (savedInstanceState != null){
-			product = savedInstanceState.getParcelable(TAG_SAVED_PRODUCT);
-			loadInfo = savedInstanceState.getBoolean (TAG_LOAD_INFO);
-			
-			//We build the layout, first with the product details, and then the elements using the RecyclerView
-			layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
-			setContentView(layout);
-			headerLayout = (RelativeLayout) layout.findViewById(R.id.product_view_header);
-			pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
-			pBrandText = (TextView) layout.findViewById(R.id.product_name_text_view);
-			pModelText =(TextView) layout.findViewById(R.id.product_desc_text_view);
-			addElementButton = (Button) layout.findViewById(R.id.add_element_button);
-			
-			// First the product
-			String imageUrl = context.getResources().getString(R.string.image_bucket_url)+product.getPhotoId();
-			Log.d("picasso", imageUrl);
-			Picasso.with(context).load(imageUrl).fit().into(pPhotoView);
-			pBrandText.setText(product.getBrand());
-			pModelText.setText(product.getModel());
-			
-			//We set a listener on the button
-			addElementButton.setOnClickListener(new OnClickListener (){
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					Element e = new Element ();
-					e.setNumber(product.getElementList().size()+1);
-					e.setProductId(product.getpId());
-					displayNewElementFragment (e);
-				}
-				
-			});
-			
-			//We set the recyclerView with the elements from the product
-			RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
-			recyclerView.setHasFixedSize(true);
-			recyclerView.setAdapter(new MyAdapter(product.getElementList(), ProductDetailActivity.this));
-			recyclerView.setLayoutManager(new LinearLayoutManager(context));
-			recyclerView.setItemAnimator(new DefaultItemAnimator());
-			Log.d("getProductDetailClass", "layout for recycler View loaded");
-			
-			//We set a listener on the header to display the ProductDetailFragment
-			headerLayout.setOnClickListener(new OnClickListener (){
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					displayProductDetailFragment(product);				
-				}
-				
-			});
-			
-			//we set the fragments from the Fragment Manager
-			FragmentTransaction transac = getFragmentManager().beginTransaction();
-			ElementDetailFragment detailFrag = (ElementDetailFragment) getFragmentManager().findFragmentByTag(TAG_ELEMENT_DETAIL_FRAGMENT);
-			NewElementFragment newElementFrag = (NewElementFragment) getFragmentManager ().findFragmentByTag(TAG_NEW_ELEMENT_FRAGMENT);
-			
-			if (detailFrag != null){
-				transac.add(detailFrag, TAG_ELEMENT_DETAIL_FRAGMENT).commit();
-			}
-			if (newElementFrag != null){
-				transac.add(newElementFrag, TAG_NEW_ELEMENT_FRAGMENT);
-			}
-		}
-
 		
 	}
 	
@@ -225,6 +158,9 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	protected void onSaveInstanceState(Bundle outState) {
 	// TODO Auto-generated method stub
 	super.onSaveInstanceState(outState);
+	
+	//we save the product id in case the view is recreated before the product is loaded
+	outState.putLong(TAG_PRODUCT_ID, pId);
 	
 	// We save the product
 	outState.putParcelable(TAG_SAVED_PRODUCT, product);
