@@ -215,7 +215,9 @@ public class NewProductFragment extends Fragment{
 		if (brandEdit.getText().toString().isEmpty() || modelEdit.getText().toString().isEmpty()){
 			String a = getResources().getString(R.string.field_not_filled_text);
 			Toast.makeText(activity, a, Toast.LENGTH_LONG).show();
+
 			if (imagePath.isEmpty()&& product.getPhotoId()== null){
+
 				String b = getResources().getString(R.string.no_product_photo_taken_text);
 				Toast.makeText(activity, b, Toast.LENGTH_LONG).show();
 				return ;
