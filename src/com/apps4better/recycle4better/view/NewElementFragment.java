@@ -330,7 +330,7 @@ public class NewElementFragment extends Fragment {
 			imagePath = data.getStringExtra(TAG_IMAGE_PATH);
 			Log.d("New Element Fragment", "OnresultActivity is OK and image is loading with path : " + imagePath);
 			File f = new File (imagePath);
-			Picasso.with(activity).load(f).into(photoView);
+			Picasso.with(activity).load(f).fit().into(photoView);
 			break;
 		}
 		

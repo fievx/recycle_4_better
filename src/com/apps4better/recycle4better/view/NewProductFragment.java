@@ -198,7 +198,7 @@ public class NewProductFragment extends Fragment{
 				imagePath = data.getStringExtra(TAG_IMAGE_PATH);
 				Log.d("main Activity result", "result is OK and image is loading with path : " + imagePath);
 				File f = new File (imagePath);
-				Picasso.with(activity).load(f).into(pImageView);
+				Picasso.with(activity).load(f).fit().into(pImageView);
 			}
 			break;
 		
