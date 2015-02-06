@@ -28,6 +28,9 @@ public class MainActivity extends Activity {
 	private Product product;
 	private long pId;
 	
+	//Intent tags
+	public static final String TAG_PRODUCT_ID = "product_id";
+	
 	private Context context;
 
 	@Override
@@ -95,7 +98,7 @@ public class MainActivity extends Activity {
 					String a = productIdTextField.getText().toString();
 					long id = Long.valueOf(a).longValue();
 					Intent intent = new Intent(context, ProductDetailActivity.class);
-					intent.putExtra("product_id", id);
+					intent.putExtra(TAG_PRODUCT_ID, id);
 					intent.putExtra("load_info", true);
 					startActivity(intent);
 				}

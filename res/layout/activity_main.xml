@@ -13,7 +13,7 @@
     tools:context="com.apps4better.recycle4better.view.MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/no_element_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -29,7 +29,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView1"
+        android:layout_below="@id/no_element_text"
         android:layout_centerHorizontal="true"
         android:text="@string/explanation_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />

@@ -30,11 +30,14 @@ import com.apps4better.recycle4better.ListView.MyAdapterListener;
 import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementDetailObserver;
 import com.apps4better.recycle4better.model.ElementsLoader;
+import com.apps4better.recycle4better.model.NoElementObserver;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.model.ProductDetailObserver;
 import com.squareup.picasso.Picasso;
 
-public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver, ProductDetailObserver{
+public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver, ProductDetailObserver, 
+	NoElementObserver{
+	
 	private Context context;
 	private Product product;
 	private long pId;
@@ -57,7 +60,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	//tags used for the saved instance state
 	private static final String TAG_SAVED_PRODUCT = "saved_product";
 	private static final String TAG_LOAD_INFO = "load_info";
-	private static final String TAG_PRODUCT_ID = "product_id";
+	public static final String TAG_PRODUCT_ID = "product_id";
 	
 	String extension; 
 	
@@ -66,6 +69,8 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private static final String TAG_NEW_PRODUCT_FRAGMENT = "new_product";
 	private static final String TAG_ELEMENT_DETAIL_FRAGMENT = "element_detail";
 	private static final String TAG_PRODUCT_DETAIL_FRAGMENT = "product_detail";
+	private static final String TAG_NO_ELEMENT_FRAGMENT = "no_element";
+	public static final String TAG_ADD_ELEMENT = "add_element";
 	
 	public void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -229,14 +234,12 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						Element e = new Element ();
-						e.setNumber(product.getElementList().size()+1);
-						e.setProductId(product.getpId());
-						displayNewElementFragment (e);
+						addElement();
 					}
 					
 				});
 				
+				if (product.getElementCount()>0){
 				//We set the recyclerView with the elements from the product
 				RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
 				recyclerView.setHasFixedSize(true);
@@ -244,6 +247,8 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				recyclerView.setLayoutManager(new LinearLayoutManager(context));
 				recyclerView.setItemAnimator(new DefaultItemAnimator());
 				Log.d("getProductDetailClass", "layout for recycler View loaded");
+				}
+				else displayNoElementFragment();
 				
 				//We set a listener on the header to display the ProductDetailFragment
 				headerLayout.setOnClickListener(new OnClickListener (){
@@ -291,6 +296,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	};
 
 	
+	
 	@Override
 	public void displayElementFragment(int elementId) {
 		// TODO Auto-generated method stub
@@ -318,6 +324,16 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		transac.add(R.id.product_detail_fragment_container, frag, TAG_PRODUCT_DETAIL_FRAGMENT);
 		transac.addToBackStack(null);
 		transac.commit();
+	}
+	
+	/**
+	 * Displays the NoElementFragment in place of the RecyclerView
+	 */
+	public void displayNoElementFragment(){
+		NoElementFragment frag = new NoElementFragment();
+		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		transaction.add(R.id.no_element_fragment_container, frag, TAG_NO_ELEMENT_FRAGMENT);
+		transaction.commit();
 	}
 	
 	/**
@@ -420,4 +436,20 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		});
 	}
 	
+	private void addElement (){
+		Element e = new Element ();
+		e.setNumber(product.getElementList().size()+1);
+		e.setProductId(product.getpId());
+		displayNewElementFragment (e);
+	}
+
+	
+	@Override
+	public void update(String param) {
+		// TODO Auto-generated method stub
+		switch (param){
+		case TAG_ADD_ELEMENT:
+			addElement();
+		}
+	}
 }

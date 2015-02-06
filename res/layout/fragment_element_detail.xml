@@ -43,7 +43,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/no_element_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/element_picture_view"
@@ -56,8 +56,8 @@
         android:id="@+id/element_recyclable_view"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_alignBottom="@id/textView1"
-        android:layout_toRightOf="@+id/textView1"
+        android:layout_alignBottom="@id/no_element_text"
+        android:layout_toRightOf="@+id/no_element_text"
         android:src="@drawable/tick_no" />
 
     <ImageButton
@@ -73,7 +73,7 @@
         android:id="@+id/element_trust_score_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/no_element_text"
         android:layout_below="@+id/element_upvote_button"
         android:layout_marginTop="20dp"
         android:text="@string/trust_score"

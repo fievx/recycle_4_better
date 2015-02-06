@@ -41,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
       elementTrustText = (TextView) v.findViewById(R.id.element_trust_score_text_view);
       elementNameText1 = (TextView) v.findViewById(R.id.firstLine);
       elementRecyclable1 = (TextView) v.findViewById(R.id.secondLine);
-      elementTrust1 = (TextView) v.findViewById(R.id.textView1);
+      elementTrust1 = (TextView) v.findViewById(R.id.no_element_text);
       v.setOnClickListener(this);
     }
 

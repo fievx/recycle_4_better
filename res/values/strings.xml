@@ -51,5 +51,7 @@
 	<string name="edit">Edit</string>
 	<string name="no_network_connection">You don\'t seem to have any active internet connection. Please look into that =)</string>
 	<string name="main">Main</string>
+	<string name="no_element1">:( \tThis product does not have any element attached. </string>
+	<string name="no_element2">Elements are the way to tell people which parts of the product can be recycled. \n\n Add at least one Element to this product. </string>
 	
 </resources>
