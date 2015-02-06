@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.model.NoElementObserver;
@@ -34,7 +34,7 @@ public class NoElementFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.fragment_no_element, container);
+		ScrollView layout = (ScrollView) inflater.inflate(R.layout.fragment_no_element, container, false);
 		addElementButton = (Button) layout.findViewById(R.id.add_element_2);
 		
 		return layout;
@@ -55,7 +55,6 @@ public class NoElementFragment extends Fragment{
 				// TODO Auto-generated method stub
 				addElement();
 			}
-			
 		});
 	}
 	

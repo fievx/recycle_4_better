@@ -239,7 +239,6 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 					
 				});
 				
-				if (product.getElementCount()>0){
 				//We set the recyclerView with the elements from the product
 				RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.my_recycler_view);
 				recyclerView.setHasFixedSize(true);
@@ -247,8 +246,9 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				recyclerView.setLayoutManager(new LinearLayoutManager(context));
 				recyclerView.setItemAnimator(new DefaultItemAnimator());
 				Log.d("getProductDetailClass", "layout for recycler View loaded");
-				}
-				else displayNoElementFragment();
+				
+				//If the product has 0 elements, we displays the NoElementFragment on top of the recyclerView
+				if (product.getElementCount()==0) displayNoElementFragment();
 				
 				//We set a listener on the header to display the ProductDetailFragment
 				headerLayout.setOnClickListener(new OnClickListener (){
