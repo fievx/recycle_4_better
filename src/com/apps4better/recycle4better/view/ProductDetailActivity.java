@@ -58,18 +58,18 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private TextView barcodeNumberLabel;
 	
 	//tags used for the saved instance state
-	private static final String TAG_SAVED_PRODUCT = "saved_product";
-	private static final String TAG_LOAD_INFO = "load_info";
+	public static final String TAG_SAVED_PRODUCT = "saved_product";
+	public static final String TAG_LOAD_INFO = "load_info";
 	public static final String TAG_PRODUCT_ID = "product_id";
 	
 	String extension; 
 	
 	//Fragment tags
-	private static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
-	private static final String TAG_NEW_PRODUCT_FRAGMENT = "new_product";
-	private static final String TAG_ELEMENT_DETAIL_FRAGMENT = "element_detail";
-	private static final String TAG_PRODUCT_DETAIL_FRAGMENT = "product_detail";
-	private static final String TAG_NO_ELEMENT_FRAGMENT = "no_element";
+	public static final String TAG_NEW_ELEMENT_FRAGMENT = "new_element";
+	public static final String TAG_NEW_PRODUCT_FRAGMENT = "new_product";
+	public static final String TAG_ELEMENT_DETAIL_FRAGMENT = "element_detail";
+	public static final String TAG_PRODUCT_DETAIL_FRAGMENT = "product_detail";
+	public static final String TAG_NO_ELEMENT_FRAGMENT = "no_element";
 	public static final String TAG_ADD_ELEMENT = "add_element";
 	
 	public void onCreate (Bundle savedInstanceState){
