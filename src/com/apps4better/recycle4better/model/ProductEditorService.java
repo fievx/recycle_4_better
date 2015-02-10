@@ -22,6 +22,8 @@ public class ProductEditorService extends IntentService{
     private String serverAddress = "";
     private String url = "/add_product.php";
     
+	private int success;
+    
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser ();
     
@@ -59,7 +61,6 @@ public class ProductEditorService extends IntentService{
 	}
 	
 	private void uploadProduct(){
-		int success; 
 		try {
 	            // Building Parameters
 	            List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -98,5 +99,9 @@ public class ProductEditorService extends IntentService{
 		Intent intent = new Intent (CODE_PRODUCT_UPLOAD);
 		intent.putExtra("success", success);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+	}
+
+	public int getSuccess (){
+		return success;
 	}
 }
