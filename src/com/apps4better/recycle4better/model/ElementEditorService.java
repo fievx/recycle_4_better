@@ -21,6 +21,8 @@ public class ElementEditorService extends IntentService{
     private String serverAddress = "";
     private String url = "/add_element.php";
     
+    private int success; 
+    
     // Creating JSON Parser object
     JSONParser jParser = new JSONParser ();
     
@@ -39,6 +41,8 @@ public class ElementEditorService extends IntentService{
     
 	public static final String  CODE_ELEMENT_UPLOAD = "element_upload";
 
+	private boolean workFinished = false;
+	
 	public ElementEditorService() {
 		super("ElementEditorService");
 		// TODO Auto-generated constructor stub
@@ -55,11 +59,13 @@ public class ElementEditorService extends IntentService{
 		Bundle extra = intent.getExtras();
 		element = extra.getParcelable("element");
 		
-		uploadElement();		
+		uploadElement();	
+		
+		workFinished = true;
 	}
 	
 	private void uploadElement(){
-		int success; 
+
 		try {
 	            // Building Parameters
 	            List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -104,5 +110,13 @@ public class ElementEditorService extends IntentService{
 		Intent intent = new Intent (CODE_ELEMENT_UPLOAD);
 		intent.putExtra("success", success);
 		LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+	}
+	
+	public boolean isWorkFinished(){
+		return workFinished;
+	}
+	
+	public int getSuccess (){
+		return success;
 	}
 }
