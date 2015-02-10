@@ -2,6 +2,7 @@ package com.apps4better.recycle4better.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -14,7 +15,6 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.apps4better.recycle4better.R;
-import com.apps4better.recycle4better.view.NewProductActivity;
 
 public class ProductEditorService extends IntentService{
 	private Product product;
@@ -40,7 +40,6 @@ public class ProductEditorService extends IntentService{
     //Intent tag
     public static final String TAG_PRODUCT = "product";
 
-
 	public ProductEditorService() {
 		super("ElementEditorService");
 		// TODO Auto-generated constructor stub
@@ -57,7 +56,7 @@ public class ProductEditorService extends IntentService{
 		Bundle extra = intent.getExtras();
 		product = extra.getParcelable(TAG_PRODUCT);
 		
-		uploadProduct();		
+		uploadProduct();	
 	}
 	
 	private void uploadProduct(){
@@ -104,4 +103,7 @@ public class ProductEditorService extends IntentService{
 	public int getSuccess (){
 		return success;
 	}
+	
+
+
 }
