@@ -25,4 +25,12 @@
     <item name="android:background">?android:attr/listDivider</item>
 	</style>
 	
+            <!-- Vertical divider to be inserted in layouts -->
+    <style name="vertical_divider">
+    <item name="android:layout_width">1dp</item>
+    <item name="android:layout_height">match_parent</item>
+
+    <item name="android:background">?android:attr/listDivider</item>
+	</style>
+	
 </resources>
