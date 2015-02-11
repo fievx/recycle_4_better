@@ -120,6 +120,7 @@ int bool abc_config_actionMenuItemAllCaps 0x7f050005
 int bool abc_config_allowActionMenuItemTextWithIcon 0x7f050004
 int bool abc_config_showMenuShortcutsWhenKeyboardPresent 0x7f050003
 int bool abc_split_action_bar_is_narrow 0x7f050002
+int bool dual_pane 0x7f050006
 int color abc_search_url_text_holo 0x7f060003
 int color abc_search_url_text_normal 0x7f060000
 int color abc_search_url_text_pressed 0x7f060002

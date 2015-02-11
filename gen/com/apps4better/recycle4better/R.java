@@ -856,6 +856,7 @@ containing a value of this type.
         public static final int abc_config_allowActionMenuItemTextWithIcon=0x7f050004;
         public static final int abc_config_showMenuShortcutsWhenKeyboardPresent=0x7f050003;
         public static final int abc_split_action_bar_is_narrow=0x7f050002;
+        public static final int dual_pane=0x7f050006;
     }
     public static final class color {
         public static final int abc_search_url_text_holo=0x7f060003;
