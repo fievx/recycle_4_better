@@ -94,6 +94,12 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				//check for network connection before anything
 				if (NetworkInspector.haveNetworkConnection(MainActivity.this)){
+					//check that a number is entered in the textField
+					if (productIdTextField.getText().toString().equals("")){
+						String t = getResources().getString(R.string.no_barcode_number);
+						Toast.makeText(context, t, Toast.LENGTH_LONG).show();
+					}
+					else {
 					Log.d("Main activity", "giving product id = "+productIdTextField.getText().toString());
 					String a = productIdTextField.getText().toString();
 					long id = Long.valueOf(a).longValue();
@@ -101,6 +107,7 @@ public class MainActivity extends Activity {
 					intent.putExtra(TAG_PRODUCT_ID, id);
 					intent.putExtra("load_info", true);
 					startActivity(intent);
+					}
 				}
 				else {
 					String text = getResources().getString(R.string.no_network_connection);
