@@ -210,7 +210,12 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 				Log.d("debug recycler", "le produit contient "+String.valueOf(product.getElementCount()));
 				
 				//We build the layout, first with the product details, and then the elements using the RecyclerView
-				layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+				//we check if the tablet layout should be used
+				if (getResources().getBoolean(R.bool.dual_pane))
+					layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail_landscape, null);
+				else
+					layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+				
 				setContentView(layout);
 				headerLayout = (RelativeLayout) layout.findViewById(R.id.product_view_header);
 				pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
@@ -384,7 +389,12 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	 */
 	private void displayView (){
 		//We build the layout, first with the product details, and then the elements using the RecyclerView
-		layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+		//We check if the view should be built in dual pane mode
+		if (getResources().getBoolean(R.bool.dual_pane))
+			layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail_landscape, null);
+		else
+			layout = (RelativeLayout) RelativeLayout.inflate(context, R.layout.activity_product_detail, null);
+		
 		setContentView(layout);
 		headerLayout = (RelativeLayout) layout.findViewById(R.id.product_view_header);
 		pPhotoView = (ImageView) layout.findViewById(R.id.product_photo_image_view);
