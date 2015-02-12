@@ -24,7 +24,7 @@ public class Product implements Parcelable {
 	
 	public Product(Parcel source) {
 		// TODO Auto-generated constructor stub
-		source.readList(elementList, null);
+		source.readTypedList(elementList, Element.CREATOR);
 		this.model = source.readString();
 		this.brand = source.readString();
 		this.photoId= source.readString();
@@ -153,7 +153,7 @@ public void setTrustScore(int trustScore) {
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		// TODO Auto-generated method stub
-		dest.writeList(elementList);
+		dest.writeTypedList(elementList);
 		dest.writeString(model);
 		dest.writeString(brand);
 		dest.writeString(photoId);
