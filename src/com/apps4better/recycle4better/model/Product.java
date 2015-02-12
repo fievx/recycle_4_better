@@ -29,6 +29,7 @@ public class Product implements Parcelable {
 		this.brand = source.readString();
 		this.photoId= source.readString();
 		this.pId = source.readLong();
+		this.trustScore = source.readInt();
 	}
 
 //////////////////////    GETTERS   ///////////////////
@@ -158,6 +159,7 @@ public void setTrustScore(int trustScore) {
 		dest.writeString(brand);
 		dest.writeString(photoId);
 		dest.writeLong(pId);
+		dest.writeInt(trustScore);
 	}
 	
 	public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>(){

@@ -1,5 +1,6 @@
 package com.apps4better.recycle4better.view;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
@@ -94,7 +95,6 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 			displayView();
 		}
 		
-		
 	}
 	
 	/* (non-Javadoc)
@@ -105,6 +105,9 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		// TODO Auto-generated method stub
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.product_detail_action, menu);
+	    
+	    ActionBar bar = getActionBar();
+	    bar.setDisplayHomeAsUpEnabled(true);
 		return super.onCreateOptionsMenu(menu);
 	}
 

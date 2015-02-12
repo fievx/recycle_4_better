@@ -135,7 +135,7 @@ public void onResume() {
 	}
 
 	private void upVote(){
-		this.product.setTrustScore(this.product.getTrustScore()+1);
+		product.setTrustScore(this.product.getTrustScore()+1);
 		Intent intent = new Intent (activity, ProductEditorService.class);
 		intent.putExtra(ProductEditorService.TAG_PRODUCT, this.product);
 		activity.startService(intent);
@@ -145,7 +145,7 @@ public void onResume() {
 	}
 	
 	private void downVote (){
-		this.product.setTrustScore(this.product.getTrustScore()-1);
+		product.setTrustScore(this.product.getTrustScore()-1);
 		Intent intent = new Intent (activity, ProductEditorService.class);
 		intent.putExtra(ProductEditorService.TAG_PRODUCT, this.product);
 		activity.startService(intent);
