@@ -52,6 +52,11 @@
         <service android:name=".model.ElementEditorService"></service>
         <service android:name=".model.ProductEditorService"></service>
         <service android:name=".model.PictureUploaderService"></service>
+        
+        <!-- FragmentTest Acitivity is only used to test Fragment in JUnit -->
+        <activity
+			  android:name="com.apps4better.recycle4better.test.TestFragmentActivity"
+			  android:exported="false" />
     </application>
 
 </manifest>
