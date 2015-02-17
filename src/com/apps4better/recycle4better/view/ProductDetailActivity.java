@@ -77,7 +77,8 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		super.onCreate(savedInstanceState);
 		/*
 		 * The view is not build in the onCreate method but in the 
-		 * GetProductDetailTask.
+		 * GetProductDetailTask. The task is invoqued during onResume(), 
+		 * depending on the value of boolean loadInfo
 		 */
 		
 		context = this;
@@ -143,8 +144,9 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 
 		//We call the GetProductDetailTask
 		if (loadInfo) new GetProductDetailTask(pId).execute();
-		LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("message"));
 		
+		//
+		LocalBroadcastManager.getInstance(this).registerReceiver(saveElementReceiver, new IntentFilter("message"));
 	}
 
   @Override
