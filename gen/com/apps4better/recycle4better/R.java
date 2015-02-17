@@ -1123,8 +1123,8 @@ containing a value of this type.
         public static final int beginning=0x7f090016;
         public static final int buttonScan=0x7f090056;
         public static final int button_maybe=0x7f090075;
-        public static final int button_no=0x7f090074;
-        public static final int button_yes=0x7f090073;
+        public static final int button_no=0x7f090073;
+        public static final int button_yes=0x7f090072;
         public static final int camera_container=0x7f090053;
         public static final int checkbox=0x7f09002d;
         public static final int collapseActionView=0x7f090010;
@@ -1165,7 +1165,7 @@ containing a value of this type.
         public static final int imageView1=0x7f090087;
         public static final int instructionTextView=0x7f090064;
         public static final int left_pane=0x7f090061;
-        public static final int linear1=0x7f090072;
+        public static final int linear1=0x7f090071;
         public static final int listMode=0x7f090006;
         public static final int list_item=0x7f090029;
         public static final int mainLayout=0x7f090049;
@@ -1229,7 +1229,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f09001e;
         public static final int submit_area=0x7f090039;
         public static final int tabMode=0x7f090008;
-        public static final int textView1=0x7f090071;
+        public static final int textView1=0x7f090074;
         public static final int textView3=0x7f090055;
         public static final int title=0x7f09002b;
         public static final int topLayout=0x7f09004a;
@@ -1298,14 +1298,15 @@ containing a value of this type.
         public static final int activity_product_detail_landscape=0x7f03001e;
         public static final int fragment_add_product=0x7f03001f;
         public static final int fragment_element_detail=0x7f030020;
-        public static final int fragment_element_wizard_one=0x7f030021;
-        public static final int fragment_element_wizard_recycle=0x7f030022;
-        public static final int fragment_no_element=0x7f030023;
-        public static final int fragment_preview_photo=0x7f030024;
-        public static final int fragment_product_detail=0x7f030025;
-        public static final int fragment_spinner=0x7f030026;
-        public static final int recycler_view_item=0x7f030027;
-        public static final int support_simple_spinner_dropdown_item=0x7f030028;
+        public static final int fragment_element_wizard_continue=0x7f030021;
+        public static final int fragment_element_wizard_one=0x7f030022;
+        public static final int fragment_element_wizard_recycle=0x7f030023;
+        public static final int fragment_no_element=0x7f030024;
+        public static final int fragment_preview_photo=0x7f030025;
+        public static final int fragment_product_detail=0x7f030026;
+        public static final int fragment_spinner=0x7f030027;
+        public static final int recycler_view_item=0x7f030028;
+        public static final int support_simple_spinner_dropdown_item=0x7f030029;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1361,6 +1362,7 @@ containing a value of this type.
         public static final int additional_options_text=0x7f0a0027;
         public static final int appName=0x7f0a000d;
         public static final int barcode=0x7f0a0015;
+        public static final int continue_question=0x7f0a0046;
         public static final int edit=0x7f0a003c;
         public static final int element_edit_failure=0x7f0a0030;
         public static final int element_edit_success=0x7f0a002f;

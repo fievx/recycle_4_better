@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.ListView.MyAdapter;
 import com.apps4better.recycle4better.ListView.MyAdapterListener;
+import com.apps4better.recycle4better.elementWizard.NewElementWizardActivity;
 import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementDetailObserver;
 import com.apps4better.recycle4better.model.ElementsLoader;
@@ -42,6 +43,8 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private Context context;
 	private Product product;
 	private long pId;
+	
+	private Boolean elementWizard = true;
 	
 	/*
 	 *  the loadInfo boolean is used to tell the activity if it must download product information 
@@ -86,7 +89,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 
 		if (savedInstanceState == null){
 		//We get the ProductId from the Intent
-		pId = getIntent().getLongExtra("product_id", 0);
+		pId = getIntent().getLongExtra(TAG_PRODUCT_ID, 0);
 		loadInfo = getIntent().getBooleanExtra("load_info", false);
 		}
 		
@@ -452,10 +455,17 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	}
 	
 	private void addElement (){
+		if (elementWizard){
+			Intent intent = new Intent (this, NewElementWizardActivity.class);
+			intent.putExtra(NewElementWizardActivity.PRODUCT_TAG, product);
+			startActivity(intent);
+		}
+		else{
 		Element e = new Element ();
-		e.setNumber(product.getElementList().size()+1);
+		e.setNumber(product.getNextElementNumber());
 		e.setProductId(product.getpId());
 		displayNewElementFragment (e);
+		}
 	}
 
 	

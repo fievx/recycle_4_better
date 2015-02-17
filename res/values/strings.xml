@@ -60,5 +60,6 @@
 	<string name="yes">YES </string>
 	<string name="no">NO </string>
 	<string name="recyclable_question">Is this Element recyclable? </string>
+	<string name="continue_question">Do you want to add another Element? </string>
 	
 </resources>

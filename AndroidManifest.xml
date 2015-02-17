@@ -38,6 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ScannerActivity"></activity>
+        <activity android:name=".elementWizard.NewElementWizardActivity"
+                  android:parentActivityName=".view.ProductDetailActivity"></activity>
         <activity android:name=".view.ProductDetailActivity"
             	  android:parentActivityName=".view.MainActivity">
             <!-- Parent activity meta-data to support API level 7+ -->
