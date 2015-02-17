@@ -420,12 +420,13 @@ int layout activity_product_detail 0x7f03001d
 int layout activity_product_detail_landscape 0x7f03001e
 int layout fragment_add_product 0x7f03001f
 int layout fragment_element_detail 0x7f030020
-int layout fragment_no_element 0x7f030021
-int layout fragment_preview_photo 0x7f030022
-int layout fragment_product_detail 0x7f030023
-int layout fragment_spinner 0x7f030024
-int layout recycler_view_item 0x7f030025
-int layout support_simple_spinner_dropdown_item 0x7f030026
+int layout fragment_element_wizard_one 0x7f030021
+int layout fragment_no_element 0x7f030022
+int layout fragment_preview_photo 0x7f030023
+int layout fragment_product_detail 0x7f030024
+int layout fragment_spinner 0x7f030025
+int layout recycler_view_item 0x7f030026
+int layout support_simple_spinner_dropdown_item 0x7f030027
 int menu main 0x7f0c0000
 int menu product_detail_action 0x7f0c0001
 int string BCTypeText 0x7f0a0013
@@ -455,6 +456,7 @@ int string element_edit_failure 0x7f0a0030
 int string element_edit_success 0x7f0a002f
 int string element_name_label 0x7f0a0016
 int string element_name_textview 0x7f0a0017
+int string element_picture_text 0x7f0a0042
 int string element_recyclable_label 0x7f0a0018
 int string element_save_failure 0x7f0a002e
 int string element_save_success 0x7f0a002d

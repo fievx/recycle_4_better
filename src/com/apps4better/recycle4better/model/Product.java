@@ -62,6 +62,23 @@ public int getElementCount(){
 }
 
 /**
+ * A method which iterates the Elementlist to determine which is the highest Element number and returns 
+ * this number plus 1.
+ * Usefull when an element has been deleted from the database because getElementCount would return
+ * a figure lower than the highest Element number which could result in two elements having the same
+ * number
+ */
+public int getNextElementNumber (){
+	int a = 1;
+	int b;
+	for (int i = 0; i<elementList.size(); i++){
+		b = elementList.get(i).getNumber();
+		if (b>a) a = b;
+	}
+	return a+1;
+}
+
+/**
  * Browse the ElementList and return the first element which has a matching element number
  * return null if no matching element is found.
  * @param elementNumber
@@ -182,6 +199,9 @@ public void setTrustScore(int trustScore) {
 	 * Conveniance method which return a Product object identical to the one calling the method, but 
 	 * with a null list of Elements. This method is meant to be called before a product is passed to the 
 	 * ProductEditorService to avoid bugs.
+	 * 
+	 * NOT USED ANYMORE
+	 * 
 	 * @return Product
 	 */
 	public Product getCloneWithoutElements (){

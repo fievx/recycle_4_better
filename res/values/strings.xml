@@ -55,4 +55,7 @@
 	<string name="no_element2">Elements are the way to tell people which parts of the product can be recycled. \n\n Add at least one Element to this product. </string>
 	<string name="no_barcode_number">You forgot to type in the Barcode number. </string>
 	
+	<!-- To be transaled -->
+	<string name="element_picture_text">First take a picture of the Element. </string>
+	
 </resources>

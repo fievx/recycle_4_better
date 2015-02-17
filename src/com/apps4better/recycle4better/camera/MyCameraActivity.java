@@ -22,12 +22,12 @@ import com.commonsware.cwac.camera.CameraFragment;
 
 
 public class MyCameraActivity extends Activity implements PreviewFragmentObserver{
-	private final String TAG_CAMERA_FRAGMENT = "camera_fragment";
-	private final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
+	protected final String TAG_CAMERA_FRAGMENT = "camera_fragment";
+	protected final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
 	private String photoName;
 	private RelativeLayout layout;
-	private Button shutterButton;
-	private File pictureFile;
+	protected Button shutterButton;
+	protected File pictureFile;
 	private MyCameraHost cameraHost;
 	
 	
@@ -78,7 +78,7 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
     /**
      * start the preview fragment.
      */
-    private void startPreview (){
+    public void startPreview (){
         shutterButton.setVisibility(Button.GONE);
     	PreviewFragment pF = PreviewFragment.getInstance(pictureFile.getAbsolutePath());
     	
@@ -162,7 +162,7 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 	}
 
 	
-	private void delFile(String filePath) {
+	protected void delFile(String filePath) {
 	    try {
 	        // delete the original file
 	    	if(new File(filePath).delete())

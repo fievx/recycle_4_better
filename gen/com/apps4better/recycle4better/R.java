@@ -1291,12 +1291,13 @@ containing a value of this type.
         public static final int activity_product_detail_landscape=0x7f03001e;
         public static final int fragment_add_product=0x7f03001f;
         public static final int fragment_element_detail=0x7f030020;
-        public static final int fragment_no_element=0x7f030021;
-        public static final int fragment_preview_photo=0x7f030022;
-        public static final int fragment_product_detail=0x7f030023;
-        public static final int fragment_spinner=0x7f030024;
-        public static final int recycler_view_item=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int fragment_element_wizard_one=0x7f030021;
+        public static final int fragment_no_element=0x7f030022;
+        public static final int fragment_preview_photo=0x7f030023;
+        public static final int fragment_product_detail=0x7f030024;
+        public static final int fragment_spinner=0x7f030025;
+        public static final int recycler_view_item=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1357,6 +1358,9 @@ containing a value of this type.
         public static final int element_edit_success=0x7f0a002f;
         public static final int element_name_label=0x7f0a0016;
         public static final int element_name_textview=0x7f0a0017;
+        /**  To be transaled 
+         */
+        public static final int element_picture_text=0x7f0a0042;
         public static final int element_recyclable_label=0x7f0a0018;
         public static final int element_save_failure=0x7f0a002e;
         public static final int element_save_success=0x7f0a002d;
