@@ -22,7 +22,7 @@
 	<string name="add_photo_button">Add a picture</string>
 	<string name="new_element_is_recyclable_label">Recyclable</string>
 	<string name="new_element_is_not_recyclable">NOT recyclable</string>
-	<string name="new_element_recyclable_not_sure">I\'m not sure</string>
+	<string name="new_element_recyclable_not_sure">Not sure</string>
 	<string name="new_element_slider_button">More options</string>
 	<string name="new_element_weight_label">Weight in grams</string>
 	<string name="new_element_material_common_label">Material (common name)</string>
@@ -57,5 +57,8 @@
 	
 	<!-- To be transaled -->
 	<string name="element_picture_text">First take a picture of the Element. </string>
+	<string name="yes">YES </string>
+	<string name="no">NO </string>
+	<string name="recyclable_question">Is this Element recyclable? </string>
 	
 </resources>

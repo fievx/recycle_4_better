@@ -18,7 +18,7 @@ public class NewElementWizardFragmentOne extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_element_wizard_one, container);
+		RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_element_wizard_one, container, false);
 		return layout;
 	}
 

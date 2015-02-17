@@ -19,7 +19,10 @@ public class Element implements Parcelable{
 	private int trustScore;
 	private String cacheImagePath;
 	
-	
+	//tags for recyclable attribute
+	public static final int TAG_ELEMENT_NOT_RECYCLABE = 0;
+	public static final int TAG_ELEMENT_RECYCLABE = 1;
+	public static final int TAG_ELEMENT_MAYBE_RECYCLABE = 3;
 	
 	public Element (){
 		

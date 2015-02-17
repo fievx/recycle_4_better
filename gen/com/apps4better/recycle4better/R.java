@@ -1094,8 +1094,11 @@ containing a value of this type.
         public static final int plus=0x7f020064;
         public static final int save=0x7f020065;
         public static final int tick_maybe=0x7f020066;
-        public static final int tick_no=0x7f020067;
-        public static final int tick_yes=0x7f020068;
+        public static final int tick_maybe_transparent=0x7f020067;
+        public static final int tick_no=0x7f020068;
+        public static final int tick_no_transparent=0x7f020069;
+        public static final int tick_yes=0x7f02006a;
+        public static final int tick_yes_transparent=0x7f02006b;
     }
     public static final class id {
         public static final int action_bar=0x7f09001c;
@@ -1106,19 +1109,22 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f090023;
         public static final int action_bar_title=0x7f090022;
         public static final int action_context_bar=0x7f09001d;
-        public static final int action_main_activity=0x7f090084;
+        public static final int action_main_activity=0x7f090088;
         public static final int action_menu_divider=0x7f090002;
         public static final int action_menu_presenter=0x7f090003;
         public static final int action_mode_close_button=0x7f090024;
         public static final int activity_chooser_view_content=0x7f090025;
         public static final int activity_test_fragment_linearlayout=0x7f090054;
-        public static final int add_element_2=0x7f090072;
+        public static final int add_element_2=0x7f090076;
         public static final int add_element_button=0x7f09005d;
         public static final int add_product_button=0x7f09004e;
         public static final int always=0x7f09000f;
         public static final int barcode_number_label=0x7f09004c;
         public static final int beginning=0x7f090016;
         public static final int buttonScan=0x7f090056;
+        public static final int button_maybe=0x7f090075;
+        public static final int button_no=0x7f090074;
+        public static final int button_yes=0x7f090073;
         public static final int camera_container=0x7f090053;
         public static final int checkbox=0x7f09002d;
         public static final int collapseActionView=0x7f090010;
@@ -1135,7 +1141,7 @@ containing a value of this type.
         public static final int element_image_view=0x7f090045;
         public static final int element_name_edit_text=0x7f09003e;
         public static final int element_name_text_view=0x7f09003d;
-        public static final int element_name_textview=0x7f090082;
+        public static final int element_name_textview=0x7f090086;
         public static final int element_picture_view=0x7f09006a;
         public static final int element_recyclable_radio_group=0x7f090041;
         public static final int element_recyclable_view=0x7f09006c;
@@ -1146,7 +1152,7 @@ containing a value of this type.
         public static final int expand_activities_button=0x7f090026;
         public static final int expanded_menu=0x7f09002c;
         public static final int findButton=0x7f090058;
-        public static final int firstLine=0x7f09007f;
+        public static final int firstLine=0x7f090083;
         public static final int footerLayout=0x7f090051;
         public static final int formLayout=0x7f09004f;
         public static final int fragment_container=0x7f090048;
@@ -1156,9 +1162,10 @@ containing a value of this type.
         public static final int icon=0x7f09002a;
         public static final int ifRoom=0x7f090011;
         public static final int image=0x7f090027;
-        public static final int imageView1=0x7f090083;
+        public static final int imageView1=0x7f090087;
         public static final int instructionTextView=0x7f090064;
         public static final int left_pane=0x7f090061;
+        public static final int linear1=0x7f090072;
         public static final int listMode=0x7f090006;
         public static final int list_item=0x7f090029;
         public static final int mainLayout=0x7f090049;
@@ -1170,36 +1177,36 @@ containing a value of this type.
         public static final int no_element_text=0x7f09004b;
         public static final int none=0x7f090019;
         public static final int normal=0x7f090007;
-        public static final int photo_view=0x7f090075;
+        public static final int photo_view=0x7f090079;
         public static final int productIdTextField=0x7f090057;
         public static final int product_brand_edit_text=0x7f090065;
-        public static final int product_brand_text_view=0x7f090077;
+        public static final int product_brand_text_view=0x7f09007b;
         public static final int product_desc_text_view=0x7f09005c;
         public static final int product_detail_fragment_container=0x7f090060;
-        public static final int product_down_vote_button=0x7f09007d;
-        public static final int product_edit_button=0x7f090079;
+        public static final int product_down_vote_button=0x7f090081;
+        public static final int product_edit_button=0x7f09007d;
         public static final int product_image_view=0x7f090067;
         public static final int product_model_edit_text=0x7f090066;
-        public static final int product_model_text_view=0x7f090078;
+        public static final int product_model_text_view=0x7f09007c;
         public static final int product_name_text_view=0x7f09005b;
         public static final int product_not_found_text=0x7f09004d;
         public static final int product_photo_image_view=0x7f09005a;
-        public static final int product_picture_view=0x7f090076;
-        public static final int product_trust_score_text=0x7f09007c;
-        public static final int product_trust_score_text_view=0x7f09007b;
-        public static final int product_upvote_button=0x7f09007a;
+        public static final int product_picture_view=0x7f09007a;
+        public static final int product_trust_score_text=0x7f090080;
+        public static final int product_trust_score_text_view=0x7f09007f;
+        public static final int product_upvote_button=0x7f09007e;
         public static final int product_view_header=0x7f090059;
-        public static final int progressBar1=0x7f09007e;
+        public static final int progressBar1=0x7f090082;
         public static final int progress_circular=0x7f090004;
         public static final int progress_horizontal=0x7f090005;
         public static final int radio=0x7f09002f;
         public static final int radio_not_recyclable=0x7f090042;
         public static final int radio_not_sure=0x7f090044;
         public static final int radio_recyclable=0x7f090043;
-        public static final int recyclable_imageview=0x7f090081;
-        public static final int retake_photo_button=0x7f090073;
+        public static final int recyclable_imageview=0x7f090085;
+        public static final int retake_photo_button=0x7f090077;
         public static final int right_pane=0x7f090063;
-        public static final int save_button=0x7f090074;
+        public static final int save_button=0x7f090078;
         public static final int save_element_button=0x7f090047;
         public static final int save_product_button=0x7f090069;
         public static final int search_badge=0x7f090032;
@@ -1212,7 +1219,7 @@ containing a value of this type.
         public static final int search_plate=0x7f090036;
         public static final int search_src_text=0x7f090037;
         public static final int search_voice_btn=0x7f09003b;
-        public static final int secondLine=0x7f090080;
+        public static final int secondLine=0x7f090084;
         public static final int seperator1=0x7f090068;
         public static final int shortcut=0x7f09002e;
         public static final int showCustom=0x7f09000b;
@@ -1292,12 +1299,13 @@ containing a value of this type.
         public static final int fragment_add_product=0x7f03001f;
         public static final int fragment_element_detail=0x7f030020;
         public static final int fragment_element_wizard_one=0x7f030021;
-        public static final int fragment_no_element=0x7f030022;
-        public static final int fragment_preview_photo=0x7f030023;
-        public static final int fragment_product_detail=0x7f030024;
-        public static final int fragment_spinner=0x7f030025;
-        public static final int recycler_view_item=0x7f030026;
-        public static final int support_simple_spinner_dropdown_item=0x7f030027;
+        public static final int fragment_element_wizard_recycle=0x7f030022;
+        public static final int fragment_no_element=0x7f030023;
+        public static final int fragment_preview_photo=0x7f030024;
+        public static final int fragment_product_detail=0x7f030025;
+        public static final int fragment_spinner=0x7f030026;
+        public static final int recycler_view_item=0x7f030027;
+        public static final int support_simple_spinner_dropdown_item=0x7f030028;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1381,6 +1389,7 @@ containing a value of this type.
         public static final int new_element_slider_button=0x7f0a0023;
         public static final int new_element_weight_label=0x7f0a0024;
         public static final int new_product_instruction_text=0x7f0a0038;
+        public static final int no=0x7f0a0044;
         public static final int no_barcode_number=0x7f0a0041;
         public static final int no_element1=0x7f0a003f;
         public static final int no_element2=0x7f0a0040;
@@ -1392,6 +1401,7 @@ containing a value of this type.
         public static final int product_brand_label=0x7f0a0032;
         public static final int product_model_label=0x7f0a0033;
         public static final int product_not_found_text=0x7f0a0035;
+        public static final int recyclable_question=0x7f0a0045;
         public static final int retake_photo=0x7f0a0039;
         public static final int save_button=0x7f0a002a;
         public static final int scanButtonText=0x7f0a0012;
@@ -1400,6 +1410,7 @@ containing a value of this type.
         public static final int trust_score=0x7f0a003b;
         public static final int type_code_text=0x7f0a0010;
         public static final int welcome_text=0x7f0a000e;
+        public static final int yes=0x7f0a0043;
     }
     public static final class style {
         /** 
