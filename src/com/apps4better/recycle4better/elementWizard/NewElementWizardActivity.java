@@ -50,6 +50,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		//We add the first fragment on top of the camera
 		NewElementWizardFragmentOne frag = new NewElementWizardFragmentOne();
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 		transaction.add(R.id.fragment_container, frag, FRAGMENT_ONE_TAG);
@@ -58,6 +59,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		product = getIntent().getParcelableExtra(PRODUCT_TAG);
 		element = new Element();
 		element.setNumber(product.getNextElementNumber());
+		element.setProductId(product.getpId());
 		extension = getResources().getString(R.string.image_extension);
 	}
 	
@@ -95,6 +97,10 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			NewElementWizardFragmentOne fragmentOne = (NewElementWizardFragmentOne) getFragmentManager().findFragmentByTag(FRAGMENT_ONE_TAG);
 			if (fragmentOne!=null)
 				transac.remove(fragmentOne);
+			
+			//We set the buttons invisible on the previewFragment
+			PreviewFragment preview = (PreviewFragment) getFragmentManager().findFragmentByTag(MyCameraActivity.TAG_PREVIEW_FRAGMENT);
+			preview.setButtonsInvisible();
 			
 			//We add the RecyclableWizardFragment
 			RecyclableWizardFragment frag = new RecyclableWizardFragment();
@@ -195,7 +201,16 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 				transac.remove(continueFrag);
 			}
 			
-			//we remove the preview fragment
+			//We put the camera fragment back on
+			CameraFragment cF = (CameraFragment) getFragmentManager().findFragmentByTag(TAG_CAMERA_FRAGMENT);
+			if (cF!=null){
+			shutterButton.setVisibility(Button.VISIBLE);
+			}
+			else {
+				cF = new CameraFragment();
+			}
+			
+			//we remove the preview Fragment
 			PreviewFragment previewFrag = (PreviewFragment) manager.findFragmentByTag(TAG_PREVIEW_FRAGMENT);
 			if (previewFrag!= null){
 				transac.remove(previewFrag);
@@ -203,7 +218,6 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			
 			//We restart the camera
 			transac.commit();
-			CameraFragment cF = (CameraFragment) manager.findFragmentByTag(TAG_CAMERA_FRAGMENT);
 			cF.restartPreview();
 		}
 		else {

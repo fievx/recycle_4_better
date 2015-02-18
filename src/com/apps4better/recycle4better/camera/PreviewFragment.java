@@ -4,6 +4,7 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
 
 
 
@@ -110,7 +112,18 @@ public class PreviewFragment extends Fragment{
 		super.onPause();
 	}
 	
+	/**
+	 * sets visibility to false for both the save and retake buttons
+	 */
+	public void setButtonsInvisible (){
+		saveButton.setVisibility(View.INVISIBLE);
+		retakePhotoButton.setVisibility(View.INVISIBLE);
+	}
 	
+	public void setButtonsVisible(){
+		saveButton.setVisibility(View.VISIBLE);
+		retakePhotoButton.setVisibility(View.VISIBLE);
+	}
 
 		
 	

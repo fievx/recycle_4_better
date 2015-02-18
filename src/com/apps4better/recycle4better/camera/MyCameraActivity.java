@@ -23,7 +23,7 @@ import com.commonsware.cwac.camera.CameraFragment;
 
 public class MyCameraActivity extends Activity implements PreviewFragmentObserver{
 	protected final String TAG_CAMERA_FRAGMENT = "camera_fragment";
-	protected final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
+	public static final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
 	private String photoName;
 	private RelativeLayout layout;
 	protected Button shutterButton;
