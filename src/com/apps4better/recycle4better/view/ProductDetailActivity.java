@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -34,13 +35,14 @@ import com.apps4better.recycle4better.elementWizard.NewElementWizardActivity;
 import com.apps4better.recycle4better.model.Element;
 import com.apps4better.recycle4better.model.ElementDetailObserver;
 import com.apps4better.recycle4better.model.ElementsLoader;
+import com.apps4better.recycle4better.model.FragmentObserver;
 import com.apps4better.recycle4better.model.NoElementObserver;
 import com.apps4better.recycle4better.model.Product;
 import com.apps4better.recycle4better.model.ProductDetailObserver;
 import com.squareup.picasso.Picasso;
 
 public class ProductDetailActivity extends Activity implements MyAdapterListener, ElementDetailObserver, ProductDetailObserver, 
-	NoElementObserver{
+	NoElementObserver, FragmentObserver{
 	
 	private Context context;
 	private Product product;
@@ -487,6 +489,10 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		switch (param){
 		case TAG_ADD_ELEMENT:
 			addElement();
+			break;
+		case SettingsFragment.TAG_WIZARD :
+			if (this.elementWizard) elementWizard = false;
+			else elementWizard = true;
 		}
 	}
 }

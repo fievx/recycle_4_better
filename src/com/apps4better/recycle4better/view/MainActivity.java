@@ -1,10 +1,12 @@
 package com.apps4better.recycle4better.view;
 
+import android.R.transition;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -150,6 +152,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 		SettingsFragment settings = new SettingsFragment ();
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
 		transac.replace(R.id.fragment_container, settings, TAG_SETINGS_FRAGMENT);
+		transac.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		transac.addToBackStack(null).commit();
 		return true;
 	default : 	return super.onOptionsItemSelected(item);

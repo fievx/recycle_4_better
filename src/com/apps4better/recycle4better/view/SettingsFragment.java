@@ -3,13 +3,18 @@ package com.apps4better.recycle4better.view;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.view.View;
 
 import com.apps4better.recycle4better.R;
+import com.apps4better.recycle4better.model.FragmentObserver;
 
 public class SettingsFragment extends PreferenceFragment{
-	private Activity activity;
+	public static final String TAG_WIZARD = "wizard";
+	private Activity activity;	
+	private Preference wizardPref;
 	
 	
 	/* (non-Javadoc)
@@ -35,6 +40,23 @@ public class SettingsFragment extends PreferenceFragment{
 		View view = getView();
 		view.setBackgroundColor(Color.WHITE);
 		view.setClickable(true);
+		
+		wizardPref = findPreference("element_wizard_preference");
+		wizardPref.setOnPreferenceClickListener(new OnPreferenceClickListener (){
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+				try{
+				((FragmentObserver)getActivity()).update(TAG_WIZARD);
+				}
+				catch (Exception e){
+					e.getStackTrace();
+				}
+				return true;
+			}
+			
+		});
 	}
 
 	

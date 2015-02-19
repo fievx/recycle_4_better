@@ -148,6 +148,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		ContinueWizardFragment frag = new ContinueWizardFragment ();
 		RecyclableWizardFragment rFrag = (RecyclableWizardFragment) getFragmentManager().findFragmentByTag(FRAGMENT_RECYCLABLE_TAG);
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
 		transac.remove(rFrag).add(R.id.fragment_container, frag, FRAGMENT_CONTINUE_TAG);
 		transac.addToBackStack(null);
 		transac.commit();
