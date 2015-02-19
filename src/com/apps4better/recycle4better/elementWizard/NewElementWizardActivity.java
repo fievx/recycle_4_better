@@ -224,7 +224,10 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			Intent intent = new Intent (this, ProductDetailActivity.class);
 			intent.putExtra(ProductDetailActivity.TAG_PRODUCT_ID, product.getpId());
 			intent.putExtra(ProductDetailActivity.TAG_LOAD_INFO, true);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			
+			finish();
 			
 			//We resume the orientation to sensor
 			setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_SENSOR);
