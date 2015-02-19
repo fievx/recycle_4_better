@@ -1,9 +1,13 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-<RelativeLayout
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
     android:id="@+id/top_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
@@ -92,12 +96,16 @@
 
 </RelativeLayout>
 
+
+</RelativeLayout>
+    
+</ScrollView>
+    
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
     </FrameLayout>
-</RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>

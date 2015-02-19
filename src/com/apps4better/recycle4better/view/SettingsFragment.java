@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.view.View;
 
 import com.apps4better.recycle4better.R;
 
@@ -31,8 +32,9 @@ public class SettingsFragment extends PreferenceFragment{
 		super.onActivityCreated(savedInstanceState);
 		
 		//Need to programatically set the background to a color so it does not appear as transparent
-		getView().setBackgroundColor(Color.WHITE);
-		getView().setClickable(true);
+		View view = getView();
+		view.setBackgroundColor(Color.WHITE);
+		view.setClickable(true);
 	}
 
 	

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ public class MainActivity extends Activity {
 	private EditText productIdTextField;
 	private Product product;
 	private long pId;
-	private ScrollView layout;
+	private RelativeLayout layout;
 	
 	public static final String TAG_SETINGS_FRAGMENT = "settings_fragment";
 	
@@ -42,7 +43,7 @@ public class MainActivity extends Activity {
 		context = this;
 		
 		//We inflate the layout and get all relevant resources
-		layout = (ScrollView) ScrollView.inflate(this, R.layout.activity_main, null);
+		layout = (RelativeLayout) ScrollView.inflate(this, R.layout.activity_main, null);
 		scanButton = (Button) layout.findViewById(R.id.buttonScan);
 		findProductButton = (Button) layout.findViewById(R.id.findButton);
 		productIdTextField = (EditText) layout.findViewById(R.id.productIdTextField);
@@ -148,7 +149,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	case R.id.action_settings :
 		SettingsFragment settings = new SettingsFragment ();
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
-		transac.replace(R.id.main_layout, settings, TAG_SETINGS_FRAGMENT);
+		transac.replace(R.id.fragment_container, settings, TAG_SETINGS_FRAGMENT);
 		transac.addToBackStack(null).commit();
 		return true;
 	default : 	return super.onOptionsItemSelected(item);
