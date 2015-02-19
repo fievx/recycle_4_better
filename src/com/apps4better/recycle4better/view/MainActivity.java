@@ -1,6 +1,7 @@
 package com.apps4better.recycle4better.view;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -27,6 +27,9 @@ public class MainActivity extends Activity {
 	private EditText productIdTextField;
 	private Product product;
 	private long pId;
+	private ScrollView layout;
+	
+	public static final String TAG_SETINGS_FRAGMENT = "settings_fragment";
 	
 	//Intent tags
 	public static final String TAG_PRODUCT_ID = "product_id";
@@ -39,7 +42,7 @@ public class MainActivity extends Activity {
 		context = this;
 		
 		//We inflate the layout and get all relevant resources
-		ScrollView layout = (ScrollView) ScrollView.inflate(this, R.layout.activity_main, null);
+		layout = (ScrollView) ScrollView.inflate(this, R.layout.activity_main, null);
 		scanButton = (Button) layout.findViewById(R.id.buttonScan);
 		findProductButton = (Button) layout.findViewById(R.id.findButton);
 		productIdTextField = (EditText) layout.findViewById(R.id.productIdTextField);
@@ -141,7 +144,16 @@ public boolean onOptionsItemSelected(MenuItem item) {
 	// automatically handle clicks on the Home/Up button, so long
 	// as you specify a parent activity in AndroidManifest.xml.
 	int id = item.getItemId();
-	return super.onOptionsItemSelected(item);
+	switch (id){
+	case R.id.action_settings :
+		SettingsFragment settings = new SettingsFragment ();
+		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		transac.replace(R.id.main_layout, settings, TAG_SETINGS_FRAGMENT);
+		transac.addToBackStack(null).commit();
+		return true;
+	default : 	return super.onOptionsItemSelected(item);
+	}
+
 }
 	
 public void startScan (){

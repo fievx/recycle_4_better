@@ -7,8 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +45,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	private Context context;
 	private Product product;
 	private long pId;
+	private SharedPreferences prefs;
 	
 	private Boolean elementWizard = true;
 	
@@ -75,6 +78,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	public static final String TAG_PRODUCT_DETAIL_FRAGMENT = "product_detail";
 	public static final String TAG_NO_ELEMENT_FRAGMENT = "no_element";
 	public static final String TAG_ADD_ELEMENT = "add_element";
+	public static final String TAG_SETINGS_FRAGMENT = "settings_fragment";
 	
 	public void onCreate (Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -86,6 +90,8 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		
 		context = this;
 		extension = getResources().getString(R.string.image_extension);
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		elementWizard = prefs.getBoolean("element_wizard_preference", true);
 
 		if (savedInstanceState == null){
 		//We get the ProductId from the Intent
@@ -127,6 +133,12 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 			Intent i = new Intent (this, MainActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(i);
+			return true;
+		case R.id.action_settings :
+			SettingsFragment settings = new SettingsFragment ();
+			FragmentTransaction transac = getFragmentManager().beginTransaction();
+			transac.replace(R.id.product_detail_fragment_container, settings, TAG_SETINGS_FRAGMENT);
+			transac.addToBackStack(null).commit();
 			return true;
 		default:
 			return super.onMenuItemSelected(featureId, item);

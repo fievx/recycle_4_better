@@ -32,4 +32,8 @@
     <item name="android:background">?android:attr/listDivider</item>
 	</style>
 	
+    <style name="wizard_button">
+    <item name="android:background">@drawable/wizard_button</item>
+	</style>
+	
 </resources>

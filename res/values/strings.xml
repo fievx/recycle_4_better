@@ -61,5 +61,11 @@
 	<string name="no">NO </string>
 	<string name="recyclable_question">Is this Element recyclable? </string>
 	<string name="continue_question">Do you want to add another Element? </string>
+	<string name="add_more">Add more</string>
+	<string name="stop">Stop here</string>
+	<string name="element_wizard_question">Element Wizard</string>
+	<string name="element_wizard_description">The Element Wizard is a convenient way to add Elements to a Product. It is faster than the traditional
+	    method but only enables to take a picture and specify if the Element is recyclable. If you like to add additional informations
+	    to the elements you create, we recommand that you disable this option.</string>
 	
 </resources>
