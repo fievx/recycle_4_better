@@ -19,6 +19,7 @@ public final class R {
         public static final int enter_from_right=0x7f040007;
         public static final int exit_to_left=0x7f040008;
         public static final int exit_to_right=0x7f040009;
+        public static final int stay_put=0x7f04000a;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 

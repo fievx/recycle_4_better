@@ -16,7 +16,8 @@
             android:id="@+id/product_photo_image_view"
             android:layout_width="113dp"
             android:layout_height="150dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:src="@drawable/no_photo_placeholder" />
 
         <TextView
             android:id="@+id/product_name_text_view"

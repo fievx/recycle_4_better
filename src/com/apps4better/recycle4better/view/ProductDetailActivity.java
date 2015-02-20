@@ -198,9 +198,6 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	//we save the product id in case the view is recreated before the product is loaded
 	outState.putLong(TAG_PRODUCT_ID, pId);
 	
-	//we save the current view
-
-	
 	// We save the product
 	outState.putParcelable(TAG_SAVED_PRODUCT, product);
 	outState.putBoolean(TAG_LOAD_INFO, false);//set load info to false
@@ -339,7 +336,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
 		
 		//We set the transaction animation
-		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.stay_put);
 		
 		//if there is an ElementDetailFramgent, we remove it
 		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL_FRAGMENT);
@@ -355,7 +352,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
 		
 		//We set the transaction animation
-		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.stay_put);
 		
 		transac.add(R.id.product_detail_fragment_container, frag, TAG_PRODUCT_DETAIL_FRAGMENT);
 		transac.addToBackStack(null);

@@ -8,6 +8,7 @@ int anim enter_from_left 0x7f040006
 int anim enter_from_right 0x7f040007
 int anim exit_to_left 0x7f040008
 int anim exit_to_right 0x7f040009
+int anim stay_put 0x7f04000a
 int attr actionBarDivider 0x7f01000f
 int attr actionBarItemBackground 0x7f010010
 int attr actionBarSize 0x7f01000e
