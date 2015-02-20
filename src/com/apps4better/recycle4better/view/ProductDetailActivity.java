@@ -10,7 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -338,12 +338,27 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		//We set the transaction animation
 		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.stay_put);
 		
-		//if there is an ElementDetailFramgent, we remove it
-		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL_FRAGMENT);
-		if ( f != null)
-			transac.remove(f);
+
 		transac.add(R.id.product_detail_fragment_container, fragment, ProductDetailActivity.TAG_NEW_ELEMENT_FRAGMENT);
 		transac.addToBackStack(null).commit();
+		
+		//if there is an ElementDetailFramgent, we remove it once the animation is complete
+
+		final ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL_FRAGMENT);
+		if ( f != null){
+			final FragmentTransaction transac2 = getFragmentManager().beginTransaction();
+
+			//Wait for .5 second
+			 Handler handler = new Handler(); 
+			 handler.postDelayed(new Runnable() { 
+			         public void run() { 
+			 			transac2.remove(f);
+						transac2.commit();
+			         } 
+			    }, 500); 
+			
+
+		}
 	}
 	
 	public void displayProductDetailFragment( Product product){
@@ -352,7 +367,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
 		
 		//We set the transaction animation
-		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.stay_put);
+		transac.setCustomAnimations(R.anim.enter_from_right, 0);
 		
 		transac.add(R.id.product_detail_fragment_container, frag, TAG_PRODUCT_DETAIL_FRAGMENT);
 		transac.addToBackStack(null);
@@ -377,12 +392,23 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	public void displayNewProductFragment (Product p){
 		NewProductFragment fragment = NewProductFragment.getInstance(p);
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
-		//if there is a ProductDetailFramgent, we remove it
-		ProductDetailFragment f = (ProductDetailFragment) getFragmentManager().findFragmentByTag(ProductDetailActivity.TAG_PRODUCT_DETAIL_FRAGMENT);
-		if ( f != null)
-			transac.remove(f);
+		
 		transac.add(R.id.product_detail_fragment_container, fragment, ProductDetailActivity.TAG_NEW_PRODUCT_FRAGMENT);
 		transac.addToBackStack(null).commit();
+		
+		//if there is a ProductDetailFramgent, we remove it after the animation is complete
+		final ProductDetailFragment f = (ProductDetailFragment) getFragmentManager().findFragmentByTag(ProductDetailActivity.TAG_PRODUCT_DETAIL_FRAGMENT);
+		if ( f != null){
+			final FragmentTransaction transac2 = getFragmentManager().beginTransaction();
+
+			//Wait for .5 second
+			 Handler handler = new Handler(); 
+			 handler.postDelayed(new Runnable() { 
+			         public void run() { 
+			 			transac2.remove(f);
+			         } 
+			    }, 500); 
+		}
 	}
 	
 	@Override
