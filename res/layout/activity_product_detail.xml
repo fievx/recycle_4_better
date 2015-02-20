@@ -58,6 +58,7 @@
 
         <Button
             android:id="@+id/add_element_button"
+            style="@style/standard_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/product_photo_image_view"
