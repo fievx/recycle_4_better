@@ -9,15 +9,18 @@
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:background="@android:color/darker_gray" >
+    android:background="#8bc34a"
+    android:padding="3dp" >
     
-    <Button
+    <ImageButton
         android:id="@+id/shutter_button"
+        style="@style/standard_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/camera" />
+        android:drawableLeft="@drawable/camera"
+        android:src="@drawable/camera" />
 
 </RelativeLayout>
 

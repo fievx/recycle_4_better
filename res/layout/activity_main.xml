@@ -8,19 +8,20 @@
     android:layout_height="match_parent">
     
     <RelativeLayout
-    android:id="@+id/top_layout"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
     
-    <RelativeLayout 
-    android:id="@+id/main_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.apps4better.recycle4better.view.MainActivity" >
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8bc34a"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.apps4better.recycle4better.view.MainActivity" >
 
     <TextView
         android:id="@+id/no_element_text"
@@ -41,22 +42,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/no_element_text"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:text="@string/explanation_text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/buttonScan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_below="@id/textView3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="18dp"
-        android:drawableLeft="@drawable/barcode"
-        android:text="@string/scanButtonText" />
+</RelativeLayout>
+
+<Button
+    android:id="@+id/buttonScan"
+    style="@style/standard_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="false"
+    android:layout_alignParentTop="false"
+    android:layout_below="@id/top_layout"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="18dp"
+    android:drawableLeft="@drawable/barcode"
+    android:text="@string/scanButtonText" />
 
     <TextView
         android:id="@+id/barcode_number_label"
@@ -87,16 +92,13 @@
 
         <Button
             android:id="@+id/findButton"
+            style="@style/standard_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Find" />
+            android:text="@string/find" />
 
     </LinearLayout>
-
-</RelativeLayout>
-
-
 </RelativeLayout>
     
 </ScrollView>

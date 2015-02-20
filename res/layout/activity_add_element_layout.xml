@@ -111,13 +111,13 @@
     
     <Button
         android:id="@+id/save_element_button"
+        style="@style/standard_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/view1"
         android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/save"
         android:text="@string/save_button" />
-
 
 </RelativeLayout>
 <RelativeLayout

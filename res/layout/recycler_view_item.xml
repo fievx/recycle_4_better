@@ -29,6 +29,7 @@
         android:layout_height="105dp"
         android:layout_alignParentTop="false"
         android:layout_below="@id/divider1"
+        android:layout_marginRight="5dp"
         android:contentDescription="TODO"
         android:src="@drawable/no_photo_placeholder" />
 

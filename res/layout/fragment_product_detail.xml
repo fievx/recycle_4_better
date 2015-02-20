@@ -11,7 +11,14 @@
     android:background="@android:color/white"
     android:clickable="true" >   
     
-    <ImageView
+        <RelativeLayout
+            android:id="@+id/header_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#8bc34a"
+            android:paddingBottom="5dp" >
+        
+        <ImageView
         android:id="@+id/product_picture_view"
         android:layout_width="120dp"
         android:layout_height="160dp"
@@ -45,19 +52,21 @@
 
     <Button
         android:id="@+id/product_edit_button"
+        style="@style/standard_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/product_model_text_view"
         android:layout_alignBottom="@+id/product_picture_view"
+        android:layout_alignLeft="@+id/product_model_text_view"
         android:drawableLeft="@drawable/edit"
         android:text="@string/edit" />
+
+    </RelativeLayout>
 
     <ImageButton
         android:id="@+id/product_upvote_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/product_edit_button"
-        android:layout_below="@+id/product_edit_button"
+        android:layout_below="@id/header_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:src="@drawable/arrow_up" />
@@ -66,8 +75,8 @@
         android:id="@+id/product_trust_score_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/product_picture_view"
         android:layout_below="@+id/product_upvote_button"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="20dp"
         android:text="@string/trust_score"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -91,6 +100,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:src="@drawable/arrow_down" />
+
+
 
 </RelativeLayout>
 

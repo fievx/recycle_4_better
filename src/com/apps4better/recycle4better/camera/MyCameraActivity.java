@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 import com.apps4better.recycle4better.R;
@@ -26,7 +27,7 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 	public static final String TAG_PREVIEW_FRAGMENT = "preview_fragment";
 	private String photoName;
 	private RelativeLayout layout;
-	protected Button shutterButton;
+	protected ImageButton shutterButton;
 	protected File pictureFile;
 	private MyCameraHost cameraHost;
 	
@@ -40,7 +41,7 @@ public class MyCameraActivity extends Activity implements PreviewFragmentObserve
 		
 		photoName = getIntent().getStringExtra("photo_name");
 		layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_camera ,null);
-		shutterButton = (Button) layout.findViewById(R.id.shutter_button);
+		shutterButton = (ImageButton) layout.findViewById(R.id.shutter_button);
 		setContentView(layout);
 		initCamera();
 	}

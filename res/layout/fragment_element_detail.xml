@@ -9,8 +9,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:clickable="true">   
-    <ImageView
+    android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#8bc34a"
+        android:paddingBottom="5dp" >
+        
+         <ImageView
         android:id="@+id/element_picture_view"
         android:layout_width="120dp"
         android:layout_height="160dp"
@@ -41,16 +49,28 @@
         android:layout_marginTop="20dp"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-        android:id="@+id/no_element_text"
+    
+        <Button
+        android:id="@+id/element_edit_button"
+        style="@style/standard_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/element_picture_view"
-        android:layout_below="@+id/element_picture_view"
-        android:layout_marginTop="23dp"
-        android:text="@string/element_recyclable_label"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignBottom="@+id/element_picture_view"
+        android:layout_alignLeft="@+id/element_description_text_view"
+        android:drawableLeft="@drawable/edit"
+        android:text="@string/edit" />   
+     
+    </RelativeLayout>
+   
+        <TextView
+            android:id="@+id/no_element_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/header_layout"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="23dp"
+            android:text="@string/element_recyclable_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     
     <ImageView
         android:id="@+id/element_recyclable_view"
@@ -97,14 +117,7 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/arrow_down" />
 
-    <Button
-        android:id="@+id/element_edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/element_picture_view"
-        android:layout_alignLeft="@+id/element_description_text_view"
-        android:drawableLeft="@drawable/edit"
-        android:text="@string/edit" />
+
 
 </RelativeLayout>
 
