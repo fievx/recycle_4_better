@@ -194,13 +194,25 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 	 */
 	protected void elementUploadFinished(){
 		if (continueWizard){
-			//we remove the ContinueFragment
+			//we simply restart the activity
+			Intent intent = getIntent();
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			finish();
+			startActivity(intent);
+			
+			
+			/*
+			 * Different method to restart the wizard based on resetting the camera and 
+			 * returning to the FragmentOne of the wizard. Had problems when hitting back buttons 
+			 * many times as it reloaded the element with the spinning fragment... All shit.
+			 * 
 			FragmentManager manager = getFragmentManager();
 			FragmentTransaction transac = manager.beginTransaction();
 			ContinueWizardFragment continueFrag = (ContinueWizardFragment) manager.findFragmentByTag(FRAGMENT_CONTINUE_TAG);
 			if (continueFrag != null) {
 				transac.remove(continueFrag);
 			}
+			
 			
 			//We put the camera fragment back on
 			CameraFragment cF = (CameraFragment) getFragmentManager().findFragmentByTag(TAG_CAMERA_FRAGMENT);
@@ -232,7 +244,8 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			}
 
 			transac.commit();
-
+			*/
+			
 		}
 		else {
 			Intent intent = new Intent (this, ProductDetailActivity.class);
