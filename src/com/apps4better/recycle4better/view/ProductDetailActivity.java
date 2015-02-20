@@ -329,6 +329,7 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		// TODO Auto-generated method stub
 		ElementDetailFragment frag = ElementDetailFragment.getInstance(product.getElementById(elementId));
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
+		transaction.setCustomAnimations(R.anim.enter_from_right, 0);
 		transaction.add(R.id.product_detail_fragment_container, frag, ProductDetailActivity.TAG_ELEMENT_DETAIL_FRAGMENT);
 		transaction.addToBackStack(null).commit();
 	}
@@ -336,6 +337,10 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 	public void displayNewElementFragment (Element e){
 		NewElementFragment fragment = NewElementFragment.getInstance(e);
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		
+		//We set the transaction animation
+		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+		
 		//if there is an ElementDetailFramgent, we remove it
 		ElementDetailFragment f = (ElementDetailFragment) getFragmentManager().findFragmentByTag(this.TAG_ELEMENT_DETAIL_FRAGMENT);
 		if ( f != null)
@@ -348,6 +353,10 @@ public class ProductDetailActivity extends Activity implements MyAdapterListener
 		Log.d("product detail", "click detected on Header");
 		ProductDetailFragment frag = ProductDetailFragment.getInstance(product);
 		FragmentTransaction transac = getFragmentManager().beginTransaction();
+		
+		//We set the transaction animation
+		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+		
 		transac.add(R.id.product_detail_fragment_container, frag, TAG_PRODUCT_DETAIL_FRAGMENT);
 		transac.addToBackStack(null);
 		transac.commit();
