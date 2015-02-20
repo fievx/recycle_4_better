@@ -9,7 +9,7 @@
         android:id="@+id/product_view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:background="#50785C"
         android:clickable="true" >
 
         <ImageView
@@ -27,6 +27,7 @@
             android:lines="1"
             android:maxLines="1"
             android:minLines="1"
+            android:textColor="@android:color/white"
             android:textSize="16sp" />
 
         <TextView
@@ -45,6 +46,7 @@
             android:layout_alignLeft="@id/product_desc_text_view"
             android:layout_below="@id/product_desc_text_view"
             android:text="@string/barcode"
+            android:textColor="@android:color/white"
             android:textSize="14sp" />
 
         <TextView
@@ -53,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/no_element_text"
             android:layout_toRightOf="@id/no_element_text"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/add_element_button"
@@ -61,8 +64,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/product_photo_image_view"
             android:layout_alignLeft="@id/product_name_text_view"
+            android:layout_marginBottom="3dp"
+            android:background="#3f51b5"
             android:drawableLeft="@drawable/plus"
-            android:text="@string/add_element_button_text" />
+            android:text="@string/add_element_button_text"
+            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 

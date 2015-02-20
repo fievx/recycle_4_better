@@ -39,6 +39,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 	public static final String FRAGMENT_ONE_TAG = "fragment_one";
 	public static final String FRAGMENT_RECYCLABLE_TAG = "fragment_recyclable";
 	public static final String FRAGMENT_CONTINUE_TAG = "fragment_continue";
+	public static final String FRAGMENT_SPINNER_TAG = "spinner";
 
 	//Intent Tag
 	public static final String PRODUCT_TAG	= "product";
@@ -93,6 +94,9 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			imagePath = pictureFile.getAbsolutePath();
 			element.setPhotoId("/product_"+String.valueOf(element.getProductId())+"_element"+String.valueOf(element.getNumber())+extension);
 			
+			//We set the transition animation
+			transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+			
 			//We remove the fragmentOne
 			NewElementWizardFragmentOne fragmentOne = (NewElementWizardFragmentOne) getFragmentManager().findFragmentByTag(FRAGMENT_ONE_TAG);
 			if (fragmentOne!=null)
@@ -144,14 +148,10 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		//We get the result for the RecyclableWizardFragment
 		element.setRecyclable(recyclable);
 		
-		//Then we display the ContinueWizardFragment
-		ContinueWizardFragment frag = new ContinueWizardFragment ();
-		RecyclableWizardFragment rFrag = (RecyclableWizardFragment) getFragmentManager().findFragmentByTag(FRAGMENT_RECYCLABLE_TAG);
-		FragmentTransaction transac = getFragmentManager().beginTransaction();
-		transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
-		transac.remove(rFrag).add(R.id.fragment_container, frag, FRAGMENT_CONTINUE_TAG);
-		transac.addToBackStack(null);
-		transac.commit();
+		//We upload the element
+		uploadElement();
+		
+
 	}
 
 
@@ -162,8 +162,8 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 	public void setContinueWizard(boolean continueBoolean) {
 		//first we set the continue Boolean which 
 		this.continueWizard = continueBoolean;
-		// Then we save and upload the Element that was created.
-		uploadElement();
+		
+		elementUploadFinished();
 	}
 	
 	/*
@@ -184,7 +184,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		
 		//place the spinner fragment while the element and the picture are being uploaded
 		SpinnerFragment spin = new SpinnerFragment();
-		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin).commit();
+		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin, FRAGMENT_SPINNER_TAG).commit();
 		
 	}
 	
@@ -210,16 +210,29 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			else {
 				cF = new CameraFragment();
 			}
+			//We restart the camera
+			cF.restartPreview();
+			
+			//We set the transition animation
+			transac.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right);
 			
 			//we remove the preview Fragment
 			PreviewFragment previewFrag = (PreviewFragment) manager.findFragmentByTag(TAG_PREVIEW_FRAGMENT);
 			if (previewFrag!= null){
 				transac.remove(previewFrag);
 			}
-			
-			//We restart the camera
+
+			//We put Fragment one back on
+			NewElementWizardFragmentOne fragOne = (NewElementWizardFragmentOne) getFragmentManager().findFragmentByTag(FRAGMENT_ONE_TAG);
+			if (fragOne != null)
+				transac.add(R.id.fragment_container, fragOne, FRAGMENT_ONE_TAG);
+			else {
+				fragOne = new NewElementWizardFragmentOne ();
+				transac.add(R.id.fragment_container, fragOne, FRAGMENT_ONE_TAG);
+			}
+
 			transac.commit();
-			cF.restartPreview();
+
 		}
 		else {
 			Intent intent = new Intent (this, ProductDetailActivity.class);
@@ -249,7 +262,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 				if (intent.getExtras().getBoolean("success")){
 					elementUploaded = true;
 					if (pictureUploaded == true && elementUploaded == true){
-						elementUploadFinished();
+						displayContinueFragment();
 					}
 				}
 				else {
@@ -271,7 +284,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			if (intent.getExtras().getBoolean("success")){
 				pictureUploaded = true;
 				if (pictureUploaded == true && elementUploaded == true){
-					elementUploadFinished();
+					displayContinueFragment();
 				}
 			}
 			else {
@@ -281,4 +294,18 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		}
 	
 };
+
+private void displayContinueFragment(){
+	//We display the ContinueWizardFragment
+	ContinueWizardFragment frag = new ContinueWizardFragment ();
+	//We remove the spinner fragment
+	SpinnerFragment spin = (SpinnerFragment ) getFragmentManager().findFragmentByTag(FRAGMENT_SPINNER_TAG);
+	RecyclableWizardFragment rFrag = (RecyclableWizardFragment) getFragmentManager().findFragmentByTag(FRAGMENT_RECYCLABLE_TAG);
+	FragmentTransaction transac = getFragmentManager().beginTransaction();
+	if (spin!=null)transac.remove(spin);
+	transac.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+	transac.remove(rFrag).add(R.id.fragment_container, frag, FRAGMENT_CONTINUE_TAG);
+	transac.addToBackStack(null);
+	transac.commit();
+}
 }
