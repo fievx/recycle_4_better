@@ -1,12 +1,15 @@
 package com.apps4better.recycle4better.elementWizard;
 
-import android.app.FragmentManager;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -34,6 +37,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 	private Boolean continueWizard;
 	private Boolean elementUploaded = false;
 	private Boolean pictureUploaded = false;
+	private CountDownLatch latch = new CountDownLatch (2);
 	
 	//Fragment Tags
 	public static final String FRAGMENT_ONE_TAG = "fragment_one";
@@ -186,6 +190,8 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 		SpinnerFragment spin = new SpinnerFragment();
 		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin, FRAGMENT_SPINNER_TAG).commit();
 		
+		//We start the EndTask which will wait for the upload to complete
+		new EndTask().execute();
 	}
 	
 	/**
@@ -274,9 +280,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 				//If the element was successfully saved, display a succes toast and start ProductDetailActivity
 				if (intent.getExtras().getBoolean("success")){
 					elementUploaded = true;
-					if (pictureUploaded == true && elementUploaded == true){
-						displayContinueFragment();
-					}
+					latch.countDown();
 				}
 				else {
 					String message = context.getResources().getString(R.string.element_edit_failure);
@@ -296,9 +300,7 @@ public class NewElementWizardActivity extends MyCameraActivity implements Previe
 			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
 			if (intent.getExtras().getBoolean("success")){
 				pictureUploaded = true;
-				if (pictureUploaded == true && elementUploaded == true){
-					displayContinueFragment();
-				}
+				latch.countDown();
 			}
 			else {
 				String message = context.getResources().getString(R.string.picture_upload_failure);
@@ -321,4 +323,33 @@ private void displayContinueFragment(){
 	transac.addToBackStack(null);
 	transac.commit();
 }
+
+/**
+ * we use an AsyncTask to wait for the ElementEditorService and ImageUploaderService to complete
+ * @author jeremy
+ *
+ */
+public class EndTask extends AsyncTask <Void, Void, Void> {
+
+	@Override
+	protected Void doInBackground(Void... params) {
+		try {
+			latch.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+	 */
+	@Override
+	protected void onPostExecute(Void result) {
+		// TODO Auto-generated method stub
+		displayContinueFragment();
+	}	
+	}
+
 }

@@ -1,6 +1,8 @@
 package com.apps4better.recycle4better.view;
 
 import java.io.File;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -60,6 +63,7 @@ public class NewElementFragment extends Fragment {
 	private boolean pictureChanged = false;
 	private boolean elementUploaded = false;
 	private boolean pictureUploaded = false;
+	private CountDownLatch latch = new CountDownLatch (2);
 
 	
 	private Element element = new Element();
@@ -312,12 +316,16 @@ public class NewElementFragment extends Fragment {
 		}
 		//We set pictureUploaded to true otherwise the fragment will consider that the picture is never uploaded 
 		// and the spinner will spin forever and ever and ever...
-		else pictureUploaded= true;
+		else {
+			latch.countDown();
+			pictureUploaded= true;
+		}
 		
 		//place the spinner fragment while the element and the picture are being uploaded
 		SpinnerFragment spin = new SpinnerFragment();
 		getFragmentManager().beginTransaction().add(R.id.fragment_container, spin).commit();
 		
+		EndTask task = (EndTask) new EndTask().execute();
 	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -364,9 +372,7 @@ public class NewElementFragment extends Fragment {
 				//If the element was successfully saved, display a succes toast and start ProductDetailActivity
 				if (intent.getExtras().getBoolean("success")){
 					elementUploaded = true;
-					if (pictureUploaded == true && elementUploaded == true){
-						startProductDetailActivity (true);
-					}
+					latch.countDown();
 				}
 				else {
 					String message = context.getResources().getString(R.string.element_edit_failure);
@@ -386,9 +392,7 @@ public class NewElementFragment extends Fragment {
 			//If the element was successfully saved, display a succes toast and start ProductDetailActivity
 			if (intent.getExtras().getBoolean("success")){
 				pictureUploaded = true;
-				if (pictureUploaded == true && elementUploaded == true){
-					startProductDetailActivity (true);
-				}
+				latch.countDown();
 			}
 			else {
 				String message = context.getResources().getString(R.string.picture_upload_failure);
@@ -411,5 +415,29 @@ public void displaySavedImage (){
 	File f = new File (imagePath);
 	Picasso.with(activity).load(f).centerInside().fit().into(photoView);	
 }
+
+
+public class EndTask extends AsyncTask <Void, Void, Void> {
+
+	@Override
+	protected Void doInBackground(Void... params) {
+		try {
+			latch.await(30, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+	 */
+	@Override
+	protected void onPostExecute(Void result) {
+		// TODO Auto-generated method stub
+		startProductDetailActivity(true);
+	}	
+	}
 
 }

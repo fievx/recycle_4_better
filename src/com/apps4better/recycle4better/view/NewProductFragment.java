@@ -1,6 +1,8 @@
 package com.apps4better.recycle4better.view;
 
 import java.io.File;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -24,7 +27,6 @@ import android.widget.Toast;
 
 import com.apps4better.recycle4better.R;
 import com.apps4better.recycle4better.camera.MyCameraActivity;
-import com.apps4better.recycle4better.model.ElementEditorService;
 import com.apps4better.recycle4better.model.NetworkInspector;
 import com.apps4better.recycle4better.model.PictureUploaderService;
 import com.apps4better.recycle4better.model.Product;
@@ -42,6 +44,7 @@ public class NewProductFragment extends Fragment{
 	private boolean productUploaded = false;
 	private boolean pictureUploaded = false;
 	private boolean pictureChanged = false;
+	private CountDownLatch latch = new CountDownLatch (2);
 	
 	//Tags used for the camera implementation
 	public static final String TAG_CAMERA_FRAGMENT = "camera_fragment";
@@ -258,11 +261,17 @@ public class NewProductFragment extends Fragment{
 				intent.putExtra(PictureUploaderService.TAG_IMAGE_PATH, imagePath);
 				activity.startService (intent);
 				}
-				else pictureUploaded = true;
+				else {
+					latch.countDown();
+					pictureUploaded = true;
+				}
 					
 				//We start the spinner fragment while the picture and the product info are being uploaded
 				SpinnerFragment spin = new SpinnerFragment ();
 				getFragmentManager().beginTransaction().add(R.id.fragment_container, spin, "spinner_tag").commit();
+	
+				//We start the EndTask wich will wait for the upload to complete
+				new EndTask().execute();
 	}
 	
 	/**
@@ -278,9 +287,7 @@ public class NewProductFragment extends Fragment{
 				//If the element was successfully saved, display a succes toast and start ProductDetailActivity
 				if (intent.getExtras().getBoolean("success")){
 					productUploaded = true;
-					if (pictureUploaded == true && productUploaded == true){
-						startProductDetailActivity (true);
-					}
+					latch.countDown();
 				}
 				else {
 					String message = context.getResources().getString(R.string.element_edit_failure);
@@ -301,9 +308,7 @@ public class NewProductFragment extends Fragment{
 				//If the element was successfully saved, display a succes toast and start ProductDetailActivity
 				if (intent.getExtras().getBoolean("success")){
 					pictureUploaded = true;
-					if (pictureUploaded == true && productUploaded == true){
-						startProductDetailActivity (true);
-					}
+					latch.countDown();
 				}
 				else {
 					String message = context.getResources().getString(R.string.picture_upload_failure);
@@ -327,4 +332,32 @@ public class NewProductFragment extends Fragment{
 		startActivity(i);
 	}
 
+	/**
+	 * we use an AsyncTask to wait for the ElementEditorService and ImageUploaderService to complete
+	 * @author jeremy
+	 *
+	 */
+	public class EndTask extends AsyncTask <Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+				latch.await(30, TimeUnit.SECONDS);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		/* (non-Javadoc)
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
+		protected void onPostExecute(Void result) {
+			// TODO Auto-generated method stub
+			startProductDetailActivity(true);
+		}	
+		}
+	
 }
